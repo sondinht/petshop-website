@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cats - PetShop | The Whimsical Curator</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;family=Poppins:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#763300",
+                    "surface-container": "#e5eeff",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#97fbf7",
+                    "on-secondary-container": "#672c00",
+                    "outline-variant": "#c2c7d2",
+                    "secondary-fixed": "#ffdbc9",
+                    "surface-dim": "#c3dcff",
+                    "on-tertiary-fixed-variant": "#00504e",
+                    "on-background": "#001d37",
+                    "primary": "#075292",
+                    "inverse-surface": "#16324f",
+                    "surface-variant": "#d2e4ff",
+                    "on-secondary-fixed": "#331200",
+                    "tertiary": "#005b59",
+                    "inverse-primary": "#a3c9ff",
+                    "tertiary-fixed": "#8ff3ef",
+                    "tertiary-container": "#007673",
+                    "primary-fixed-dim": "#a3c9ff",
+                    "primary-fixed": "#d3e3ff",
+                    "surface": "#f8f9ff",
+                    "on-surface": "#001d37",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#72d7d3",
+                    "surface-container-high": "#dbe9ff",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#fc8a40",
+                    "surface-container-highest": "#d2e4ff",
+                    "on-primary-fixed-variant": "#004882",
+                    "on-tertiary-fixed": "#00201f",
+                    "background": "#f8f9ff",
+                    "on-surface-variant": "#424750",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#9b4500",
+                    "outline": "#727781",
+                    "on-primary-container": "#dfeaff",
+                    "on-primary-fixed": "#001c39",
+                    "secondary-fixed-dim": "#ffb68d",
+                    "primary-container": "#306bac",
+                    "surface-tint": "#2160a0",
+                    "surface-bright": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Poppins", "Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 12px 32px rgba(22, 50, 79, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<a class="text-2xl font-bold tracking-tighter text-blue-700 dark:text-blue-400 font-headline" href="#">PetShop</a>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Dogs</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Cats</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Accessories</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Blog</a>
+</div>
+<div class="flex items-center space-x-5">
+<button class="transition-all duration-200 hover:scale-105 text-slate-600">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="transition-all duration-200 hover:scale-105 text-slate-600">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="transition-all duration-200 hover:scale-105 text-slate-600">
+<span class="material-symbols-outlined">person</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Category Hero -->
+<section class="bg-[#EAF3FB] py-20 px-8">
+<div class="max-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="md:w-1/2 space-y-6">
+<h1 class="text-5xl md:text-7xl font-headline font-bold text-primary tracking-tight leading-none">
+                        Purr-fect Essentials for Your Feline
+                    </h1>
+<p class="text-xl text-on-surface-variant font-body max-w-lg">
+                        Curated food, cozy trees, and engaging toys for cats of all ages. 
+                        Expertly selected to keep your companion thriving.
+                    </p>
+<div class="flex flex-wrap gap-3 pt-4">
+<button class="px-6 py-3 bg-primary-fixed text-on-primary-fixed rounded-full hover:bg-primary-container transition-colors font-medium">Cat Food</button>
+<button class="px-6 py-3 bg-surface-container-lowest text-on-surface rounded-full border border-outline-variant/15 hover:bg-surface-container-high transition-colors font-medium">Litter</button>
+<button class="px-6 py-3 bg-surface-container-lowest text-on-surface rounded-full border border-outline-variant/15 hover:bg-surface-container-high transition-colors font-medium">Scratchers</button>
+<button class="px-6 py-3 bg-surface-container-lowest text-on-surface rounded-full border border-outline-variant/15 hover:bg-surface-container-high transition-colors font-medium">Toys</button>
+<button class="px-6 py-3 bg-surface-container-lowest text-on-surface rounded-full border border-outline-variant/15 hover:bg-surface-container-high transition-colors font-medium">Grooming</button>
+</div>
+</div>
+<div class="md:w-1/2 relative">
+<div class="absolute inset-0 bg-tertiary-container/10 rounded-full blur-3xl -z-10"></div>
+<img class="w-full h-[450px] object-cover rounded-lg editorial-shadow" data-alt="Stunning close-up portrait of a majestic long-haired ginger cat looking elegantly into the distance with soft morning light hitting its fur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPjdiqAaqJ9eq_ZUTTWoMQkvuyFnCtXECwzGZopLp1KHlSLkwDvH1mZ8cU8oKZVxrHlt3L72TLf-WN1BlpPL-Ot_KgzsQCeKJLdwA6esW-gvlCt7BnYQFTvfD9x4FhdGy5lSIYCJTlW7RPSv2fJlntGs3Yr5E0JddwP90N_NUlIVTzcUkO5z1LKrKrPgXhBZLRVAgCRPyDjuPhIkAg6ui8f6kO2VheaFEV5AEzw5saJfyFxsqdB1asZt413eqYRDg3EyL9hV50YY09"/>
+</div>
+</div>
+</section>
+<!-- Content Area -->
+<section class="max-w-7xl mx-auto px-8 py-20">
+<div class="flex flex-col md:flex-row gap-12">
+<!-- Left Sidebar Filters -->
+<aside class="md:w-64 space-y-10">
+<div>
+<h3 class="text-xl font-headline font-bold mb-6">Filter by Age</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Kitten</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Adult</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Senior</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-headline font-bold mb-6">Lifestyle</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Indoor</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Outdoor</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-headline font-bold mb-6">Type</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Dry Food</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Wet Food</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Litter</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded-md border-outline-variant text-primary focus:ring-primary/30" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Furniture</span>
+</label>
+</div>
+</div>
+</aside>
+<!-- Main Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 bg-slate-100">
+<img class="w-full h-full object-cover" data-alt="High-end gourmet cat food tin with elegant salmon illustration on a clean white background with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE2mlzyBxeM90VTV1v3eTosJj3cviGpR5PL41fNdHfUf03Mp-SxFdzBemMldWCTeFw3NUSVngkGgMIqa7YX0_3TrzoGggX-pLPwK3mKQXUXLbFAv1s7L7Nc8xbxK4QqYBMiFAiAiF5dBewwmftTln6fdcsE-AFGo8HjoKZ-ox2Ris-h4COUBzyDy7DfVz4vZp4TQg8xjCsUrxo6jgO_JuDdpbkDiByZ0bG88QpQoti8Xboc9vfRplBwJWBzXRTy1-8-lnPQBw3zyPF"/>
+<span class="absolute top-4 left-4 bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">New Arrival</span>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<span class="text-sm font-label text-on-surface-variant mb-2">Premium Nutrition</span>
+<h4 class="text-xl font-headline font-bold mb-4">Premium Salmon Pate</h4>
+<div class="mt-auto flex items-center justify-between pt-6">
+<span class="text-2xl font-headline font-bold text-primary">$4.99</span>
+<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 bg-slate-100">
+<img class="w-full h-full object-cover" data-alt="Modern minimalist bag of cat litter with natural clay texture and clean typography in a bright airy studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY0SZOoEtZjmm5cQG03LISW44IWBWTp8MbvGFX6DLbuXl2I4a6_QYjvoJ2dXLKiAky-4DIDnhbgAAy_pemxx9ezK8f7wyy0sC4DQ1KgLav7FQl2z08qrKeGlHITer1rMU0e7MgzkKi6G_h7UuAhnPYdSu6Zyc6_xBDSJThTdiS29nxV2hIPxp7PcZ_6rI5X2C9KnhMgzesXuMYUd4cpf2d4mEb82nYX8njO7igd8qu6aRG8zISPAGtzPnagvU8URprkkY-zusrn6AG"/>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<span class="text-sm font-label text-on-surface-variant mb-2">Eco-Friendly</span>
+<h4 class="text-xl font-headline font-bold mb-4">Natural Clumping Litter</h4>
+<div class="mt-auto flex items-center justify-between pt-6">
+<span class="text-2xl font-headline font-bold text-primary">$18.50</span>
+<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 bg-slate-100">
+<img class="w-full h-full object-cover" data-alt="Luxury multi-level modern cat tree with cream fabric and natural wood scratching posts in a stylish contemporary living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0R4M6gEzuxsj-HM_Du1R6CcqXLOQhY1_Zz-at5pwY39U7OU5uHh4AiS7ao8SVDDmxgse94mRRKQL_VVyvdhkLKoaJaedeznHnsNDXk928R_JEyekjGXTO0r1-o4CyFSZQpdrsucTK-2QLztsW0bSalbxQdrlIRaVx_-iHfzXxZiM6E-bqc3uOwVvLiAD58dT-C6Et396Mz4hjRvjlOm34R0btLP0IbhL4YBFLVEoo471bSFpeywEvCGLWfwUb0NozrC967uVVKx4T"/>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<span class="text-sm font-label text-on-surface-variant mb-2">Furniture</span>
+<h4 class="text-xl font-headline font-bold mb-4">Multi-Level Cat Tree</h4>
+<div class="mt-auto flex items-center justify-between pt-6">
+<span class="text-2xl font-headline font-bold text-primary">$145.00</span>
+<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 bg-slate-100">
+<img class="w-full h-full object-cover" data-alt="Set of three organic fabric catnip mice in soft pastel tones arranged on a clean wooden surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl289lLNlm-KUyVLaq0l5cGVrAghRHYX4EIlhZWZKonjs6Oh7lrfoaQ55w_vZwqg5j7PgkWsriLkeWXaBHWkqJtVgSezSUn6N89bXP00mcsM6kDWM7TXW6tzoFhrtV-ieJfg5QdG6sgE5FGnVhcNpCafLkPbVIclbWp5BE5SP3cUlhykR08nlgNs_HGyMtAZTS0laZWQS9iWeHZr__jk3pg13ctVGa6cSZYx4zPDOZDNoe9M2XghDuuIJBwFyExgUiv--4Ebfn9lHK"/>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<span class="text-sm font-label text-on-surface-variant mb-2">Toys &amp; Play</span>
+<h4 class="text-xl font-headline font-bold mb-4">Organic Catnip Mice</h4>
+<div class="mt-auto flex items-center justify-between pt-6">
+<span class="text-2xl font-headline font-bold text-primary">$12.99</span>
+<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 bg-slate-100">
+<img class="w-full h-full object-cover" data-alt="Self-grooming wall corner brush for cats with ergonomic blue bristles being used by a fluffy white cat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQy1KHNjGds9CFoplf0y71jZXOOqmiBNDYEqsmOmO6RxfndcePcwb2DhKuVBgzGqapNk3bNr_zE7OtRSQU8i3MQbaVTRr7YnLFXTNeVq7aQpTduxkR3uFU-lISs-HcONqZX9XBLNO5YHP_C60DZY8C0oGHsexpKRyCZjz-vOqeeMkS2x_R5xYBfQkCFz3OHemrshlCPF4oQJT4BP8lLLSyAfHNsCycCytx_z3O3yxMpz-2YQRx-N0LOOlBMWA9PVtCA53VtsqSR71e"/>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<span class="text-sm font-label text-on-surface-variant mb-2">Grooming</span>
+<h4 class="text-xl font-headline font-bold mb-4">Self-Grooming Wall Brush</h4>
+<div class="mt-auto flex items-center justify-between pt-6">
+<span class="text-2xl font-headline font-bold text-primary">$9.95</span>
+<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
+<div class="relative h-64 bg-slate-100">
+<img class="w-full h-full object-cover" data-alt="Top view of high-quality dry cat kibble in a minimalist ceramic bowl on a blue-toned surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ_FLbvdeRdlwqkW5baX0xSZqjJPIcx1aElubm1xrvW-0_gzd9c6REJk5TwKDfC5tTDcGjVj8sUyiGu5qN6NvmctEcHqBj2FaPEJF9ABa0ouw8qPyTT_bWg9E_HtxFVLDu0iWZG_iGij4qcoQSwQL1sG7lFMXM1xZdXyVwAyB0z-U8DV_ysrZ6tUJV_mkAumGee0mt-qwBGcNOFzpAQuNlE-fJWthRCACkxOE7AhTDjsri9gNq01T95cKb96fEfmqYk_8ab7DTVtWv"/>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<span class="text-sm font-label text-on-surface-variant mb-2">Dry Food</span>
+<h4 class="text-xl font-headline font-bold mb-4">Grain-Free Kibble</h4>
+<div class="mt-auto flex items-center justify-between pt-6">
+<span class="text-2xl font-headline font-bold text-primary">$32.00</span>
+<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Promotional Strip -->
+<section class="bg-primary text-white py-16">
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="max-w-2xl">
+<span class="inline-block px-4 py-1 bg-tertiary-fixed text-on-tertiary-fixed font-bold rounded-full text-xs uppercase tracking-widest mb-4">Exclusive Offer</span>
+<h2 class="text-4xl md:text-5xl font-headline font-bold leading-tight">Bundle &amp; Save: 15% Off Cat Subscription Boxes.</h2>
+<p class="text-xl text-primary-fixed mt-4">Never run out of litter or food again. Curated monthly joy delivered to your doorstep.</p>
+</div>
+<button class="bg-white text-primary px-10 py-5 rounded-full font-bold text-lg editorial-shadow hover:scale-105 transition-transform whitespace-nowrap">Subscribe Now</button>
+</div>
+</section>
+<!-- Advice Section: Cat Care Tips -->
+<section class="py-24 bg-surface-container-low px-8">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-4xl font-headline font-bold text-primary">Cat Care Tips</h2>
+<p class="text-on-surface-variant mt-2 text-lg">Expert advice for a happy, healthy feline.</p>
+</div>
+<a class="text-primary font-bold hover:underline flex items-center gap-2" href="#">
+                        View All Articles <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Article 1 -->
+<article class="group cursor-pointer">
+<div class="overflow-hidden rounded-lg mb-6">
+<img class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Clean aesthetic shot of different types of litter textures in modern glass jars with soft focused background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkZYi3GZflhDSky3Q97oG8GZkqNgPM_dEduZATa-aFv-6wGGQvY9zBX0APmkUFPOjHlO7xTbdrmP0toYhXS3q1K4V0yDJ0ZPAGf9x9DBs-lde-cuP6OIQs9mQIOchitA9ll4rZ_BWwM-EYXAtqvMW9fFdG8F5hD9HVxVS7qdez8WjjFxrjjN1zn18Xn80o3dppoMV0Yh_sRM1S9VB7Rs4uBBr1KI7vWli_Bu3-QgnBUH-cSbOZzC6pM9I-jtaqdO0l3pzzuPGfp7LB"/>
+</div>
+<h3 class="text-2xl font-headline font-bold group-hover:text-primary transition-colors">Choosing the Right Litter</h3>
+<p class="text-on-surface-variant mt-3 line-clamp-2">Not all litters are created equal. From clumping clay to biodegradable pine, find the perfect fit for your home.</p>
+</article>
+<!-- Article 2 -->
+<article class="group cursor-pointer">
+<div class="overflow-hidden rounded-lg mb-6">
+<img class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Playful scene of a calico cat interacting with a puzzle feeder in a bright sun-drenched room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGa52w8os80mUasBVKKQHTt-JP66jYSnttx6CDuwLZEO_hrWnlx3spKiA-XDecGUg6Ojex9AlWOpEuCcTTP7H7Cjr53uoUaX4PbvCQO45zYvsa6hT4QMLCxjYm-qrE6HgqAk8mIQddHohpq6ovI8bcZJM0-d1CULpC59zmEX33VyWfpw80hmFhbrLWRLBdxAHVqVUuSnyrBjSMGLkPBjAy1Dahi-XHFcWvFtur3hFAH4_StFwIiIfS1RSFDu8uFUl069FP30M2y7ue"/>
+</div>
+<h3 class="text-2xl font-headline font-bold group-hover:text-primary transition-colors">Creating an Enrichment Oasis</h3>
+<p class="text-on-surface-variant mt-3 line-clamp-2">Transform your living space into a vertical playground that stimulates your cat's natural hunting instincts.</p>
+</article>
+<!-- Article 3 -->
+<article class="group cursor-pointer">
+<div class="overflow-hidden rounded-lg mb-6">
+<img class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up of a sleek ceramic water fountain for cats with fresh flowing water and mint leaf accent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTLRQBvcl2ltDmqV75MJtKSXRMxbmqHhQ_coc2xLcLS-xOe5lUTsaI8tyWIGxgfnEwgxCN75AVl1WEsqedV2nvAyeCEaLsvR6wX_r5ciXpoaRVQm_dBb0aUCC6tYsFUqdZx6npfIZ5jYfhqbV8gNPXhALz8XVME4uIdNRraHBGtIGvaR-A5LlACb00wWw_jvO-X1K1bj41pWiFsNvmDQRbxJ4bCcqIWyiWVT1HaWx6BLQEDmz-y32ZU2V8FgLQ9y61O0WMf0fla8Ss"/>
+</div>
+<h3 class="text-2xl font-headline font-bold group-hover:text-primary transition-colors">Hydration Hacks for Cats</h3>
+<p class="text-on-surface-variant mt-3 line-clamp-2">Struggling to get your cat to drink? Discover expert techniques to keep your feline properly hydrated.</p>
+</article>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full border-t border-slate-200 dark:border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-8 py-12 max-w-7xl mx-auto">
+<div class="space-y-4">
+<h3 class="font-poppins font-black text-blue-700 text-2xl">PetShop</h3>
+<p class="text-slate-500 font-inter text-sm max-w-xs">Curating the world's most whimsical and high-quality essentials for the modern pet parent.</p>
+<p class="text-slate-400 font-inter text-sm">© 2024 PetShop. The Whimsical Curator.</p>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div>
+<h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Shop</h4>
+<ul class="space-y-3">
+<li><a class="text-slate-500 hover:text-blue-600 hover:translate-x-1 transition-transform inline-block text-sm" href="#">Dogs</a></li>
+<li><a class="text-slate-500 hover:text-blue-600 hover:translate-x-1 transition-transform inline-block text-sm" href="#">Cats</a></li>
+<li><a class="text-slate-500 hover:text-blue-600 hover:translate-x-1 transition-transform inline-block text-sm" href="#">Accessories</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4 text-slate-900 dark:text-slate-100">Connect</h4>
+<ul class="space-y-3">
+<li><a class="text-slate-500 hover:text-blue-600 hover:translate-x-1 transition-transform inline-block text-sm" href="#">Instagram</a></li>
+<li><a class="text-slate-500 hover:text-blue-600 hover:translate-x-1 transition-transform inline-block text-sm" href="#">Twitter</a></li>
+<li><a class="text-slate-500 hover:text-blue-600 hover:translate-x-1 transition-transform inline-block text-sm" href="#">Newsletter</a></li>
+</ul>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Stay Updated</h4>
+<div class="flex">
+<input class="bg-surface-container-low border-none rounded-l-full px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Email address" type="email"/>
+<button class="bg-blue-600 text-white rounded-r-full px-6 py-3 font-bold hover:bg-blue-700 transition-colors text-sm">Join</button>
+</div>
+<div class="flex gap-4 pt-2">
+<a class="text-slate-500 hover:text-blue-600 text-sm" href="#">Support</a>
+<a class="text-slate-500 hover:text-blue-600 text-sm" href="#">Contact</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

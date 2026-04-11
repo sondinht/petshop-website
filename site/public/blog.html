@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetShop Blog | Editorial Insights for Pet Lovers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#424750",
+                    "on-primary-fixed": "#001c39",
+                    "on-secondary-fixed-variant": "#354861",
+                    "secondary-fixed-dim": "#b4c8e7",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#ededf3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#004882",
+                    "primary-fixed-dim": "#a3c9ff",
+                    "background": "#f8f9ff",
+                    "surface-tint": "#2160a0",
+                    "on-tertiary-fixed-variant": "#763300",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f0f0f6",
+                    "primary-container": "#306bac",
+                    "secondary-fixed": "#d3e3ff",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#dfeaff",
+                    "on-background": "#191c20",
+                    "primary-fixed": "#d3e3ff",
+                    "tertiary": "#863b00",
+                    "on-secondary-fixed": "#071c34",
+                    "outline-variant": "#c2c7d2",
+                    "primary": "#075292",
+                    "outline": "#727781",
+                    "surface-variant": "#e1e2e8",
+                    "on-tertiary-fixed": "#331200",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#4f627d",
+                    "surface-container-low": "#f3f3f9",
+                    "secondary": "#4d5f7a",
+                    "inverse-surface": "#2e3035",
+                    "secondary-container": "#cbdefe",
+                    "surface-dim": "#d9dae0",
+                    "tertiary-fixed": "#ffdbc9",
+                    "surface-container-high": "#e7e8ee",
+                    "surface": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb68d",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e1e2e8",
+                    "on-tertiary-container": "#ffe4d7",
+                    "surface-bright": "#f8f9ff",
+                    "on-surface": "#191c20",
+                    "tertiary-container": "#ab4e00",
+                    "inverse-primary": "#a3c9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-pull-quote::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            bottom: 0;
+            width: 0.5rem;
+            background-color: #306BAC;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<a class="text-2xl font-black text-[#306BAC] font-headline tracking-tight" href="#">PetShop</a>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-headline font-bold text-slate-600 hover:text-[#306BAC] transition-colors" href="#">Home</a>
+<a class="font-headline font-bold text-slate-600 hover:text-[#306BAC] transition-colors" href="#">Dogs</a>
+<a class="font-headline font-bold text-slate-600 hover:text-[#306BAC] transition-colors" href="#">Cats</a>
+<a class="font-headline font-bold text-slate-600 hover:text-[#306BAC] transition-colors" href="#">Accessories</a>
+<a class="font-headline font-bold text-[#306BAC] border-b-2 border-[#306BAC] pb-1" href="#">Blog</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="p-2 text-slate-600 hover:bg-slate-100/50 rounded-lg transition-all active:scale-90">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="md:hidden p-2 text-slate-600">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 space-y-20">
+<!-- Hero Section: Featured Article -->
+<section class="max-w-7xl mx-auto px-8">
+<div class="relative grid md:grid-cols-12 gap-0 items-center overflow-hidden rounded-xl bg-surface-container-low">
+<div class="md:col-span-7 h-[500px] md:h-[600px]">
+<img class="w-full h-full object-cover" data-alt="A portrait of a golden retriever sitting calmly in a sun-drenched, high-end living room with soft editorial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH-LqL67BrNBwvVQTjr7bEnFzsXnJYZ_AZcEY4Wyn-V1nR0-k3kBG6JG5AfBBro-HoFn_RcmC6uQZf8qmOO3RoYTzrLYubhqlMTDd-mIbfdOyx4RHCF_QuOUsyPxf7JFf9SyBf4O7W5bpmXGpWGgpHysTPg3lVgRczZ_mLdXtNUVdHUPDnMgu1XULJpdV-yzZJBv37VHyuK8psxQbnjl7c6d2nhuGDYW4BOtUH91VUMXzK57VTRjA-h5l_OcOp1TCPb9zXwFwuYIu9"/>
+</div>
+<div class="md:col-span-5 p-8 md:p-16 flex flex-col justify-center space-y-6">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-tertiary-container text-on-tertiary-container w-fit">
+                        Featured
+                    </span>
+<h1 class="text-4xl md:text-5xl font-headline font-extrabold text-on-surface leading-tight tracking-tight">
+                        The Science of Silent Bonding: Reading Your Pet's Body Language
+                    </h1>
+<p class="text-on-surface-variant text-lg">
+                        Understanding the subtle cues of your companions can transform your relationship. We explore the latest behavioral research in pet communication.
+                    </p>
+<a class="inline-flex items-center justify-center px-8 py-3 bg-[#FF8C42] text-white font-bold rounded-lg hover:brightness-110 transition-all active:scale-95 w-fit" href="#">
+                        Read More
+                    </a>
+</div>
+</div>
+</section>
+<!-- Category Navigation -->
+<section class="max-w-7xl mx-auto px-8">
+<div class="flex flex-wrap items-center justify-center gap-4">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-bold transition-all shadow-sm">All Stories</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all">Nutrition</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all">Grooming</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all">Training</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all">Seasonal Care</button>
+</div>
+</section>
+<!-- Article Grid -->
+<section class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+<!-- Card 1 -->
+<article class="flex flex-col group">
+<div class="aspect-[4/3] overflow-hidden rounded-lg bg-surface-container-highest mb-6">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of high quality natural dog food in a modern ceramic bowl with clean aesthetic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACFljfM8DT86JuW_EFga6zbqNkiVG_A0DkUXjp3ZUf8dVPnVoUWpkd83RdidsH9ZuustA80rxVQdw5l7EZ3TJup3ZOlSIil_uRp8txxhBOwrL4ird979-wlxYKbrI1kz8Tb_CB_yBdU8t6TWdIZtN3VyscrXYT_vhkzoP7_yxjVOxu6MR7DdedkpL_aF0tLH29DPGYPbVG9m4Xyv-86NTqRTUiVu3Vnn82AhTuPZ8r_h4vUpSTdvdBmJ9q7f28DRgjiyH0eeR-5Zy-"/>
+</div>
+<div class="space-y-3">
+<span class="text-xs font-bold text-tertiary-container uppercase tracking-widest">Nutrition</span>
+<h3 class="text-2xl font-headline font-bold leading-snug group-hover:text-primary transition-colors">
+                            Holistic Feeding: More Than Just a Balanced Diet
+                        </h3>
+<p class="text-on-surface-variant line-clamp-3">
+                            Discover how whole foods and natural supplements can boost your pet's immune system and increase longevity.
+                        </p>
+<a class="inline-flex items-center text-[#306BAC] font-bold group/link" href="#">
+                            Explore Article
+                            <span class="material-symbols-outlined ml-1 group-hover/link:translate-x-1 transition-transform">arrow_right_alt</span>
+</a>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="flex flex-col group">
+<div class="aspect-[4/3] overflow-hidden rounded-lg bg-surface-container-highest mb-6">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Professional pet groomer gently brushing a long-haired cat in a bright minimalist pet salon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWv7ygjopBdiXiiIW9yTfSZ1vStcCW-sr7wnIdD5WjjbS4ka8o7GnyFhzZWpTMAsGJpOjA5gAWkAXP8rl4ROxHetvoBOIMTodOox-tWW93TmD9xUkBj0AZVYtB18UOJFtaLXEBudjNMjGoyKKZrXSN-IdLmW98hHC9LuR7EsFDb-5nMVFujm4i7fs5vcihXMVQbc4iuKH2sE7trbPcjjxv_MmJKN7eb8pOr5OTia5PAN82p1L8LCk8P75Ap2Zz7P1E3NdYdqNEy0NT"/>
+</div>
+<div class="space-y-3">
+<span class="text-xs font-bold text-tertiary-container uppercase tracking-widest">Grooming</span>
+<h3 class="text-2xl font-headline font-bold leading-snug group-hover:text-primary transition-colors">
+                            The Spa Ritual: Stress-Free Home Grooming Guide
+                        </h3>
+<p class="text-on-surface-variant line-clamp-3">
+                            Learn the sensory techniques professional groomers use to keep pets calm and comfortable during their bath time.
+                        </p>
+<a class="inline-flex items-center text-[#306BAC] font-bold group/link" href="#">
+                            Explore Article
+                            <span class="material-symbols-outlined ml-1 group-hover/link:translate-x-1 transition-transform">arrow_right_alt</span>
+</a>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="flex flex-col group">
+<div class="aspect-[4/3] overflow-hidden rounded-lg bg-surface-container-highest mb-6">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A dog sitting attentively looking at its owner in a green urban park at sunrise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBOAscG-UH6eLmIOH-fXwWT_t3jv0NMaP1nzQOnu-4WL2Q4XgyqcdrIW8p-z29GjRo1OVVaSucnj_T0U7OPsexnBBTkHuT9zcACKPu9ACFlmx9xKeDt7DLKUZyGCcxZ_R45t3oejvbSFaY2MukwwhkGFBR8xAqGL7EtQzPniYlcjG1iMRkchVfOrHb7XdQeu27YeU0t0sWiqvH58r6nVRR2vT-l9Ht_TyLVOUHuhfNebQQiQUzLc052fjWWInwWJvrBFBR207k-osg"/>
+</div>
+<div class="space-y-3">
+<span class="text-xs font-bold text-tertiary-container uppercase tracking-widest">Training</span>
+<h3 class="text-2xl font-headline font-bold leading-snug group-hover:text-primary transition-colors">
+                            Positive Reinforcement: Why the Reward Wins Every Time
+                        </h3>
+<p class="text-on-surface-variant line-clamp-3">
+                            Training isn't just about obedience; it's about building trust. Master the art of clicker training and treats.
+                        </p>
+<a class="inline-flex items-center text-[#306BAC] font-bold group/link" href="#">
+                            Explore Article
+                            <span class="material-symbols-outlined ml-1 group-hover/link:translate-x-1 transition-transform">arrow_right_alt</span>
+</a>
+</div>
+</article>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="w-full bg-primary-container text-on-primary-container py-24">
+<div class="max-w-4xl mx-auto px-8 text-center space-y-8">
+<h2 class="text-3xl md:text-5xl font-headline font-extrabold tracking-tight">The Weekly Paw: Insider Tips to Your Inbox</h2>
+<p class="text-lg opacity-90 max-w-2xl mx-auto">
+                    Join 50,000+ pet parents who receive our curated editorial pieces, vet-approved advice, and exclusive store discounts every Tuesday.
+                </p>
+<form class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto" onsubmit="return false;">
+<input class="flex-grow px-6 py-4 rounded-lg bg-white/10 border-transparent focus:bg-white/20 focus:border-white focus:ring-0 placeholder:text-white/60 text-white transition-all" placeholder="Enter your email address" type="email"/>
+<button class="px-10 py-4 bg-[#FF8C42] text-white font-bold rounded-lg hover:brightness-110 active:scale-95 transition-all">
+                        Subscribe
+                    </button>
+</form>
+</div>
+</section>
+<!-- Promotional Block: Shop the Essentials -->
+<section class="max-w-7xl mx-auto px-8 pb-12">
+<div class="bg-surface-container p-8 md:p-16 rounded-xl grid md:grid-cols-2 gap-12 items-center">
+<div class="space-y-8">
+<h2 class="text-4xl font-headline font-extrabold text-on-surface tracking-tight">Curated Care:<br/>Shop the Essentials</h2>
+<p class="text-on-surface-variant text-lg">
+                        Loved the article? Equip yourself with the same premium tools and nutrition mentioned in our blog. Selected by experts, loved by pets.
+                    </p>
+<div class="grid grid-cols-3 gap-4">
+<div class="aspect-square bg-surface-container-lowest rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="Premium leather pet collar with brass hardware on clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB61fi4Ss33dLp6jdSdpTPWqRU6d4w6UWxYjkO_X5aD5y0dkbcNIXrCdu7_xQRHcHkz9sCa1KyXwZne_OHD8fxxRzG4ttvfxs8qRMmU0M_7MSVVAw1dIPMEk7fFGiK7DFfPCu5YJwvW5731b90z1Ck5ttcqqji5MKkwWFXuaMrFOydM6iM334PT1ph6jA9OVXmW3Wltw6lBXkZVKm0WSzytnyv5fgwK-FCMdmXcPj01RdtIlx4CX1BWiO2__7Gw6x1Q2LEw4m-IAX8j"/>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="Set of wooden pet brushes and grooming tools on a marble shelf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOw3Kls3Zvete-vKscBl5ZVQiqG6xajnFlLwx6LvdU-ZxbNvSlwsHrQD6vYOoUjAy3eVxuC53y1Tho03_l0Iagnpr1eQXhY-0oNXXM7-3a3xK64zWllfSK_XcdVrVGEPIbqsII0UG4XEs9LqbmKuJOzYfknji_yWxW9YWYxS_jyEmBBmWKT7vA5WjeviaQg-wUlYDFR9YBQ55BjMkJ3dD1LIwFmWevYql1lBPBlDsEQ6LuHiTIVSSo3S_mi5fWiSB12mRUUqo0ah5L"/>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-lg overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="High-end modern design dog bed in soft grey fabric" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYhPEmi4ZY1q167GssqmCTenbWc5xTA4PRGfHA84hP_5GegJMxs8sxGHwl9nKAJrCP63XcQdo-3fQZwWzqEORmDlv6rkVniM-X0Ge-2kju2Zt_UOPShhemBIYxS2w0j9u2HNOZGdxbflw6p1ZseacPSOhpK-zXyZJF-UCKvRyGx3LvVEAPaE9V3ufrF95HlRwKCVbHvWWowwxhgfJGfm9C5vsWLK71x-tfTbjDyVzoe7_HQppVD1DOoWh_b85deYEEsmh6B9AwcW6N"/>
+</div>
+</div>
+<a class="inline-flex items-center px-8 py-3 bg-[#306BAC] text-white font-bold rounded-lg hover:brightness-110 transition-all active:scale-95" href="#">
+                        Shop the Collection
+                    </a>
+</div>
+<div class="relative hidden md:block">
+<img class="rounded-xl shadow-2xl relative z-10" data-alt="Lifestyle shot of a stylish dog with modern accessories in a trendy apartment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuP08lbMfaofSaJKAMORxFS11OBfkBmiyUAQt1PlgtC9PCxy4aEN2vHrcDojLxhqQQq3BYCXPIATYiwaswoLfgIcPDAJnCDWypf9o93_etbxVWKGD4yHuTfW_vBF2udJnjqqZ-Qu8jvgenRcvfY10QcF1ZSNDEXRSXHOwPfE_NrhhCMY2aGqmNetmgrYn1Yh-NraQidtZNUA-3kTWiA3d0AYxJ9wua7c-jfbdQTUk5_-HhJGx6O6UI7D0ARaRil1SbUUifjeBEBkk0"/>
+<div class="absolute -bottom-8 -right-8 w-64 h-64 bg-[#FF8C42]/10 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-20 bg-slate-50 border-t border-transparent">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-8 py-12 max-w-7xl mx-auto">
+<div class="space-y-6">
+<span class="text-lg font-bold text-[#306BAC] font-headline">PetShop</span>
+<p class="font-body text-sm text-slate-500 max-w-xs">
+                    Your destination for boutique pet care, editorial insights, and the finest accessories for your companions.
+                </p>
+<p class="font-body text-sm text-slate-500">© 2024 PetShop. All rights reserved.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4">
+<h4 class="font-headline font-bold text-[#306BAC]">Community</h4>
+<nav class="flex flex-col space-y-2">
+<a class="text-sm text-slate-500 hover:text-[#FF8C42] transition-colors hover:underline decoration-[#FF8C42] underline-offset-4" href="#">Newsletter</a>
+<a class="text-sm text-slate-500 hover:text-[#FF8C42] transition-colors hover:underline decoration-[#FF8C42] underline-offset-4" href="#">Instagram</a>
+<a class="text-sm text-slate-500 hover:text-[#FF8C42] transition-colors hover:underline decoration-[#FF8C42] underline-offset-4" href="#">TikTok</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline font-bold text-[#306BAC]">Legal</h4>
+<nav class="flex flex-col space-y-2">
+<a class="text-sm text-slate-500 hover:text-[#FF8C42] transition-colors hover:underline decoration-[#FF8C42] underline-offset-4" href="#">Privacy</a>
+<a class="text-sm text-slate-500 hover:text-[#FF8C42] transition-colors hover:underline decoration-[#FF8C42] underline-offset-4" href="#">Terms</a>
+<a class="text-sm text-slate-500 hover:text-[#FF8C42] transition-colors hover:underline decoration-[#FF8C42] underline-offset-4" href="#">Pinterest</a>
+</nav>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

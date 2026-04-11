@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetShop Admin - User Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f8fbff; --surface:#fff; --surface-alt:#eaf3fb; --surface-soft:#f1f7fd; --primary:#306bac; --primary-dark:#16324f; --accent:#ff8c42; --text:#16324f; --muted:#5b6b7a; --line:rgba(22,50,79,.08); --shadow:0 18px 36px rgba(22,50,79,.08); --radius:22px; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,sans-serif; }
+    .layout { display:grid; grid-template-columns:280px 1fr; min-height:100vh; }
+    .sidebar { background:linear-gradient(180deg,#306bac 0%,#1f5a93 100%); color:#fff; padding:28px 22px; }
+    .brand { font:700 28px/1 Poppins,sans-serif; margin-bottom:28px; }
+    .nav a { display:block; color:rgba(255,255,255,.9); text-decoration:none; padding:14px 16px; margin-bottom:10px; border-radius:16px; font-weight:600; }
+    .nav a.active { background:rgba(255,255,255,.16); color:#fff; border-left:4px solid var(--accent); }
+    .support { margin-top:22px; padding:16px; border-radius:18px; background:rgba(255,255,255,.12); font-size:14px; line-height:1.5; }
+    .main { padding:28px; }
+    .topbar,.card,.table-wrap,.feed,.roles { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .topbar { display:flex; justify-content:space-between; align-items:center; padding:18px 22px; margin-bottom:24px; gap:16px; }
+    .title h1 { margin:0; font:700 34px/1.1 Poppins,sans-serif; }
+    .title p { margin:8px 0 0; color:var(--muted); }
+    .toolbar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .search,.filter { border:none; background:var(--surface-alt); border-radius:999px; padding:13px 18px; color:var(--text); min-width:180px; }
+    .btn { border:none; border-radius:999px; padding:13px 18px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    .btn.primary { background:var(--accent); color:#fff; }
+    .btn.secondary { background:var(--surface-alt); color:var(--primary); }
+    .metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:24px; }
+    .card { padding:22px; }
+    .eyebrow { display:block; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; font-size:12px; font-weight:700; margin-bottom:10px; }
+    .metric { font:700 34px/1 Poppins,sans-serif; display:block; margin-bottom:8px; }
+    .hint { color:var(--muted); }
+    .content { display:grid; grid-template-columns:1.65fr 1fr; gap:24px; }
+    .table-wrap { padding:20px; }
+    table { width:100%; border-collapse:separate; border-spacing:0 10px; }
+    th { text-align:left; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; padding:0 14px 6px; }
+    td { background:var(--surface-soft); padding:16px 14px; font-size:14px; vertical-align:top; }
+    td:first-child { border-radius:14px 0 0 14px; }
+    td:last-child { border-radius:0 14px 14px 0; }
+    .chip { display:inline-block; padding:7px 10px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap; }
+    .chip.admin { background:rgba(48,107,172,.14); color:var(--primary); }
+    .chip.staff { background:rgba(110,211,207,.22); color:#005b59; }
+    .chip.user { background:rgba(91,107,122,.12); color:var(--muted); }
+    .chip.pending { background:rgba(255,140,66,.18); color:#9b4500; }
+    .chip.live { background:rgba(110,211,207,.22); color:#005b59; }
+    .chip.disabled { background:rgba(186,26,26,.14); color:#93000a; }
+    .row-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .mini { padding:8px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--line); color:var(--primary-dark); text-decoration:none; font-size:12px; font-weight:700; }
+    .feed,.roles { padding:22px; }
+    .section-title { margin:0 0 14px; font:700 22px/1.2 Poppins,sans-serif; }
+    .stack { display:grid; gap:14px; }
+    .feed-item,.role-card { background:var(--surface-soft); border-radius:18px; padding:16px; }
+    .feed-item strong,.role-card strong { display:block; margin-bottom:6px; }
+    .feed-item span,.role-card span { color:var(--muted); font-size:14px; line-height:1.5; }
+    @media (max-width:1120px) { .layout,.content { grid-template-columns:1fr; } .sidebar { display:none; } .metrics { grid-template-columns:repeat(2,1fr); } .topbar { flex-direction:column; align-items:flex-start; } .toolbar { justify-content:flex-start; width:100%; } .search,.filter { min-width:0; width:100%; } }
+    @media (max-width:720px) { .metrics { grid-template-columns:1fr; } .main { padding:18px; } table,thead,tbody,tr,th,td { display:block; } thead { display:none; } td { border-radius:14px; margin-bottom:8px; } }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">PetShop Admin</div>
+      <nav class="nav">
+        <a href="admin-products.html">Products</a>
+        <a href="admin-product-form.html">Product Form</a>
+        <a href="admin-pricing.html">Pricing &amp; Flash Sale</a>
+        <a href="admin-orders.html">Orders</a>
+        <a href="admin-blog.html">Blog</a>
+        <a class="active" href="admin-users.html">Users</a>
+        <a href="admin-user-verification.html">Verification</a>
+        <a href="index.html">Storefront</a>
+      </nav>
+      <div class="support">Internal staff only. Use this space to invite new operators, assign scopes, and move pending staff into the verification queue.</div>
+    </aside>
+    <main class="main">
+      <section class="topbar">
+        <div class="title">
+          <h1>User Management</h1>
+          <p>Manage internal PetShop staff accounts, role scopes, invite flow, and verification readiness.</p>
+        </div>
+        <div class="toolbar">
+          <input class="search" type="text" placeholder="Search by name, email, team" />
+          <select class="filter"><option>All roles</option><option>Admin</option><option>Staff</option><option>User</option></select>
+          <select class="filter"><option>All statuses</option><option>Verified</option><option>Pending</option><option>Disabled</option></select>
+          <a class="btn secondary" href="admin-user-verification.html">Open Verification Queue</a>
+          <a class="btn primary" href="admin-product-form.html">Invite Staff</a>
+        </div>
+      </section>
+      <section class="metrics">
+        <article class="card"><span class="eyebrow">Total Staff</span><span class="metric">42</span><span class="hint">Across operations, content, support, and merchandising</span></article>
+        <article class="card"><span class="eyebrow">Pending Verification</span><span class="metric">6</span><span class="hint">2 urgent reviews due before today's shift</span></article>
+        <article class="card"><span class="eyebrow">Disabled Accounts</span><span class="metric">3</span><span class="hint">Temporarily paused for policy, leave, or access cleanup</span></article>
+        <article class="card"><span class="eyebrow">Admins</span><span class="metric">5</span><span class="hint">Full control over pricing, orders, content, and permissions</span></article>
+      </section>
+      <section class="content">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Staff</th><th>Role</th><th>Status</th><th>Verification</th><th>Last Active</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Mai Nguyen</strong><br /><span class="hint">mai@petshop.co</span></td><td><span class="chip admin">Admin</span></td><td><span class="chip live">Enabled</span></td><td><span class="chip live">Verified</span></td><td>4 min ago</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">Review</a><a class="mini" href="admin-users.html">Assign Role</a></div></td></tr>
+              <tr><td><strong>Jasper Reed</strong><br /><span class="hint">jasper.ops@petshop.co</span></td><td><span class="chip staff">Staff</span></td><td><span class="chip live">Enabled</span></td><td><span class="chip pending">Pending Docs</span></td><td>18 min ago</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">Open Queue</a><a class="mini" href="admin-users.html">Disable</a></div></td></tr>
+              <tr><td><strong>Luna Hart</strong><br /><span class="hint">luna.blog@petshop.co</span></td><td><span class="chip staff">Staff</span></td><td><span class="chip live">Enabled</span></td><td><span class="chip live">Verified</span></td><td>42 min ago</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">View Record</a><a class="mini" href="admin-blog.html">Open Blog</a></div></td></tr>
+              <tr><td><strong>Oliver Stone</strong><br /><span class="hint">oliver.temp@petshop.co</span></td><td><span class="chip user">User</span></td><td><span class="chip disabled">Disabled</span></td><td><span class="chip pending">Needs Review</span></td><td>Yesterday</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">Escalate</a><a class="mini" href="admin-users.html">Enable</a></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="stack">
+          <section class="roles">
+            <h2 class="section-title">Role Model</h2>
+            <div class="stack">
+              <div class="role-card"><strong>Admin</strong><span>Full control over products, prices, orders, blog publishing, user roles, and verification actions.</span></div>
+              <div class="role-card"><strong>Staff</strong><span>Operational access for catalog, content, and order workflows. No permission escalation without admin approval.</span></div>
+              <div class="role-card"><strong>User</strong><span>Exists in system taxonomy for limited access cases, but not the primary target of this internal staff management view.</span></div>
+            </div>
+          </section>
+          <section class="feed">
+            <h2 class="section-title">Recent Activity</h2>
+            <div class="stack">
+              <div class="feed-item"><strong>2 new invites sent</strong><span>Operations and customer care staff were invited for next week onboarding.</span></div>
+              <div class="feed-item"><strong>Verification requested for Jasper Reed</strong><span>Missing identity document and supervisor confirmation. Continue in the verification queue.</span></div>
+              <div class="feed-item"><strong>Access cleanup completed</strong><span>Three inactive temporary accounts were disabled after policy review.</span></div>
+              <a class="btn primary" href="admin-user-verification.html">Go To Verification</a>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

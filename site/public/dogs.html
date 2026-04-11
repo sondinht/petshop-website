@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetShop | Dogs Category</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#72d7d3",
+                    "surface": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#d2e4ff",
+                    "surface-bright": "#f8f9ff",
+                    "on-surface": "#001d37",
+                    "tertiary-container": "#007673",
+                    "on-tertiary-container": "#97fbf7",
+                    "inverse-primary": "#a3c9ff",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-container": "#672c00",
+                    "on-tertiary-fixed": "#00201f",
+                    "secondary": "#9b4500",
+                    "surface-dim": "#c3dcff",
+                    "secondary-container": "#fc8a40",
+                    "inverse-surface": "#16324f",
+                    "surface-container-high": "#dbe9ff",
+                    "tertiary-fixed": "#8ff3ef",
+                    "secondary-fixed": "#ffdbc9",
+                    "on-primary-container": "#dfeaff",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#eaf1ff",
+                    "primary-container": "#306bac",
+                    "on-background": "#001d37",
+                    "on-secondary-fixed": "#331200",
+                    "tertiary": "#005b59",
+                    "primary-fixed": "#d3e3ff",
+                    "surface-variant": "#d2e4ff",
+                    "primary": "#075292",
+                    "outline": "#727781",
+                    "outline-variant": "#c2c7d2",
+                    "secondary-fixed-dim": "#ffb68d",
+                    "on-surface-variant": "#424750",
+                    "on-secondary-fixed-variant": "#763300",
+                    "on-primary-fixed": "#001c39",
+                    "surface-container": "#e5eeff",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#004882",
+                    "background": "#f8f9ff",
+                    "primary-fixed-dim": "#a3c9ff",
+                    "on-tertiary-fixed-variant": "#00504e",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#2160a0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .editorial-text-shadow { text-shadow: 0 4px 12px rgba(0, 29, 55, 0.1); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto font-['Plus_Jakarta_Sans'] tracking-tight">
+<div class="text-2xl font-black text-blue-900 dark:text-blue-100">PetShop</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Home</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 transition-all duration-200 hover:opacity-80" href="#">Dogs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Cats</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Accessories</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Blog</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-sm w-48 transition-all" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="transition-transform scale-105 active:scale-95"><span class="material-symbols-outlined text-on-surface-variant">shopping_cart</span></button>
+<button class="transition-transform scale-105 active:scale-95"><span class="material-symbols-outlined text-on-surface-variant">person</span></button>
+<button class="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold shadow-md hover:opacity-90 transition-all">Shop Now</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Category Hero -->
+<section class="px-8 max-w-7xl mx-auto mb-16">
+<div class="relative rounded-xl overflow-hidden min-h-[500px] flex items-center bg-primary-container">
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80" data-alt="cheerful golden retriever dog smiling with tongue out in a sunlit outdoor garden with soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMYPbmqdAA4AN4DTYJVE4G7gt9fohv8uXi0jYV0Og-JjKtcebcHng22TSBVBSqW1cot1rclx-PJUz3-28I0s1164bNAlGXmSs-r929fe39fkHZyZRrlQlXzDBO_MQ-0L3J84ZXsXfuEwjJ672HsdwOjldzuYCEi4NesCGnH8M5BRbEg44KlmAIdW9BEtcEOm_iR2I3jWl9iWfZBBfWAb0-m-LKPqVyM_pl7ZbJMk91PegMzBEmsNEzw1fBAg5SQ7CDkXLlXCaEWQfi"/>
+<div class="relative z-10 p-12 md:p-20 max-w-2xl text-on-primary-container">
+<h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tight mb-6 editorial-text-shadow">Everything for Your Best Friend</h1>
+<p class="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed font-body">Discover premium food, durable toys, and cozy beds tailored for every breed.</p>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-full text-sm font-bold tracking-wide transition-all hover:scale-105 cursor-pointer">Dog Food</span>
+<span class="px-4 py-2 bg-tertiary-container text-on-tertiary-container rounded-full text-sm font-bold tracking-wide transition-all hover:scale-105 cursor-pointer">Tough Toys</span>
+<span class="px-4 py-2 bg-surface-container-lowest text-primary font-bold rounded-full text-sm tracking-wide transition-all hover:scale-105 cursor-pointer">Cozy Beds</span>
+<span class="px-4 py-2 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-sm font-bold tracking-wide transition-all hover:scale-105 cursor-pointer">Health &amp; Care</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Catalog Layout -->
+<section class="px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-12 mb-20">
+<!-- Filter Sidebar -->
+<aside class="w-full md:w-64 flex-shrink-0 space-y-10">
+<div>
+<h3 class="font-headline font-bold text-lg text-on-background mb-4">Life Stage</h3>
+<div class="space-y-3">
+<label class="flex items-center group cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="ml-3 text-on-surface-variant group-hover:text-primary transition-colors">Puppy</span>
+</label>
+<label class="flex items-center group cursor-pointer">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="ml-3 text-on-surface-variant group-hover:text-primary transition-colors">Adult</span>
+</label>
+<label class="flex items-center group cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="ml-3 text-on-surface-variant group-hover:text-primary transition-colors">Senior</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-background mb-4">Breed Size</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline-variant text-sm hover:border-primary hover:text-primary transition-all">Small</button>
+<button class="px-4 py-2 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-medium text-sm">Medium</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-sm hover:border-primary hover:text-primary transition-all">Large</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-sm hover:border-primary hover:text-primary transition-all">Giant</button>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-background mb-4">Price Range</h3>
+<input class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between mt-2 text-sm text-outline font-medium">
+<span>$0</span>
+<span>$250+</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-background mb-4">Brand</h3>
+<div class="space-y-3 max-h-48 overflow-y-auto pr-2 no-scrollbar">
+<label class="flex items-center group cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="ml-3 text-on-surface-variant">Royal Canin</span>
+</label>
+<label class="flex items-center group cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="ml-3 text-on-surface-variant">Hill's Science</span>
+</label>
+<label class="flex items-center group cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="ml-3 text-on-surface-variant">Blue Buffalo</span>
+</label>
+<label class="flex items-center group cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="ml-3 text-on-surface-variant">Purina Pro Plan</span>
+</label>
+</div>
+</div>
+</aside>
+<!-- Product Grid -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-8">
+<span class="text-on-surface-variant font-medium">684 Products found</span>
+<select class="bg-transparent border-none text-primary font-bold focus:ring-0 cursor-pointer">
+<option>Sort by: Popularity</option>
+<option>Newest Arrivals</option>
+<option>Price: Low to High</option>
+</select>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Product Card 1 -->
+<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
+<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="premium grain free kibble dog food bag with illustrations of natural ingredients and a happy dog on a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq7fRkBOhsz4doOmogbepHHV0Y9ly2mh5jV3PLUsFJhACTdqFle_-ey1OI6Zbg9GG5laesnu6dLG4DAPUgtx4Inyvj8MDbXlhu4CWZaS20wuHp9cZlwHJwPBSJJ04PVYJYqLZPzRQIMBG4OHW8q54yJrtO2mxbRIIS0k4au0M_fv2dBu_VdZ7DBcG_wP-a_kDxYkJncw0MemGkSZktvAqoLv3CLTEcmrJBRMpE_Ed4twXxX2YqGYlH6pbSkOQy-IPHoWpQcwMxp3a7"/>
+<span class="absolute top-2 left-2 px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-xs font-bold uppercase tracking-widest">Bestseller</span>
+</div>
+<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Premium Grain-Free Kibble</h4>
+<div class="flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
+<span class="text-xs text-outline font-medium ml-2">(4.8)</span>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-2xl font-black text-on-background">$64.99</span>
+<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
+<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="red heavy duty rubber bone chew toy for dogs on a clean bright background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpzH5EfJbunUXGoCTyuYZo84vaa2wZE_Efb00mmEKbufZyyhHDwDtU6kNt38ccp7WrrFooLyBHT6v-TMHJ6q81LWawpQAS6N7hPKIn6L2LDJFaKxgLWD4PEmemhvdtd4OW-baTyxXkVzJ0_DM_qKbqyjQrDghUmtLAtePTzZ5tF62JoBGnsOEoINDdoQr2OuKq09McAxfUq6PVo4pJqJNgkPWOjpX8J_O2E7COdEXfMaBVnAA-Pf-m0fg90E8LogJf3ANKXMjdF9Ek"/>
+</div>
+<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Indestructible Rubber Bone</h4>
+<div class="flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs text-outline font-medium ml-2">(5.0)</span>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-2xl font-black text-on-background">$18.50</span>
+<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
+<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="modern grey orthopedic memory foam dog bed with plush bolsters on a wooden floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu9-Wm28oU_bBhrn5HrlPjW2ncGFj-MPMqANI80H3hglq0ghIU02PH3hIKlJZgmVpLHL_LCA1SNDolHinZkCzkOaTMXoqTecZHr-rSrwo0f1IuW15zg_oSb97zOHgA1jKcm4zzG88FmBOufbm2etmDYcnKimUmpxANe9H3GIssm8ozTGUFVYIrr8dmzoWg_4De7L4rALQJV8TXDzJa5Z-t6BAGIUmQs5WRvPWNOKp_GjgUJSClGCyECg0wzJ3Bd8LEnE8abg9vfzdF"/>
+<span class="absolute top-2 left-2 px-3 py-1 bg-primary text-white rounded-full text-xs font-bold uppercase tracking-widest">New</span>
+</div>
+<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Orthopedic Memory Foam Bed</h4>
+<div class="flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
+<span class="text-xs text-outline font-medium ml-2">(4.7)</span>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-2xl font-black text-on-background">$129.00</span>
+<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
+<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="high quality brown adjustable leather harness for medium dogs displayed on a minimal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9E-zg3VgEWA81JxuBAVIrx8rbf98NekOdIO-OynVYrG6f3-oC-64iFQbRs8dicQCDlHZI9aQ2aNJpz3HTGgz9AEyRl7c1jJf0sdL8kqoTXZpdKN3F2WltAX_P-B05hxada7IoEuKhFjj-3eqgtJo_H3lUt7z71P1W6R4IZ-7VQpNoyS5KPDq0ZagpIK3m-UB5DDED7mqnA10Ht87Uk98LjCVtuD5J9DjdJwTizYf0nde5M-y2pKBgJd3tfZSWTXrpMH7-B6S7flqU"/>
+</div>
+<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Adjustable Leather Harness</h4>
+<div class="flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-outline-variant text-sm" style="font-variation-settings: 'FILL' 1;">star_half</span>
+<span class="text-xs text-outline font-medium ml-2">(4.5)</span>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-2xl font-black text-on-background">$42.00</span>
+<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
+<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="glass jar filled with green calming hemp dog treats in heart shapes on a neutral aesthetic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4-6Zti1zk08j7miyafXeTBg-usY4QlW4DVoIWOUdtgaAh1xNoaJtF3Ze60N_J4zYCcKSW-eDOUUd2PdFJZb2F199FAFuLPLnTx6rUEGhNaa3icm259okozllmlyQZlD9G-bo8JMAIHjZVjoajPDUrhJvXSui3m68QmanCyg8TPsAS2XIEH6pgb8WyKRAq-dFIkM4PO6rehwtZv-VcIxd1ERnn17YaHCUGoe1b4pWUXffIyGNzdyPx_V201JLW4P_I6a03MMhgoMpB"/>
+</div>
+<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Calming Hemp Treats</h4>
+<div class="flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs text-outline font-medium ml-2">(4.9)</span>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-2xl font-black text-on-background">$24.95</span>
+<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
+<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="yellow bright waterproof raincoat for a dog lying on a surface with water droplets for realistic effect" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCynmpkXS-lByIBRlxTF8DfIm2O9CkBoWePlrWqgDq18vnlQWfUhDHGS9fXhE8zRFNZdyv5Glyi5X-XganFRQXgKX_O9vQEOk2sYMOeKCXZ0QTtc2avB1L-AQYxdnU_IHb6lgHd1Q4JYIxIFx6x-ynAvVfzt9B3rLivp3gRnif57ZMW7gRDWw2MSoi1erALWnE0LiTG9Jhpxw3ZoRkVzb9Rj9J1XCvlm9BsvkAotTi_V-b6JnewJkJLq-uDPCLMk6Ff6fdtpDhq2nMm"/>
+<span class="absolute top-2 left-2 px-3 py-1 bg-error text-white rounded-full text-xs font-bold uppercase tracking-widest">Sale</span>
+</div>
+<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Waterproof Raincoat</h4>
+<div class="flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
+<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
+<span class="text-xs text-outline font-medium ml-2">(3.2)</span>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-error line-through">$35.00</span>
+<span class="text-2xl font-black text-on-background">$28.00</span>
+</div>
+<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Promo Banner -->
+<section class="mb-20 px-8">
+<div class="max-w-7xl mx-auto rounded-xl bg-gradient-to-r from-primary to-primary-container p-1 text-center">
+<div class="bg-surface/5 backdrop-blur-md rounded-lg py-16 px-8 flex flex-col items-center gap-6">
+<span class="px-6 py-1 bg-secondary text-on-secondary rounded-full text-xs font-black tracking-widest uppercase">Limited Time Offer</span>
+<h2 class="text-4xl md:text-5xl font-headline font-extrabold text-white">Bundle &amp; Save: 20% Off Dog Essentials</h2>
+<p class="text-on-primary-container text-lg max-w-xl">Stock up on the basics. Mix and match food, toys, and grooming supplies to unlock your discount.</p>
+<button class="mt-4 bg-secondary-container text-on-secondary-container px-10 py-4 rounded-full font-black text-lg shadow-xl hover:scale-105 active:scale-95 transition-all">Shop the Bundle</button>
+</div>
+</div>
+</section>
+<!-- Editorial Section -->
+<section class="px-8 max-w-7xl mx-auto mb-24">
+<div class="flex items-end justify-between mb-12">
+<div class="max-w-xl">
+<h2 class="font-headline text-4xl font-extrabold text-on-background mb-4">Dog Care Tips</h2>
+<p class="text-on-surface-variant leading-relaxed">Our experts have curated the best advice for keeping your canine companion healthy, happy, and active.</p>
+</div>
+<button class="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all pb-1 border-b-2 border-primary-fixed">Read All Articles <span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<article class="group cursor-pointer">
+<div class="aspect-[16/9] rounded-xl overflow-hidden mb-6">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="two small dogs playing together on a green grass field in soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2gO7xW4pmEnPvwKpcpMrCjQlO2qFHldnwld4eYrDQIRLQbC0uoU6ogkwEwjvT4Qq_Af1d0m-6mQ5iDFkiW6CdwyoriWekZVl7G1BhfoeZ29a3WROSetG4Z8Pyp7vg_2JYX1EVdcSKtforpZk12bU4eNYXZ3UwMIezeb5agMByqQWk2VRWSQy2-w3QsFGezfcA0jd0heuEMTYS9CiUrbuM8e4CCtsuEfVbHqPLeUlKBMMK_qWECLt2ct381p8IiVouODT4Kb1O2R1S"/>
+</div>
+<span class="text-primary font-black text-xs uppercase tracking-widest mb-3 block">Nutrition</span>
+<h3 class="font-headline text-2xl font-bold text-on-background mb-4 group-hover:text-primary transition-colors">Choosing the Right Food for Your Breed</h3>
+<p class="text-on-surface-variant leading-relaxed">Size matters when it comes to nutrition. Learn how to balance proteins and fats for toy breeds vs. giants.</p>
+</article>
+<article class="group cursor-pointer">
+<div class="aspect-[16/9] rounded-xl overflow-hidden mb-6">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="happy black labrador dog running and catching a frisbee in a park during sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMuwHjjv5MpZin76cDP44wRsnReAbTsRieCa3TvTDkTk-jLTfRGY_SYqd-CFbjkoy3Re_1QXzfiktpKfG94G18fjxlDQCZnOUI8hWw_yWjnnaTSfi6Oum4fOxs_6_IWKTJISX1ttiyxd-KpAeMO3su8gwwoVet_Efu6rBPVHiQGAEAltJp9izjsXfEWALsOQnyWHodO37pgid6E2NTLNuEnQh_LCHkT9iRPyyKvb0BinRHKvBlCIlN9XyZJ6WivsPepTfzcFaCOuAO"/>
+</div>
+<span class="text-primary font-black text-xs uppercase tracking-widest mb-3 block">Training</span>
+<h3 class="font-headline text-2xl font-bold text-on-background mb-4 group-hover:text-primary transition-colors">Active Play for Every Age</h3>
+<p class="text-on-surface-variant leading-relaxed">From puppy socialization to keeping senior dogs mentally sharp through low-impact puzzle games.</p>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full pt-16 pb-8 font-['Inter'] text-sm">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto">
+<div class="space-y-6">
+<div class="text-xl font-bold text-blue-900 dark:text-blue-100">PetShop</div>
+<p class="text-slate-500 leading-relaxed">The modern editorial retail experience for pets and their humans. Curated with love and science.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined text-primary text-xl">share</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 dark:text-blue-100 mb-6">Quick Links</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Dogs Catalog</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">New Arrivals</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Subscription Boxes</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Store Locator</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 dark:text-blue-100 mb-6">Support</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Contact</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Newsletter</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Shipping &amp; Returns</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-900 dark:text-blue-100 mb-6">Social</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Instagram</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">Facebook</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">TikTok</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 hover:underline underline-offset-4 transition-all" href="#">YouTube</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-16 px-8 max-w-7xl mx-auto pt-8 border-t border-slate-200/50 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400">
+<p>© 2024 PetShop Editorial. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign In | PetShop Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="/admin-shell.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dbe9ff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#004882",
+                        "tertiary-fixed-dim": "#72d7d3",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "surface-container-highest": "#d2e4ff",
+                        "surface": "#f8f9ff",
+                        "on-secondary-container": "#672c00",
+                        "tertiary": "#005b59",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#FF8C42",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d2e4ff",
+                        "on-surface-variant": "#424750",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "secondary-fixed": "#ffdbc9",
+                        "on-tertiary-container": "#97fbf7",
+                        "on-surface": "#001d37",
+                        "secondary-fixed-dim": "#ffb68d",
+                        "primary-container": "#306bac",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#9b4500",
+                        "on-primary-container": "#dfeaff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-container": "#007673",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#8ff3ef",
+                        "outline-variant": "#c2c7d2",
+                        "inverse-surface": "#16324f",
+                        "on-primary-fixed": "#001c39",
+                        "surface-dim": "#c3dcff",
+                        "on-tertiary-fixed": "#00201f",
+                        "primary": "#306BAC",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#a3c9ff",
+                        "on-secondary-fixed-variant": "#763300",
+                        "on-tertiary-fixed-variant": "#00504e",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed": "#331200",
+                        "on-background": "#001d37",
+                        "primary-fixed": "#d3e3ff",
+                        "outline": "#727781",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#2160a0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Poppins"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Poppins', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .scale-102:hover { transform: scale(1.02); }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen" data-ps-admin="true">
+<!-- SideNavBar (Login Shell) -->
+<aside class="fixed left-0 top-0 h-screen overflow-y-auto flex flex-col py-6 z-50" data-ps-admin-sidebar="true">
+<div class="px-6 mb-6 flex items-center gap-3">
+<span aria-hidden="true" class="material-symbols-outlined">pets</span>
+<div>
+<div data-ps-admin-sidebar-brand-title="true">PetShop Admin</div>
+<div data-ps-admin-sidebar-brand-caption="true">Secure Access</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a href="admin-products.html"><span aria-hidden="true" class="material-symbols-outlined">inventory_2</span><span>Products</span></a>
+<a href="admin-product-form.html"><span aria-hidden="true" class="material-symbols-outlined">edit_note</span><span>Product Form</span></a>
+<a href="admin-pricing.html"><span aria-hidden="true" class="material-symbols-outlined">sell</span><span>Pricing &amp; Flash Sale</span></a>
+<a href="admin-orders.html"><span aria-hidden="true" class="material-symbols-outlined">shopping_cart</span><span>Orders</span></a>
+<a href="admin-blog.html"><span aria-hidden="true" class="material-symbols-outlined">article</span><span>Blog</span></a>
+<a href="admin-users.html"><span aria-hidden="true" class="material-symbols-outlined">group</span><span>Users</span></a>
+<a href="admin-user-verification.html"><span aria-hidden="true" class="material-symbols-outlined">verified_user</span><span>Verification</span></a>
+<a href="admin-login.html"><span aria-hidden="true" class="material-symbols-outlined">lock</span><span>Login</span></a>
+<a href="index.html"><span aria-hidden="true" class="material-symbols-outlined">storefront</span><span>Storefront</span></a>
+</nav>
+</aside>
+
+<!-- Main Content Area -->
+<main class="ps-admin-main flex-1 flex flex-col min-w-0">
+<!-- TopNavBar -->
+<header class="ps-admin-topbar">
+<div class="ps-admin-topbar-title">
+<h1>Login</h1>
+<p>Sign in with your staff credentials.</p>
+</div>
+<div class="ps-admin-topbar-actions">
+<a class="ps-btn ps-btn--ghost" href="index.html">Back to Storefront</a>
+</div>
+</header>
+
+<!-- Page Content -->
+<div class="ps-admin-page flex-1">
+<div class="max-w-xl mx-auto">
+<section class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="p-8 bg-surface-container-low">
+<h3 class="text-2xl font-bold tracking-tight text-on-surface">Welcome back</h3>
+<p class="mt-2 text-sm text-on-surface-variant leading-relaxed">Enter your staff email and password to continue to the admin dashboard.</p>
+</div>
+<div class="p-8">
+<form action="#" class="space-y-6" data-ps-admin-login-form method="post">
+<div>
+<label class="block text-sm font-semibold text-on-surface" for="email">Email</label>
+<input autocomplete="username" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/60 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary/40" id="email" name="email" placeholder="you@petshop.co" required type="email"/>
+</div>
+<div>
+<label class="block text-sm font-semibold text-on-surface" for="password">Password</label>
+<input autocomplete="current-password" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/60 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary/40" id="password" name="password" placeholder="••••••••" required type="password"/>
+</div>
+<button class="w-full px-6 py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold shadow-md hover:scale-102 transition-all" data-ps-admin-login-submit type="submit">
+<span class="material-symbols-outlined text-sm align-[-2px] mr-2">login</span>
+                        Sign In
+                    </button>
+<div aria-live="polite" class="rounded-xl bg-error-container/30 border border-error/20 px-4 py-3" role="status">
+<p class="text-sm text-on-error-container" id="login-error">&nbsp;</p>
+</div>
+</form>
+<div class="mt-6 flex items-center justify-between text-sm">
+<a class="font-semibold text-primary hover:underline" href="index.html">Return to storefront</a>
+<span class="text-on-surface-variant">Need access? Contact an admin.</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Cart | PetShop Professional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#001c39",
+                        "surface-dim": "#d7dade",
+                        "surface-variant": "#e0e3e7",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#a3c9ff",
+                        "tertiary-fixed-dim": "#72d7d3",
+                        "inverse-on-surface": "#eef1f5",
+                        "on-tertiary-fixed": "#00201f",
+                        "secondary": "#9b4500",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#007673",
+                        "on-background": "#181c1f",
+                        "on-primary-fixed-variant": "#004882",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e5e8ec",
+                        "secondary-fixed-dim": "#ffb68d",
+                        "on-surface": "#181c1f",
+                        "surface-container-low": "#f1f4f8",
+                        "surface": "#f7fafe",
+                        "on-secondary-fixed": "#331200",
+                        "on-primary-container": "#dfeaff",
+                        "primary-fixed": "#d3e3ff",
+                        "primary-container": "#306bac",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f7fafe",
+                        "secondary-fixed": "#ffdbc9",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#672c00",
+                        "primary": "#075292",
+                        "on-tertiary-fixed-variant": "#00504e",
+                        "outline": "#727781",
+                        "surface-bright": "#f7fafe",
+                        "on-secondary-fixed-variant": "#763300",
+                        "surface-container-highest": "#e0e3e7",
+                        "secondary-container": "#fc8a40",
+                        "surface-tint": "#2160a0",
+                        "on-tertiary-container": "#97fbf7",
+                        "inverse-surface": "#2d3134",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#8ff3ef",
+                        "surface-container": "#ebeef2",
+                        "tertiary": "#005b59",
+                        "outline-variant": "#c2c7d2",
+                        "on-surface-variant": "#424750",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+        .ambient-shadow { box-shadow: 0px 24px 48px rgba(24, 28, 31, 0.06); }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-black text-blue-700 dark:text-blue-400 font-headline tracking-tight">PetShop</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors font-bold tracking-tight" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors font-bold tracking-tight" href="#">Dogs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors font-bold tracking-tight" href="#">Cats</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors font-bold tracking-tight" href="#">Accessories</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors font-bold tracking-tight" href="#">Blog</a>
+</nav>
+<div class="flex items-center space-x-4">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 ml-2 outline-none" placeholder="Search..." type="text"/>
+</div>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">shopping_cart</span>
+</button>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">person</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-8 pt-32 pb-20">
+<div class="mb-12">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Your Sanctuary Cart</h1>
+<p class="text-on-surface-variant">Review your premium selections for your companion.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left Column: Cart Items -->
+<div class="lg:col-span-8 space-y-8">
+<div class="space-y-6">
+<!-- Cart Item 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col sm:flex-row gap-6 ambient-shadow transition-transform hover:scale-[1.01]">
+<div class="w-full sm:w-40 h-40 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Premium organic grain-free dog kibble in a stylish modern package against a clean soft blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqvGgZOMeIIk4d6turJz2PJGGH8On9R5C_FC-0C4X04tCxsXSS4zYc5YP6JnzcqvGpM_FRm_AAgTHlzF0jQU59PL6P3OrS9ED5paNN_DwfkEe2cpyaxwIkO4mWkV7UlKSwI2fsIFeDv99ZTPEMYxNCcOXpc4rdU29mDGgE1poSwhjHyNtTFH303yLftaGHWcBYjqoB8t5Vx_vk7jQmIb-S_XsWfxlLQQRKmhk6OJ-Z06lM-AADkHWptq3EX1xBhi_-NdksxTrPNfZ0"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-bold text-on-surface leading-tight">Premium Grain-Free Kibble</h3>
+<p class="text-sm text-on-surface-variant mt-1">Adult Formula • 15lb Bag</p>
+</div>
+<span class="text-xl font-bold text-primary">$54.99</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center bg-surface-container-low rounded-full px-2 py-1">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="px-4 font-semibold">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="flex gap-4">
+<button class="text-sm font-medium text-outline hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">favorite</span> Save
+                                    </button>
+<button class="text-sm font-medium text-error hover:opacity-70 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">delete</span> Remove
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col sm:flex-row gap-6 ambient-shadow transition-transform hover:scale-[1.01]">
+<div class="w-full sm:w-40 h-40 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Durable orange rubber dog bone toy on a minimalist light grey surface with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEWb4Z5EHo87H53pdPLpbh9FD3zouqgMvOfJcqsNO8mRJexoeO488PjxuH0DiQgojJ_1E0r_m9SE1xk_4osVsMXsS3n2JGAMD_E13b-PSAoyGXLueeTZ2mv3FGmyGHNKeTbUtDvaA2EGpLse4-I-tB9ls8_ri8VE3lMlaZQRyx5Quyw2jRPxZFRjiOi46vhi9OFTrsl1tu1Nb3G3pr1fsQJdJAZ1Vqleq_JvP8XYcLaMTlM3OoxjY7rSAG8jJ6PURpfgjrfDrZsa19"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-bold text-on-surface leading-tight">Indestructible Rubber Bone</h3>
+<p class="text-sm text-on-surface-variant mt-1">Aggressive Chewer Series • Neon Orange</p>
+</div>
+<span class="text-xl font-bold text-primary">$18.50</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center bg-surface-container-low rounded-full px-2 py-1">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="px-4 font-semibold">2</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="flex gap-4">
+<button class="text-sm font-medium text-outline hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">favorite</span> Save
+                                    </button>
+<button class="text-sm font-medium text-error hover:opacity-70 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">delete</span> Remove
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Shipping Estimates Section -->
+<div class="bg-surface-container-low rounded-lg p-8">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<h4 class="font-bold text-lg">Shipping Estimates</h4>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none rounded-full px-6 py-3 focus:ring-2 focus:ring-primary outline-none" placeholder="Postal Code" type="text"/>
+</div>
+<button class="bg-primary text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition-all">Calculate</button>
+</div>
+<p class="text-sm text-on-surface-variant mt-4">Orders over $50 qualify for <span class="text-primary font-bold">Free Premium Shipping</span>.</p>
+</div>
+<!-- Save for Later -->
+<div>
+<h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">bookmark</span> Saved for Later (1)
+                    </h4>
+<div class="bg-surface-container-lowest opacity-60 rounded-lg p-4 flex gap-4 items-center">
+<div class="w-16 h-16 rounded-md bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Self-cleaning cat litter box in white futuristic design on wooden floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqu22W3lugiQsH5CK0KDQ6MLXD1YFnSCJH9hhpau3M-d4CzSeqbDwVvthh7fxtQGMgjf7AfYrJti0gwEO0YXxSXG7vvKFOOY7sYBz-ituZ-lGLXe8tDuT7eZhho7sI4cx_Z09Kk4_n8ANsognEVdpliylKm-rYfMunNdoCe9PL4wDO2JiJyrQf5B3Q-LulBXGCwSf1l5Sfc0lBBbLD_c_OIYkMDZgHBQkDbzZKW1jbxt0JvFEPFMK-IiBUBuMrp2DPW115wKqtGXYF"/>
+</div>
+<div class="flex-grow">
+<p class="font-bold text-sm">Smart Auto-Litter Box</p>
+<p class="text-xs">$199.00</p>
+</div>
+<button class="text-primary font-bold text-xs uppercase tracking-wider">Move to Cart</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:col-span-4 sticky top-28">
+<div class="bg-surface-container-lowest rounded-lg p-8 ambient-shadow space-y-6">
+<h3 class="text-2xl font-bold font-headline">Order Summary</h3>
+<div class="space-y-4">
+<div class="flex justify-between text-on-surface-variant">
+<span>Subtotal</span>
+<span class="font-semibold text-on-surface">$91.99</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Shipping</span>
+<span class="text-tertiary-container font-bold">FREE</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Estimated Tax</span>
+<span class="font-semibold text-on-surface">$7.36</span>
+</div>
+<div class="pt-4 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-lg font-bold">Total</span>
+<span class="text-3xl font-black text-primary">$99.35</span>
+</div>
+</div>
+<div class="pt-4">
+<div class="relative mb-6">
+<input class="w-full bg-surface-container-low border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary outline-none text-sm" placeholder="Coupon Code" type="text"/>
+<button class="absolute right-2 top-2 bottom-2 bg-white px-4 rounded-full text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">APPLY</button>
+</div>
+<button class="w-full bg-secondary-container text-secondary font-black text-lg py-5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-secondary-container/20">
+                            Proceed to Checkout
+                        </button>
+</div>
+<div class="pt-6 space-y-4 border-t border-surface-container-high">
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary-container" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                            Secure encrypted checkout
+                        </div>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary-container" style="font-variation-settings: 'FILL' 1;">package_2</span>
+                            30-Day Hassle-free returns
+                        </div>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary-container" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+                            24/7 Professional pet expert advice
+                        </div>
+</div>
+</div>
+<!-- Promotional Micro-card -->
+<div class="mt-6 bg-primary-fixed text-on-primary-fixed p-6 rounded-lg flex items-center gap-4">
+<span class="material-symbols-outlined text-4xl">loyalty</span>
+<div>
+<p class="font-bold">Join PetPerks</p>
+<p class="text-xs opacity-80">Earn 99 points with this order</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Cross-sell Section -->
+<section class="mt-32">
+<h2 class="text-3xl font-extrabold font-headline mb-10">Companions Also Bought</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 ambient-shadow group cursor-pointer hover:scale-[1.02] transition-all">
+<div class="aspect-square rounded-lg overflow-hidden mb-4 bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Luxury plush grey pet bed on a light wood floor with morning sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnyUVyZkaO2fARZDT4Xiw7m8ySdnQSykIbA7jxQVJGTLoyh5FF0DrxkVXo_-baqjQ7Qz9XDTg0NWmavm1TMF6Wtg1NWPn55cHEaaa4b0UvLIuuXisG1JpbWykwfRasyKc6_-hW26gQZfjBpeLoR6rNZeXxNuns17lvl4iTjrrKyzgBe2YtIpSbs1NHDCc_dUljF_0HQWskIOd63_Vjb_99Ma6uWEbiRXXVoEcgH0PZ1mvJ1kxWa0Dro-cBeuLHAXZz2xVZS-7JLz7p"/>
+</div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Orthopedic Memory Foam Bed</h4>
+<p class="text-sm text-on-surface-variant mb-4">Ultimate comfort for aging joints</p>
+<div class="flex items-center justify-between">
+<span class="font-black text-primary">$89.00</span>
+<button class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full scale-90 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 ambient-shadow group cursor-pointer hover:scale-[1.02] transition-all">
+<div class="aspect-square rounded-lg overflow-hidden mb-4 bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Eco-friendly braided cotton rope toy for dogs in natural cream and blue colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2nSGrof6bD5c21qxPaBFr8Hq76KmfvSYLZNT0FPySjmOF_zvH8hpcidMjaekvq7Q1nNkX5Vimh9eOImQjciwwwUv2vqYF1XnfIf6kPkNzPTwDV8jsuw2_97x_Cx-nZ1XR1qu1DgXbmvGNsbFe8e4oxuuzkt3sY61INAqkl38_WbBofZJuWND6sOGhqPFOSNF_8BxGRt2-Bf2pKfr_WuY1QmjDaGOlvH5-Zvgw4MInef4RPE5cNvCBBNjfGAN_KlrJfMShb9w1F6CW"/>
+</div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Eco-Rope Tug Toy</h4>
+<p class="text-sm text-on-surface-variant mb-4">100% natural organic cotton</p>
+<div class="flex items-center justify-between">
+<span class="font-black text-primary">$12.99</span>
+<button class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full scale-90 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 ambient-shadow group cursor-pointer hover:scale-[1.02] transition-all">
+<div class="aspect-square rounded-lg overflow-hidden mb-4 bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Salmon oil food topper for pets in a sleek glass dropper bottle with minimalist label" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaSKG2FLHkKXjBAZ3LVhG6hrG8NeQzeryptUD5qQxBXxEz6Tb_FAlht7ijyfid2Ddgvs44PKs5ZzQfftJbIlUO7Gl4mF1ixBPs4oM3FG6YyIk-o7lK5IR0toGr719zPE8Px06vKSPmhQSv3iC1OIbPFcBfv8vau2T9zfaclejkFs72TRDi3apv_MNlwYwuFnWQjcfBbK96XbtOEgTptFsz13HO8I8283cS-kxF6zqrAQ35hpA9t_nKGNlzV2II1-XOoZns_Rf39V2N"/>
+</div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Wild Alaskan Salmon Oil</h4>
+<p class="text-sm text-on-surface-variant mb-4">Shiny coat &amp; heart health</p>
+<div class="flex items-center justify-between">
+<span class="font-black text-primary">$24.50</span>
+<button class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full scale-90 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 ambient-shadow group cursor-pointer hover:scale-[1.02] transition-all">
+<div class="aspect-square rounded-lg overflow-hidden mb-4 bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="Reflective heavy-duty dog harness in navy blue on a blurred park background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIyxJU-Ry3TRws6_994fVIIq6-kawQGVDWmleDDn-ju3OkKYseD0cY3jiOvE2XoifFKfBaZZ5LSh-d_gsNHZOZZzrraaa1N6j9VAyv9jVdrlm6dn4h0pOY0LAVhUrxayFZ0tjp0Hn7DURyeV0iEy8wh-Al8p6-tUJgLz_pJKzXdt5LMCJnG7yzULqqHv5PECGwHQ3TwRdNFuXibCFjDzSIm-bNqI-52C3T3oIl91N_ehB3RoWvEn5LFubpnVt_Oc5Nv3WUEzGHYnrk"/>
+</div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">No-Pull Adventure Harness</h4>
+<p class="text-sm text-on-surface-variant mb-4">Padded chest &amp; reflective trim</p>
+<div class="flex items-center justify-between">
+<span class="font-black text-primary">$45.00</span>
+<button class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full scale-90 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-20 bg-slate-100 dark:bg-slate-950">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-7xl mx-auto">
+<div class="space-y-6">
+<div class="text-xl font-bold text-blue-800 dark:text-blue-300">PetShop</div>
+<p class="font-['Inter'] text-sm leading-relaxed text-slate-500">Elevating the lives of pets and their people through professional-grade nutrition and accessories.</p>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-blue-700">share</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-blue-700">public</span>
+</button>
+</div>
+</div>
+<div class="space-y-4">
+<h5 class="text-orange-600 font-semibold uppercase tracking-widest text-xs">Shop Care</h5>
+<ul class="space-y-2 font-['Inter'] text-sm">
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Dogs</a></li>
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Cats</a></li>
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Accessories</a></li>
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Health &amp; Wellness</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="text-orange-600 font-semibold uppercase tracking-widest text-xs">Support</h5>
+<ul class="space-y-2 font-['Inter'] text-sm">
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Contact Us</a></li>
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Shipping Policy</a></li>
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Returns</a></li>
+<li><a class="text-slate-500 hover:text-orange-500 hover:underline decoration-2 underline-offset-4 transition-all" href="#">Privacy</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="text-orange-600 font-semibold uppercase tracking-widest text-xs">Newsletter</h5>
+<p class="font-['Inter'] text-sm leading-relaxed text-slate-500">Join the pack for exclusive tips and early access.</p>
+<div class="flex flex-col gap-2">
+<input class="bg-white border-none rounded-full px-4 py-3 text-sm focus:ring-2 focus:ring-orange-500 outline-none" placeholder="Your email" type="email"/>
+<button class="bg-orange-600 text-white font-bold py-3 rounded-full hover:opacity-90 transition-opacity">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-12 pb-8 text-center border-t border-slate-200/50 pt-8">
+<p class="font-['Inter'] text-sm text-slate-500">© 2024 PetShop Professional. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

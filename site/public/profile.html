@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetShop | Profile Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#2160a0",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#00504e",
+                    "on-primary-fixed-variant": "#004882",
+                    "surface-container": "#ebeef2",
+                    "on-tertiary-container": "#97fbf7",
+                    "on-primary-container": "#dfeaff",
+                    "surface": "#f7fafe",
+                    "on-primary-fixed": "#001c39",
+                    "on-surface": "#181c1f",
+                    "primary-container": "#306bac",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fc8a40",
+                    "tertiary-fixed": "#8ff3ef",
+                    "secondary": "#9b4500",
+                    "secondary-fixed-dim": "#ffb68d",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#a3c9ff",
+                    "tertiary": "#005b59",
+                    "surface-container-highest": "#e0e3e7",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#a3c9ff",
+                    "tertiary-container": "#007673",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#d3e3ff",
+                    "surface-bright": "#f7fafe",
+                    "outline-variant": "#c2c7d2",
+                    "surface-container-low": "#f1f4f8",
+                    "tertiary-fixed-dim": "#72d7d3",
+                    "surface-container-high": "#e5e8ec",
+                    "on-tertiary-fixed": "#00201f",
+                    "outline": "#727781",
+                    "surface-dim": "#d7dade",
+                    "on-surface-variant": "#424750",
+                    "inverse-on-surface": "#eef1f5",
+                    "background": "#f7fafe",
+                    "on-error": "#ffffff",
+                    "primary": "#075292",
+                    "on-secondary-fixed-variant": "#763300",
+                    "on-secondary-container": "#672c00",
+                    "on-secondary-fixed": "#331200",
+                    "on-background": "#181c1f",
+                    "secondary-fixed": "#ffdbc9",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e0e3e7",
+                    "inverse-surface": "#2d3134"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 8px 32px 0 rgba(24, 28, 31, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar (Shared Component) -->
+<nav class="bg-slate-50 dark:bg-slate-900 w-full top-0 z-50 sticky shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto font-['Plus_Jakarta_Sans'] tracking-tight">
+<div class="text-2xl font-bold text-blue-900 dark:text-blue-200">PetShop</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#">Shop All</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#">Dogs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#">Cats</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#">Small Pets</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#">Health</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 transition-colors" href="#">Deals</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-4 py-2">
+<span class="material-symbols-outlined text-slate-500 mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm" placeholder="Search..." type="text"/>
+</div>
+<button class="p-2 text-blue-800 dark:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 rounded-full transition-all scale-95 active:duration-75">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-2 text-blue-800 dark:text-blue-400 font-bold border-b-2 border-orange-500 pb-1 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all scale-95 active:duration-75">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-screen-2xl mx-auto px-8 pt-12 pb-24">
+<!-- Profile Hero Section -->
+<header class="mb-12 relative overflow-hidden bg-primary-container rounded-xl p-8 md:p-12 text-on-primary-container">
+<div class="relative z-10 grid md:grid-cols-[1fr_auto] gap-8 items-center">
+<div>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-20 h-20 rounded-full border-4 border-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a smiling man with a warm and friendly expression in an outdoor urban setting with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4AhSo7Lry9FJJdqDb09jMaGAb7-Mf8fkgCvl31-Xw-o2fj0Ukoo7haT43WGqMkD3EhuEaR4y8lo2vXZtvchfZyMFlRc1asMXG28MkrP2EQXp33gXAKyNynzgJ9VSRULSUUGlFaGCTrWpiCiGyz2kw3nImVl4OBnNgY-ooaGn3AwVOBw8nFp8Y-R89C8j_fejICjVBxhlcXtw9W_LBPPeOynOKXsDU6sNoGzezjhVw2WFV_MhrOOeZ7EHbTt4533KG3h-z0NxOwwNv"/>
+</div>
+<div>
+<h1 class="text-4xl font-headline font-extrabold tracking-tight mb-1">Alex Johnson</h1>
+<span class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                Gold Member
+                            </span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest/10 backdrop-blur-xl border border-white/10 rounded-xl p-6 editorial-shadow">
+<p class="text-xs uppercase tracking-widest opacity-70 mb-2">Recent Order</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white/20 rounded flex items-center justify-center">
+<span class="material-symbols-outlined">package_2</span>
+</div>
+<div>
+<p class="font-bold text-lg">Order #88219</p>
+<p class="text-sm opacity-80">Delivered on Oct 12, 2023</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Background Element -->
+<div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-tertiary rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+</header>
+<div class="flex flex-col md:flex-row gap-12">
+<!-- Sidebar Navigation -->
+<aside class="w-full md:w-64 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-on-primary font-medium transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+                    Account Overview
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container-low transition-all text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">history</span>
+                    Order History
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container-low transition-all text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">pets</span>
+                    Saved Pets
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container-low transition-all text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">location_on</span>
+                    Address Book
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container-low transition-all text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">favorite</span>
+                    Wishlist
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container-low transition-all text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Account Settings
+                </a>
+<!-- Support Block -->
+<div class="mt-12 p-6 bg-surface-container-low rounded-xl border-none">
+<h4 class="font-headline font-bold text-primary mb-3">Need help?</h4>
+<p class="text-sm text-on-surface-variant mb-4">Our pet experts are available 24/7 to assist you.</p>
+<button class="w-full py-2 bg-primary-container text-on-primary-container text-sm font-semibold rounded-full mb-3 hover:opacity-90 transition-opacity">Chat with an expert</button>
+<a class="block text-center text-xs text-primary font-medium hover:underline" href="#">Visit our Help Center</a>
+</div>
+</aside>
+<!-- Main Dashboard Area -->
+<div class="flex-1 space-y-12">
+<!-- Quick Stats Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl editorial-shadow group hover:bg-primary transition-colors duration-300">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary mb-2">shopping_bag</span>
+<p class="text-on-surface-variant group-hover:text-on-primary/70 text-sm">Total Orders</p>
+<p class="text-3xl font-headline font-extrabold group-hover:text-on-primary">24</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl editorial-shadow group hover:bg-primary transition-colors duration-300">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary mb-2">loyalty</span>
+<p class="text-on-surface-variant group-hover:text-on-primary/70 text-sm">Loyalty Points</p>
+<p class="text-3xl font-headline font-extrabold group-hover:text-on-primary">1,450</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl editorial-shadow group hover:bg-primary transition-colors duration-300">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary mb-2">list_alt</span>
+<p class="text-on-surface-variant group-hover:text-on-primary/70 text-sm">Active Wishlist</p>
+<p class="text-3xl font-headline font-extrabold group-hover:text-on-primary">12</p>
+</div>
+</section>
+<div class="grid lg:grid-cols-[2fr_1fr] gap-12">
+<!-- Left Column: Orders & Pets -->
+<div class="space-y-12">
+<!-- Recent Orders -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h3 class="text-2xl font-headline font-bold text-on-surface">Recent Orders</h3>
+<a class="text-primary font-semibold text-sm hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-4">
+<!-- Order Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg editorial-shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<span class="font-bold text-lg">#ORD-9942</span>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase rounded">Processing</span>
+</div>
+<p class="text-sm text-on-surface-variant">Placed on Oct 24, 2023 • $142.00</p>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-6 py-2 rounded-full font-bold text-sm shadow-md hover:scale-105 transition-transform">Track Order</button>
+</div>
+<!-- Order Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<span class="font-bold text-lg">#ORD-9810</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant text-[10px] font-bold uppercase rounded">Delivered</span>
+</div>
+<p class="text-sm text-on-surface-variant">Placed on Sep 15, 2023 • $89.50</p>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Reorder</button>
+</div>
+</div>
+</section>
+<!-- Saved Pets -->
+<section>
+<h3 class="text-2xl font-headline font-bold text-on-surface mb-6">Saved Pets</h3>
+<div class="grid grid-cols-2 gap-6">
+<!-- Pet 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl editorial-shadow group cursor-pointer overflow-hidden">
+<div class="aspect-square rounded-lg overflow-hidden mb-4">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="charming close-up of a domestic ginger cat looking curiously at the camera with soft indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAskHQvuzVItE0oLM63m6hVjxBd8wHoy3GyvRLVEG0I2GNR9CMh_BVH4rPAdF0mMJy3R21yD9teJ_Th6NCxkQKQQoMwsupXMx0AnaMMPqvDMrQJzlTPedD0QJT_w6zhaz5ifSl_QFYmPi0-4wDvdI4LhUdk5z-yJ_AQTDKYDkw8eYGjBYZ-ntdAlomVZgDEio5UbO2agnALzap7Er1BwSAM9nDdcBpwuu3L3fRb9q_D6NA3XKTiNADSwZwOpIbUoH_rf9_rRzqvUxgY"/>
+</div>
+<p class="font-bold text-lg text-center">Luna</p>
+<p class="text-xs text-center text-on-surface-variant uppercase tracking-widest">Cat</p>
+</div>
+<!-- Pet 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl editorial-shadow group cursor-pointer overflow-hidden">
+<div class="aspect-square rounded-lg overflow-hidden mb-4">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="adorable beagle puppy sitting on a soft lawn with bright daylight and a bokeh forest background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGnOCG0IPuXyo-o96csNlmi1loK5Oi89T4SNwTDVS8z-WNi1m2-emMr93o5FNeoMwovWU_DZvbX51_Sl_1IhVpj3wVO_4aNUCuZlER0fTLoOqi62IfxCYE2VXKQm9hEGa3Z7yFvZGMJT9nAGJCfuY7ppgdd8TLasTucUS9dAR4xtJqSSjjDtZmoD-eENOzF1HMl5j87dT7V76CI1xNJNkOjnBgf_T2fB0I84jomFInWHMCKW9HGS2Z05FtvsZn0Oeage9B7hfYBHpU"/>
+</div>
+<p class="font-bold text-lg text-center">Cooper</p>
+<p class="text-xs text-center text-on-surface-variant uppercase tracking-widest">Dog</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Rewards -->
+<div class="space-y-12">
+<section class="bg-surface-container-lowest p-8 rounded-2xl editorial-shadow relative overflow-hidden">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Loyalty Rewards</h3>
+<p class="text-sm text-on-surface-variant mb-8">You're almost at your next reward!</p>
+<div class="relative pt-1">
+<div class="flex mb-2 items-center justify-between">
+<div>
+<span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-tertiary bg-tertiary-fixed">
+                                            Current Progress
+                                        </span>
+</div>
+<div class="text-right">
+<span class="text-xs font-semibold inline-block text-tertiary">
+                                            75%
+                                        </span>
+</div>
+</div>
+<div class="overflow-hidden h-3 mb-4 text-xs flex rounded-full bg-surface-container">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-tertiary" style="width:75%"></div>
+</div>
+</div>
+<p class="text-sm font-medium mb-6">Earn <span class="font-bold text-tertiary">550 more points</span> to unlock a $25 reward voucher.</p>
+<div class="p-4 rounded-lg bg-surface-container-low flex items-center gap-4 mb-6">
+<div class="bg-tertiary text-on-tertiary p-2 rounded-full">
+<span class="material-symbols-outlined text-lg">card_giftcard</span>
+</div>
+<div class="text-xs">
+<p class="font-bold">Next Milestone</p>
+<p class="text-on-surface-variant">Diamond Level Access</p>
+</div>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-full font-bold shadow-md hover:opacity-90 transition-opacity">Redeem Now</button>
+</section>
+<!-- Profile completion tip -->
+<div class="p-6 bg-primary-container/10 border border-primary-container/20 rounded-xl">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<div>
+<p class="text-sm font-bold text-primary mb-1">Tip for Alex</p>
+<p class="text-xs text-on-surface-variant leading-relaxed">Complete your pets' nutrition profiles to get personalized health recommendations and earn 100 extra points.</p>
+<a class="inline-block mt-3 text-xs font-bold text-primary underline" href="#">Edit Pet Profiles</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-slate-100 dark:bg-slate-950 w-full mt-auto border-t border-slate-200 dark:border-slate-800 flat no shadows">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-12 gap-6 max-w-screen-2xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-xl font-bold text-blue-900 dark:text-blue-200">PetShop</div>
+<p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-500 max-w-xs text-center md:text-left">© 2024 PetShop. The Curated Sanctuary for your companions.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-500 hover:text-blue-700 dark:hover:text-blue-300 transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-500 hover:text-blue-700 dark:hover:text-blue-300 transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-500 hover:text-blue-700 dark:hover:text-blue-300 transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Shipping Info</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-500 hover:text-blue-700 dark:hover:text-blue-300 transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">Contact Us</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-500 hover:text-blue-700 dark:hover:text-blue-300 transition-colors opacity-80 hover:opacity-100 transition-opacity" href="#">About Our Clinic</a>
+</div>
+<div class="flex gap-4">
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">share</span>
+</a>
+</div>
+</div>
+</footer>
+</body></html>

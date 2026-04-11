@@ -1,0 +1,11 @@
+Role: You are a professional UI/UX designer creating a modern flat-style ecommerce website.
+
+Task: Design a high-converting ecommerce landing page for a pet store brand named "PetShop".
+
+Context:
+
+* Primary color: #306BAC (clean flat style)
+* Accent color: #FF8C42 for CTA buttons
+* Style: Flat, minimal, friendly, modern
+* Fonts: Poppins for headings, Inter for body text
+* Goal: Drive product purchases and highlight promotions

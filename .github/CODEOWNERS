@@ -1,0 +1,3 @@
+# Baseline legacy HTML is immutable and requires owner review.
+# Replace these handles with actual repo users/teams if needed.
+site/public/** @repo-owners @designers

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetShop Admin - User Verification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f8fbff; --surface:#fff; --surface-alt:#eaf3fb; --surface-soft:#f1f7fd; --primary:#306bac; --primary-dark:#16324f; --accent:#ff8c42; --text:#16324f; --muted:#5b6b7a; --line:rgba(22,50,79,.08); --shadow:0 18px 36px rgba(22,50,79,.08); --radius:22px; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,sans-serif; }
+    .layout { display:grid; grid-template-columns:280px 1fr; min-height:100vh; }
+    .sidebar { background:linear-gradient(180deg,#306bac 0%,#1f5a93 100%); color:#fff; padding:28px 22px; }
+    .brand { font:700 28px/1 Poppins,sans-serif; margin-bottom:28px; }
+    .nav a { display:block; color:rgba(255,255,255,.9); text-decoration:none; padding:14px 16px; margin-bottom:10px; border-radius:16px; font-weight:600; }
+    .nav a.active { background:rgba(255,255,255,.16); color:#fff; border-left:4px solid var(--accent); }
+    .main { padding:28px; }
+    .topbar,.card,.queue,.review { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .topbar { display:flex; justify-content:space-between; align-items:center; padding:18px 22px; margin-bottom:24px; gap:16px; }
+    .title h1 { margin:0; font:700 34px/1.1 Poppins,sans-serif; }
+    .title p { margin:8px 0 0; color:var(--muted); }
+    .toolbar { display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .search,.filter { border:none; background:var(--surface-alt); border-radius:999px; padding:13px 18px; color:var(--text); min-width:180px; }
+    .btn { border:none; border-radius:999px; padding:13px 18px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    .btn.primary { background:var(--accent); color:#fff; }
+    .btn.secondary { background:var(--surface-alt); color:var(--primary); }
+    .btn.ghost { background:transparent; color:var(--primary-dark); border:1px solid var(--line); }
+    .metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:24px; }
+    .card,.queue,.review { padding:22px; }
+    .eyebrow { display:block; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; font-size:12px; font-weight:700; margin-bottom:10px; }
+    .metric { font:700 34px/1 Poppins,sans-serif; display:block; margin-bottom:8px; }
+    .hint { color:var(--muted); }
+    .content { display:grid; grid-template-columns:1.1fr 1fr; gap:24px; }
+    .section-title { margin:0 0 14px; font:700 22px/1.2 Poppins,sans-serif; }
+    .queue-item,.doc,.note { background:var(--surface-soft); border-radius:18px; padding:16px; }
+    .queue-stack,.review-stack { display:grid; gap:14px; }
+    .queue-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:10px; }
+    .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .chip { display:inline-block; padding:7px 10px; border-radius:999px; font-size:12px; font-weight:700; }
+    .chip.pending { background:rgba(255,140,66,.18); color:#9b4500; }
+    .chip.live { background:rgba(110,211,207,.22); color:#005b59; }
+    .chip.locked { background:rgba(186,26,26,.14); color:#93000a; }
+    .chip.admin { background:rgba(48,107,172,.14); color:var(--primary); }
+    .meta { color:var(--muted); font-size:14px; line-height:1.5; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+    .review strong { display:block; margin-bottom:6px; }
+    .doc small,.note small { color:var(--muted); display:block; margin-top:4px; }
+    @media (max-width:1120px) { .layout,.content { grid-template-columns:1fr; } .sidebar { display:none; } .metrics { grid-template-columns:repeat(2,1fr); } .topbar { flex-direction:column; align-items:flex-start; } .toolbar { justify-content:flex-start; width:100%; } .search,.filter { min-width:0; width:100%; } }
+    @media (max-width:720px) { .metrics { grid-template-columns:1fr; } .main { padding:18px; } }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">PetShop Admin</div>
+      <nav class="nav">
+        <a href="admin-products.html">Products</a>
+        <a href="admin-product-form.html">Product Form</a>
+        <a href="admin-pricing.html">Pricing &amp; Flash Sale</a>
+        <a href="admin-orders.html">Orders</a>
+        <a href="admin-blog.html">Blog</a>
+        <a href="admin-users.html">Users</a>
+        <a class="active" href="admin-user-verification.html">Verification</a>
+        <a href="index.html">Storefront</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <section class="topbar">
+        <div class="title">
+          <h1>User Verification</h1>
+          <p>Review internal staff onboarding requests, confirm role access, and resolve any incomplete verification records.</p>
+        </div>
+        <div class="toolbar">
+          <input class="search" type="text" placeholder="Search request, email, or staff ID" />
+          <select class="filter"><option>All priority levels</option><option>Urgent</option><option>Needs info</option><option>Ready to approve</option></select>
+          <a class="btn secondary" href="admin-users.html">Back To Users</a>
+          <a class="btn primary" href="admin-users.html">Escalate To Admin</a>
+        </div>
+      </section>
+      <section class="metrics">
+        <article class="card"><span class="eyebrow">Pending Verification</span><span class="metric">6</span><span class="hint">Three from operations, two from support, one from content</span></article>
+        <article class="card"><span class="eyebrow">Approved Today</span><span class="metric">4</span><span class="hint">Shift coverage restored for weekend fulfillment</span></article>
+        <article class="card"><span class="eyebrow">Rejected</span><span class="metric">1</span><span class="hint">Rejected due to unmatched identity record</span></article>
+        <article class="card"><span class="eyebrow">Locked Accounts</span><span class="metric">2</span><span class="hint">Waiting on admin escalation before re-activation</span></article>
+      </section>
+      <section class="content">
+        <section class="queue">
+          <h2 class="section-title">Verification Queue</h2>
+          <div class="queue-stack">
+            <article class="queue-item">
+              <div class="queue-top"><div><strong>Jasper Reed</strong><div class="meta">Requested role: Staff Operations • Submitted 42 minutes ago</div></div><span class="chip pending">Urgent</span></div>
+              <div class="meta">Missing supervisor confirmation and one identity document. Access request is tied to warehouse operations shift.</div>
+              <div class="chips"><span class="chip admin">Ops Team</span><span class="chip pending">Needs Info</span></div>
+            </article>
+            <article class="queue-item">
+              <div class="queue-top"><div><strong>Amelia Brooks</strong><div class="meta">Requested role: Admin Content • Submitted 2 hours ago</div></div><span class="chip live">Ready</span></div>
+              <div class="meta">All documents uploaded. Awaiting final admin approval before blog and promo publishing access is enabled.</div>
+              <div class="chips"><span class="chip admin">Content</span><span class="chip live">Ready To Approve</span></div>
+            </article>
+            <article class="queue-item">
+              <div class="queue-top"><div><strong>Oliver Stone</strong><div class="meta">Requested role: Temporary User • Submitted yesterday</div></div><span class="chip locked">Locked</span></div>
+              <div class="meta">Failed previous verification due to identity mismatch. Account is disabled pending manual review and escalation.</div>
+              <div class="chips"><span class="chip locked">Locked</span><span class="chip pending">Escalation Needed</span></div>
+            </article>
+          </div>
+        </section>
+        <section class="review">
+          <h2 class="section-title">Review Detail</h2>
+          <div class="review-stack">
+            <div class="note"><strong>Active Review: Jasper Reed</strong><small>Staff ID: PS-OPS-104 • Team: Fulfillment • Supervisor: Pending confirmation from Mai Nguyen</small></div>
+            <div class="doc"><strong>Contact Information</strong><small>jasper.ops@petshop.co • +61 4XX XXX XXX • Sydney fulfillment center</small></div>
+            <div class="doc"><strong>Submitted Documents</strong><small>Government ID uploaded, employee agreement uploaded, supervisor endorsement missing.</small></div>
+            <div class="doc"><strong>Internal Notes</strong><small>Needs verification before 3 PM shift. Grant Staff scope only after role confirmation.</small></div>
+            <div class="actions">
+              <a class="btn primary" href="admin-users.html">Approve</a>
+              <a class="btn ghost" href="admin-users.html">Reject</a>
+              <a class="btn secondary" href="admin-users.html">Request More Info</a>
+              <a class="btn ghost" href="admin-users.html">Disable Account</a>
+              <a class="btn secondary" href="admin-users.html">Escalate To Admin</a>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

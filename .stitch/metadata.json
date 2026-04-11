@@ -1,0 +1,102 @@
+{
+  "name": "projects/13643797305037033191",
+  "projectId": "13643797305037033191",
+  "title": "PetShop Ecommerce Website",
+  "visibility": "PRIVATE",
+  "createTime": "2026-04-07T04:58:50.887895Z",
+  "updateTime": "2026-04-08T00:28:11.622026Z",
+  "projectType": "PROJECT_DESIGN",
+  "origin": "STITCH",
+  "designTheme": {},
+  "screens": {
+    "index": {
+      "id": "d3781a1058e742179b69885002def7aa",
+      "sourceScreen": "projects/13643797305037033191/screens/d3781a1058e742179b69885002def7aa",
+      "x": 1024,
+      "y": 0,
+      "width": 2560,
+      "height": 8788
+    },
+    "dogs": {
+      "id": "ffcf5f50185b48b687bb8482783ed081",
+      "sourceScreen": "projects/13643797305037033191/screens/ffcf5f50185b48b687bb8482783ed081",
+      "width": 2560,
+      "height": 6924
+    },
+    "cats": {
+      "id": "6f5d71100ea544e3b03af89106fcb9d1",
+      "sourceScreen": "projects/13643797305037033191/screens/6f5d71100ea544e3b03af89106fcb9d1",
+      "width": 2560,
+      "height": 6302
+    },
+    "accessories": {
+      "id": "04ecd12121bb41bebbc8a70ce2900226",
+      "sourceScreen": "projects/13643797305037033191/screens/04ecd12121bb41bebbc8a70ce2900226",
+      "width": 2560,
+      "height": 6154
+    },
+    "blog": {
+      "id": "6ee50a147d8a4ffc87f6a96cadff4708",
+      "sourceScreen": "projects/13643797305037033191/screens/6ee50a147d8a4ffc87f6a96cadff4708",
+      "width": 2560,
+      "height": 6186
+    },
+    "cart": {
+      "id": "8b339bb11f314c86a5b086331bf6c9b9",
+      "sourceScreen": "projects/13643797305037033191/screens/8b339bb11f314c86a5b086331bf6c9b9",
+      "width": 2560,
+      "height": 4514
+    },
+    "profile": {
+      "id": "b22986075d604885b30195d2ce5137b9",
+      "sourceScreen": "projects/13643797305037033191/screens/b22986075d604885b30195d2ce5137b9",
+      "width": 2560,
+      "height": 3142
+    },
+    "checkout": {
+      "id": "a6276cc4e7c645299817418359d65952",
+      "sourceScreen": "projects/13643797305037033191/screens/a6276cc4e7c645299817418359d65952",
+      "width": 2560,
+      "height": 3980
+    },
+    "product-detail": {
+      "id": "9e060cace039404fb6f3d5885ca7601b",
+      "sourceScreen": "projects/13643797305037033191/screens/9e060cace039404fb6f3d5885ca7601b",
+      "width": 2560,
+      "height": 6924
+    },
+    "contact": {
+      "id": "b0e728baa9f2407d8b20b423230dbffd",
+      "sourceScreen": "projects/13643797305037033191/screens/b0e728baa9f2407d8b20b423230dbffd",
+      "width": 2560,
+      "height": 6062
+    },
+    "admin-products": {
+      "id": "f25ec56afd43431592666cac4f97c999",
+      "sourceScreen": "projects/13643797305037033191/screens/f25ec56afd43431592666cac4f97c999",
+      "width": 2560,
+      "height": 2316
+    },
+    "admin-pricing": {
+      "id": "f912130e64e5430f959013d9fba5495d",
+      "sourceScreen": "projects/13643797305037033191/screens/f912130e64e5430f959013d9fba5495d",
+      "width": 2560,
+      "height": 2680
+    },
+    "admin-orders": {
+      "id": "ea117d8774af4fa08cdb5749ff7c8796",
+      "sourceScreen": "projects/13643797305037033191/screens/ea117d8774af4fa08cdb5749ff7c8796",
+      "width": 2560,
+      "height": 2048
+    },
+    "admin-product-form": {
+      "id": "ed8fdabb80b747e78597a4a2a89909d2",
+      "sourceScreen": "projects/13643797305037033191/screens/ed8fdabb80b747e78597a4a2a89909d2",
+      "width": 2560,
+      "height": 3978
+    }
+  },
+  "metadata": {
+    "userRole": "OWNER"
+  }
+}

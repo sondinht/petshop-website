@@ -1,0 +1,65 @@
+name: Protect Baseline HTML
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  block-baseline-html-edits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fail on modified or deleted baseline HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.sha }}"
+
+          CHANGES="$(git diff --name-status "$BASE_SHA" "$HEAD_SHA" -- 'site/public/*.html' || true)"
+
+          if [ -z "$CHANGES" ]; then
+            echo "No HTML changes detected under site/public."
+            exit 0
+          fi
+
+          echo "Detected HTML changes under site/public:"
+          echo "$CHANGES"
+
+          VIOLATIONS="$(echo "$CHANGES" | awk '
+            BEGIN {
+              allow["site/public/admin-products.html"] = 1
+              allow["site/public/admin-product-form.html"] = 1
+              allow["site/public/admin-pricing.html"] = 1
+              allow["site/public/admin-orders.html"] = 1
+              allow["site/public/admin-blog.html"] = 1
+              allow["site/public/admin-users.html"] = 1
+              allow["site/public/admin-user-verification.html"] = 1
+              allow["site/public/admin-login.html"] = 1
+            }
+            $1 ~ /^(M|D|T)/ {
+              if (!allow[$2]) print
+              next
+            }
+            $1 ~ /^(R|C)/ {
+              oldPath = $2
+              newPath = $3
+              if (!allow[oldPath] || !allow[newPath]) print
+            }
+          ')"
+
+          if [ -n "$VIOLATIONS" ]; then
+            echo ""
+            echo "Blocked: modifying/deleting existing site/public/*.html baseline files is not allowed."
+            echo "Allowed: adding new HTML files; modifying/deleting approved admin pages."
+            echo ""
+            echo "$VIOLATIONS"
+            exit 1
+          fi
+
+          echo "Only added HTML files detected."

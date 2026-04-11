@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetShop Deals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fbff;
+      --surface: #ffffff;
+      --surface-alt: #eaf3fb;
+      --primary: #306bac;
+      --primary-dark: #16324f;
+      --accent: #ff8c42;
+      --mint: #6ed3cf;
+      --text: #16324f;
+      --muted: #5b6b7a;
+      --line: rgba(22, 50, 79, 0.08);
+      --shadow: 0 18px 40px rgba(22, 50, 79, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+      --container: 1200px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(var(--container), calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(22, 50, 79, 0.05);
+    }
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+    }
+    .brand {
+      font: 800 30px/1 Poppins, sans-serif;
+      color: var(--primary-dark);
+    }
+    .nav {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .nav a.active { color: var(--primary); }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .search {
+      background: var(--surface-alt);
+      border-radius: 999px;
+      padding: 12px 18px;
+      color: var(--muted);
+      min-width: 220px;
+      border: none;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    .btn.primary { background: var(--accent); color: #fff; }
+    .btn.secondary { background: var(--primary); color: #fff; }
+    .hero {
+      padding: 56px 0 34px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .hero-main {
+      background: linear-gradient(135deg, #306bac 0%, #1e578e 100%);
+      color: #fff;
+      border-radius: var(--radius-xl);
+      padding: 42px;
+      min-height: 380px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 240px;
+      height: 240px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 {
+      font-family: Poppins, sans-serif;
+      margin: 0;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 5vw, 64px);
+      line-height: 1.03;
+      margin: 18px 0 14px;
+      max-width: 620px;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.92);
+      font-size: 18px;
+      max-width: 560px;
+      margin: 0 0 24px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .hero-stats div {
+      background: rgba(255,255,255,0.12);
+      padding: 14px 16px;
+      border-radius: 16px;
+      min-width: 128px;
+    }
+    .hero-stats strong {
+      display: block;
+      font: 800 22px/1 Poppins, sans-serif;
+    }
+    .hero-side {
+      display: grid;
+      gap: 24px;
+    }
+    .promo-card {
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      min-height: 178px;
+    }
+    .promo-card.alt {
+      background: linear-gradient(135deg, #fff4ed 0%, #ffffff 100%);
+    }
+    .promo-card.mint {
+      background: linear-gradient(135deg, #ebfbfb 0%, #ffffff 100%);
+    }
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .countdown div {
+      background: var(--surface-alt);
+      border-radius: 16px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .countdown strong {
+      display: block;
+      font: 800 28px/1 Poppins, sans-serif;
+      color: var(--primary-dark);
+    }
+    section { padding: 34px 0; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 620px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .card-media {
+      aspect-ratio: 1 / 1;
+      background: var(--surface-alt);
+      overflow: hidden;
+    }
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .price-row {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .price-row strong {
+      font: 800 24px/1 Poppins, sans-serif;
+      color: var(--primary);
+    }
+    .price-row span {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+    .badge {
+      display: inline-block;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      width: fit-content;
+    }
+    .badge.orange { background: rgba(255,140,66,0.18); color: #9b4500; }
+    .badge.mint { background: rgba(110,211,207,0.22); color: #005b59; }
+    .badge.blue { background: rgba(48,107,172,0.12); color: var(--primary); }
+    .bundle-grid, .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .bundle, .promo {
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .bundle {
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .bundle img {
+      border-radius: 20px;
+      height: 220px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .promo.blue { background: linear-gradient(135deg, #eaf3fb 0%, #ffffff 100%); }
+    .promo.orange { background: linear-gradient(135deg, #fff0e6 0%, #ffffff 100%); }
+    .editorial {
+      background: var(--surface);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .editorial img {
+      border-radius: 24px;
+      height: 280px;
+      width: 100%;
+      object-fit: cover;
+    }
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+    }
+    .footer-box {
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    @media (max-width: 1100px) {
+      .hero-grid, .editorial, .bundle, .bundle-grid, .promo-grid { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .nav { display: none; }
+      .search { min-width: 160px; }
+    }
+    @media (max-width: 720px) {
+      .grid-4, .countdown { grid-template-columns: 1fr 1fr; }
+      .actions { display: none; }
+      .hero-main, .promo-card, .editorial, .bundle, .promo, .footer-box { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">PetShop</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="dogs.html">Dogs</a>
+        <a href="cats.html">Cats</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="blog.html">Blog</a>
+        <a class="active" href="deals.html">Deals</a>
+      </nav>
+      <div class="actions">
+        <input class="search" type="text" placeholder="Search products" />
+        <a class="btn secondary" href="cart.html">Cart</a>
+        <a class="btn primary" href="checkout.html">Shop Deals</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <span class="eyebrow">Seasonal Event</span>
+        <h1>Spring Savings for Every Tail, Purr, and Paw</h1>
+        <p>Discover limited-time flash sales, curated bundles, and member-only offers across food, toys, accessories, and care essentials.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn primary" href="product-detail.html">Grab Today’s Best Deal</a>
+          <a class="btn secondary" href="blog.html">Read Promo Picks</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>Up to 40%</strong><span>off selected bundles</span></div>
+          <div><strong>Free Ship</strong><span>on orders over $50</span></div>
+          <div><strong>24 Hours</strong><span>flash sale rotation</span></div>
+        </div>
+      </div>
+      <div class="hero-side">
+        <article class="promo-card alt">
+          <span class="badge orange">Flash Sale Live</span>
+          <h3 style="margin-top:12px; font-size:28px;">Ends Tonight</h3>
+          <p style="color:var(--muted); margin:10px 0 0;">Save on kibble, cozy beds, travel bowls, and enrichment toys before midnight.</p>
+          <div class="countdown">
+            <div><strong>08</strong><small>hrs</small></div>
+            <div><strong>21</strong><small>min</small></div>
+            <div><strong>39</strong><small>sec</small></div>
+            <div><strong>12</strong><small>left</small></div>
+          </div>
+        </article>
+        <article class="promo-card mint">
+          <span class="badge mint">Loyalty Bonus</span>
+          <h3 style="margin-top:12px; font-size:28px;">Members Unlock Extra 10%</h3>
+          <p style="color:var(--muted); margin:10px 0 0 0;">Apply your PetShop rewards at checkout for stacked savings on selected bundles.</p>
+          <div style="margin-top:18px;"><a class="btn secondary" href="profile.html">View Rewards</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Flash Sale Highlights</h2>
+          <p>Fast-moving offers chosen to convert quickly: hero products, strong urgency, and standout savings.</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <article class="card">
+          <div class="card-media"><img src="https://images.unsplash.com/photo-1583511655826-05700442b31b?auto=format&fit=crop&w=900&q=80" alt="Dog bed"></div>
+          <div class="card-body">
+            <span class="badge orange">-35%</span>
+            <h3>Orthopedic Comfort Bed</h3>
+            <p style="color:var(--muted); margin:0;">Premium support with washable cover and calming edges.</p>
+            <div class="price-row"><strong>$64</strong><span>$99</span></div>
+            <a class="btn primary" href="product-detail.html">Buy Now</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=900&q=80" alt="Cat food"></div>
+          <div class="card-body">
+            <span class="badge orange">-20%</span>
+            <h3>Wild Ocean Cat Formula</h3>
+            <p style="color:var(--muted); margin:0;">Protein-rich nutrition with salmon and omega support.</p>
+            <div class="price-row"><strong>$36</strong><span>$45</span></div>
+            <a class="btn primary" href="product-detail.html">Buy Now</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=900&q=80" alt="Harness"></div>
+          <div class="card-body">
+            <span class="badge orange">-30%</span>
+            <h3>Adventure Mesh Harness</h3>
+            <p style="color:var(--muted); margin:0;">Breathable everyday harness built for long walks and trips.</p>
+            <div class="price-row"><strong>$28</strong><span>$40</span></div>
+            <a class="btn primary" href="product-detail.html">Buy Now</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80" alt="Toy set"></div>
+          <div class="card-body">
+            <span class="badge orange">-25%</span>
+            <h3>Play & Enrich Toy Pack</h3>
+            <p style="color:var(--muted); margin:0;">Best-selling puzzle toys and squeakers for active pets.</p>
+            <div class="price-row"><strong>$24</strong><span>$32</span></div>
+            <a class="btn primary" href="product-detail.html">Buy Now</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Bundle Offers</h2>
+          <p>High-value combinations built around real shopping intent: food plus care, toys plus travel, and loyalty-friendly upsells.</p>
+        </div>
+      </div>
+      <div class="bundle-grid">
+        <article class="bundle">
+          <div>
+            <span class="badge blue">Dog Bundle</span>
+            <h3 style="font-size:32px; margin-top:12px;">Happy Dog Starter Set</h3>
+            <p style="color:var(--muted);">Includes grain-free kibble, rubber chew toy, comfort harness, and travel bowl.</p>
+            <div class="price-row"><strong>$79</strong><span>$114</span></div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+              <a class="btn primary" href="dogs.html">Shop Bundle</a>
+              <a class="btn secondary" href="product-detail.html">See Details</a>
+            </div>
+          </div>
+          <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1200&q=80" alt="Dog bundle">
+        </article>
+        <article class="bundle">
+          <div>
+            <span class="badge mint">Cat Bundle</span>
+            <h3 style="font-size:32px; margin-top:12px;">Purrfect Home Essentials</h3>
+            <p style="color:var(--muted);">Wet food mix, premium litter, scratch toy, and grooming brush curated for indoor cats.</p>
+            <div class="price-row"><strong>$68</strong><span>$93</span></div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+              <a class="btn primary" href="cats.html">Shop Bundle</a>
+              <a class="btn secondary" href="product-detail.html">See Details</a>
+            </div>
+          </div>
+          <img src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=1200&q=80" alt="Cat bundle">
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>More Ways to Save</h2>
+          <p>Promotions designed to increase basket size while keeping the shopping experience clear and trustworthy.</p>
+        </div>
+      </div>
+      <div class="promo-grid">
+        <article class="promo blue">
+          <span class="badge blue">Shipping Perk</span>
+          <h3 style="font-size:30px; margin-top:12px;">Free Shipping Over $50</h3>
+          <p style="color:var(--muted);">Stack this with bundle pricing and selected flash sale discounts for even better value.</p>
+          <a class="btn secondary" href="checkout.html">Plan Your Basket</a>
+        </article>
+        <article class="promo orange">
+          <span class="badge orange">Member Bonus</span>
+          <h3 style="font-size:30px; margin-top:12px;">Double Rewards on Weekend Orders</h3>
+          <p style="color:var(--muted);">Earn more points on selected categories and redeem them on your next refill order.</p>
+          <a class="btn primary" href="profile.html">Check Membership</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container editorial">
+      <div>
+        <span class="badge mint">Editorial Pick</span>
+        <h2 style="font-size:40px; margin-top:12px;">Smart Savings, Better Choices</h2>
+        <p style="color:var(--muted); font-size:17px;">Use PetShop buying guides and care articles to pair the right deal with the right product. Our latest blog posts help you choose food, accessories, and care essentials with confidence.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
+          <a class="btn primary" href="blog.html">Explore the Blog</a>
+          <a class="btn secondary" href="product-detail.html">View Featured Product</a>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?auto=format&fit=crop&w=1400&q=80" alt="Pet lifestyle editorial">
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-box">
+      <div>
+        <strong style="font:800 26px/1 Poppins, sans-serif; color:var(--primary-dark);">PetShop Deals</strong>
+        <p style="margin:8px 0 0;">Bright promotions, trusted products, and friendly support for every pet family.</p>
+      </div>
+      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+        <a href="product-detail.html">Featured Product</a>
+        <a href="checkout.html">Checkout</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

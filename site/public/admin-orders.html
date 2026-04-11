@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetShop Admin - Orders Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="/admin-shell.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#d4e4f6",
+                        "surface": "#f7f9ff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#cbdced",
+                        "primary-container": "#306bac",
+                        "primary-fixed": "#d3e3ff",
+                        "surface-container-high": "#d9eafc",
+                        "surface-container": "#e1efff",
+                        "secondary-fixed": "#ffdbc9",
+                        "on-surface": "#0d1d2a",
+                        "error": "#ba1a1a",
+                        "on-background": "#0d1d2a",
+                        "surface-bright": "#f7f9ff",
+                        "on-primary-container": "#dfeaff",
+                        "background": "#f7f9ff",
+                        "outline": "#727781",
+                        "surface-container-highest": "#d4e4f6",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "tertiary": "#005b59",
+                        "on-secondary-container": "#672c00",
+                        "on-primary-fixed-variant": "#004882",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#ecf4ff",
+                        "secondary-container": "#FF8C42",
+                        "tertiary-fixed-dim": "#72d7d3",
+                        "tertiary-fixed": "#8ff3ef",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#00504e",
+                        "on-primary-fixed": "#001c39",
+                        "primary": "#306BAC",
+                        "inverse-on-surface": "#e7f2ff",
+                        "secondary-fixed-dim": "#ffb68d",
+                        "on-secondary-fixed-variant": "#763300",
+                        "on-tertiary-fixed": "#00201f",
+                        "on-surface-variant": "#424750",
+                        "secondary": "#9b4500",
+                        "inverse-primary": "#a3c9ff",
+                        "on-secondary-fixed": "#331200",
+                        "on-tertiary-container": "#97fbf7",
+                        "surface-tint": "#2160a0",
+                        "tertiary-container": "#007673",
+                        "outline-variant": "#c2c7d2",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#22323f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Poppins"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Poppins', sans-serif; }
+        .tonal-shift-bg-only { background-color: #f7f9ff; }
+        .tonal-bg-difference { background-color: #ecf4ff; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen" data-ps-admin="true">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen overflow-y-auto flex flex-col py-6 z-50" data-ps-admin-sidebar="true">
+<div class="px-6 mb-6 flex items-center gap-3">
+<span aria-hidden="true" class="material-symbols-outlined">pets</span>
+<div>
+<div data-ps-admin-sidebar-brand-title="true">PetShop Admin</div>
+<div data-ps-admin-sidebar-brand-caption="true">Operations Console</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a href="admin-products.html"><span aria-hidden="true" class="material-symbols-outlined">inventory_2</span><span>Products</span></a>
+<a href="admin-product-form.html"><span aria-hidden="true" class="material-symbols-outlined">edit_note</span><span>Product Form</span></a>
+<a href="admin-pricing.html"><span aria-hidden="true" class="material-symbols-outlined">sell</span><span>Pricing &amp; Flash Sale</span></a>
+<a href="admin-orders.html"><span aria-hidden="true" class="material-symbols-outlined">shopping_cart</span><span>Orders</span></a>
+<a href="admin-blog.html"><span aria-hidden="true" class="material-symbols-outlined">article</span><span>Blog</span></a>
+<a href="admin-users.html"><span aria-hidden="true" class="material-symbols-outlined">group</span><span>Users</span></a>
+<a href="admin-user-verification.html"><span aria-hidden="true" class="material-symbols-outlined">verified_user</span><span>Verification</span></a>
+<a href="admin-login.html"><span aria-hidden="true" class="material-symbols-outlined">lock</span><span>Login</span></a>
+<a href="index.html"><span aria-hidden="true" class="material-symbols-outlined">storefront</span><span>Storefront</span></a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ps-admin-main flex-1 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="ps-admin-topbar">
+<div class="ps-admin-topbar-title">
+<h1>Orders</h1>
+<p>Search, filter, and update fulfillment statuses.</p>
+</div>
+<div class="ps-admin-topbar-actions">
+<div class="relative">
+<span aria-hidden="true" class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 text-lg">search</span>
+<input class="ps-input pl-10 w-72" data-ps-admin-search="true" data-ps-admin-orders-search placeholder="Search orders..." type="text"/>
+</div>
+</div>
+</header>
+<div class="ps-admin-page flex-1 flex gap-8">
+<!-- Table & Dashboard Section -->
+<div class="flex-1 space-y-8">
+<!-- Metrics Bento Grid -->
+<section class="grid grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col justify-between h-32 transition-all hover:translate-y-[-4px]">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Total Orders</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-extrabold text-on-surface tracking-tight">1,284</span>
+<span class="text-tertiary text-xs font-bold flex items-center gap-1 bg-tertiary/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                                +12%
+                            </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col justify-between h-32 border-l-4 border-secondary-container transition-all hover:translate-y-[-4px]">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Pending Fulfillment</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-extrabold text-on-surface tracking-tight">42</span>
+<span class="flex h-2 w-2 rounded-full bg-secondary-container animate-pulse"></span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col justify-between h-32 transition-all hover:translate-y-[-4px]">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Shipped Today</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-extrabold text-on-surface tracking-tight">156</span>
+<span class="text-primary text-xs font-bold">In progress</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col justify-between h-32 transition-all hover:translate-y-[-4px]">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Returns</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-extrabold text-on-surface tracking-tight">08</span>
+<span class="text-error text-xs font-bold bg-error-container px-2 py-1 rounded-full">Low</span>
+</div>
+</div>
+</section>
+<!-- Filters Section -->
+<section class="flex items-center justify-between bg-surface-container-low/50 p-2 rounded-2xl">
+<div class="flex gap-1 p-1">
+<button class="px-6 py-2 rounded-xl text-sm font-bold bg-surface-container-lowest text-primary shadow-sm" data-ps-admin-orders-filter="all">All</button>
+<button class="px-6 py-2 rounded-xl text-sm font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" data-ps-admin-orders-filter="pending">Pending</button>
+<button class="px-6 py-2 rounded-xl text-sm font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" data-ps-admin-orders-filter="shipped">Shipped</button>
+<button class="px-6 py-2 rounded-xl text-sm font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors" data-ps-admin-orders-filter="cancelled">Cancelled</button>
+</div>
+<div class="flex items-center gap-4 px-4">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm font-medium bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm cursor-pointer">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_today">calendar_today</span>
+                            Oct 12 - Oct 19, 2023
+                        </div>
+<button class="flex items-center gap-2 bg-on-surface text-surface-container-lowest px-4 py-2 rounded-xl text-sm font-bold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+                            More Filters
+                        </button>
+</div>
+</section>
+<!-- Data Table -->
+<section class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse" data-ps-admin-table="true" data-ps-admin-primary-table="true">
+<thead>
+<tr class="border-b border-surface-container">
+<th class="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Order ID</th>
+<th class="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Customer</th>
+<th class="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Status</th>
+<th class="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Date</th>
+<th class="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Amount</th>
+<th class="px-8 py-5 text-[11px] font-black uppercase tracking-widest text-on-surface-variant text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low" data-ps-admin-orders-tbody data-ps-admin-table-body="true">
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-8 py-6 font-bold text-[#075292]">#ORD-9921</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-[10px] font-bold">JD</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Jane Doe</p>
+<p class="text-[10px] text-on-surface-variant">jane.doe@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed-variant flex items-center gap-1.5 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                                        PENDING
+                                    </span>
+</td>
+<td class="px-8 py-6 text-sm text-on-surface-variant">Oct 19, 2023</td>
+<td class="px-8 py-6 text-sm font-bold text-on-surface">$124.50</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary text-xs font-bold hover:underline">View Details</button>
+</td>
+</tr>
+<tr class="bg-surface-container-high/40 border-l-4 border-primary">
+<td class="px-8 py-6 font-bold text-[#075292]">#ORD-9918</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-[10px] font-bold">MR</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Mark Robinson</p>
+<p class="text-[10px] text-on-surface-variant">mark.r@gmail.com</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant flex items-center gap-1.5 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                        SHIPPED
+                                    </span>
+</td>
+<td class="px-8 py-6 text-sm text-on-surface-variant">Oct 18, 2023</td>
+<td class="px-8 py-6 text-sm font-bold text-on-surface">$89.20</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary text-xs font-bold hover:underline underline-offset-4">Viewing...</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-6 font-bold text-[#075292]">#ORD-9915</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-[10px] font-bold">SW</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Sarah Wilson</p>
+<p class="text-[10px] text-on-surface-variant">sarah.w@outlook.com</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant flex items-center gap-1.5 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                        DELIVERED
+                                    </span>
+</td>
+<td class="px-8 py-6 text-sm text-on-surface-variant">Oct 18, 2023</td>
+<td class="px-8 py-6 text-sm font-bold text-on-surface">$245.00</td>
+<td class="px-8 py-6 text-right">
+<button class="text-primary text-xs font-bold hover:underline">View Details</button>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+<!-- Order Detail Panel (Selected State) -->
+<aside class="w-96 bg-surface-container-lowest rounded-3xl flex flex-col shadow-xl overflow-hidden sticky top-24 self-start max-h-[calc(100vh-8rem)]">
+<div class="p-6 border-b border-surface-container flex items-center justify-between">
+<div>
+<h3 class="font-bold text-lg text-on-surface">Order #ORD-9918</h3>
+<p class="text-[10px] text-on-surface-variant font-medium tracking-widest uppercase">Placed on Oct 18, 14:22 PM</p>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Timeline -->
+<section>
+<h4 class="text-xs font-black uppercase text-on-surface-variant tracking-widest mb-4">Order Status</h4>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] text-white">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+</div>
+<div class="w-0.5 h-6 bg-primary"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Order Placed</p>
+<p class="text-[10px] text-on-surface-variant">Oct 18, 14:22 PM</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] text-white">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+</div>
+<div class="w-0.5 h-6 bg-primary"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Payment Confirmed</p>
+<p class="text-[10px] text-on-surface-variant">Oct 18, 14:25 PM</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] text-white">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+</div>
+<div class="w-0.5 h-6 bg-surface-container"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Processing</p>
+<p class="text-[10px] text-on-surface-variant">Oct 18, 16:10 PM</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-5 h-5 rounded-full border-2 border-surface-container bg-surface flex items-center justify-center"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface-variant">Shipped</p>
+<p class="text-[10px] text-on-surface-variant">Expected Oct 20</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Items List -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-xs font-black uppercase text-on-surface-variant tracking-widest">Items (2)</h4>
+<p class="text-sm font-bold text-on-surface">$89.20</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-container-low transition-colors">
+<img alt="Premium Dog Kibble" class="w-12 h-12 rounded-lg object-cover" data-alt="high quality premium dog food bag standing on a clean studio background, professional commercial photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO_-aUVaS6AJisTQ--hgLJU55IK-gmQi09ibpJm3goMlz_zNcL1m4woK2pumYcRELo0IElQGI3sbfrtLxqs1o_AFECi1bJEh4ylK7o5G4NmGODDMdmD56-YXkKfwio-KqpGXK6dLQ3Ma2GYVBlCEhVJ57m4wToy7tgfI_qUfan-ga8zTOb7wZ7yDWgLii5Ypgh1V6CmG0BndJYF89KwpWc4MOGKQ-WFokk3n5BGs5iEdYMs8fQDdyCG_VsAtM3j5TND-DOcZjA1ors"/>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface leading-tight">Grain-Free Salmon &amp; Pea</p>
+<p class="text-[10px] text-on-surface-variant">5kg Bag • Qty: 1</p>
+</div>
+<p class="text-xs font-bold text-on-surface">$64.20</p>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-container-low transition-colors">
+<img alt="Interactive Pet Toy" class="w-12 h-12 rounded-lg object-cover" data-alt="a colorful interactive dog puzzle toy on a wooden floor, bright lighting, high detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh0_YTP6pLLvPi33tQTCtgHW5E-g4Bhh4P1UmAnElyvYKlBqvwzehPuHV35SPclA6NdsXXxJXd8hXtIP4cSSYrgVUjBdEv_utaJ1v6_Lxyku9wImN1cnYi7Pd5h0WOwzt5ui_xJ_TBMa3eL1YSWjdRKWPNZ0HC3YCOs2Ou_gdxMlJh05CqBcV__bmoFiavw01gemWKkthsjNKeWisSi29bmNMrdBove-Fjk81_vxGwIpsbbOn1ULiggdqJCEVfhBYLDQMH3n8Tv2m2"/>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface leading-tight">SmartBones Chew Toy</p>
+<p class="text-[10px] text-on-surface-variant">Medium • Qty: 1</p>
+</div>
+<p class="text-xs font-bold text-on-surface">$25.00</p>
+</div>
+</div>
+</section>
+<!-- Shipping Address -->
+<section class="bg-surface-container-low p-4 rounded-2xl">
+<h4 class="text-[10px] font-black uppercase text-on-surface-variant tracking-widest mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="local_shipping">local_shipping</span>
+                            Shipping Address
+                        </h4>
+<p class="text-sm font-medium text-on-surface">Mark Robinson</p>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            1242 Whiskers Avenue, Suite 402<br/>
+                            San Francisco, CA 94103<br/>
+                            United States
+                        </p>
+</section>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 bg-surface-container-low/50 border-t border-surface-container space-y-3">
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-[#fc8a40] text-white py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="local_shipping">local_shipping</span>
+                            Mark Shipped
+                        </button>
+<button class="bg-primary-container text-white py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="print">print</span>
+                            Print Label
+                        </button>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 rounded-lg text-[10px] font-bold border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors">REFUND</button>
+<button class="py-2 rounded-lg text-[10px] font-bold border border-outline-variant text-error hover:bg-error-container transition-colors">CANCEL</button>
+<button class="py-2 rounded-lg text-[10px] font-bold border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors">MESSAGE</button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</body></html>
