@@ -13,6 +13,27 @@ const NAV_DESTINATIONS = {
   blog: "/blog.html"
 };
 
+const SHARED_STOREFRONT_NAVBAR_PAGES = new Set([
+  "index.html",
+  "dogs.html",
+  "cats.html",
+  "accessories.html",
+  "blog.html",
+  "cart.html",
+  "profile.html",
+  "product-detail.html",
+  "deals.html",
+  "contact.html"
+]);
+
+const STOREFRONT_PRIMARY_NAV_LINKS = [
+  { key: "home", label: "Home", href: "/index.html" },
+  { key: "dogs", label: "Dogs", href: "/dogs.html" },
+  { key: "cats", label: "Cats", href: "/cats.html" },
+  { key: "accessories", label: "Accessories", href: "/accessories.html" },
+  { key: "blog", label: "Blog", href: "/blog.html" }
+];
+
 const PRODUCT_ID_BY_NAME = {
   "premium grain-free kibble": "dogs-kibble-premium",
   "indestructible rubber bone": "dogs-bone-indestructible",
@@ -87,7 +108,9 @@ function enhanceForPage(page) {
     normalizeAdminSidebar();
   }
 
+  ensureSharedStorefrontNavbar();
   wireCartIcon();
+  wireProfileIcon();
   wireIndexPrimaryCtas();
   wireCartCheckoutButton();
 
@@ -726,6 +749,353 @@ function enhanceTopNavLinks() {
   });
 }
 
+function normalizePageNameForNavbar(page) {
+  return normalizeText(page || currentPageName());
+}
+
+function isSharedStorefrontNavbarPage(page) {
+  const normalizedPage = normalizePageNameForNavbar(page);
+
+  if (!normalizedPage) {
+    return false;
+  }
+
+  if (normalizedPage === "checkout.html") {
+    return false;
+  }
+
+  return SHARED_STOREFRONT_NAVBAR_PAGES.has(normalizedPage);
+}
+
+function activeStorefrontNavKey(page) {
+  const normalizedPage = normalizePageNameForNavbar(page);
+
+  if (normalizedPage === "index.html") {
+    return "home";
+  }
+
+  if (normalizedPage === "dogs.html") {
+    return "dogs";
+  }
+
+  if (normalizedPage === "cats.html") {
+    return "cats";
+  }
+
+  if (normalizedPage === "accessories.html") {
+    return "accessories";
+  }
+
+  if (normalizedPage === "blog.html") {
+    return "blog";
+  }
+
+  return "";
+}
+
+function injectSharedStorefrontNavbarStyle() {
+  if (document.querySelector("#ps-storefront-navbar-style")) {
+    return;
+  }
+
+  const style = document.createElement("style");
+  style.id = "ps-storefront-navbar-style";
+  style.textContent = `
+[data-ps-storefront-navbar="true"] {
+  --ps-nav-bg: rgba(255, 255, 255, 0.9);
+  --ps-nav-border: rgba(15, 23, 42, 0.08);
+  --ps-nav-text: #1e293b;
+  --ps-nav-muted: #475569;
+  --ps-nav-active: #1d4ed8;
+  --ps-nav-active-bg: rgba(29, 78, 216, 0.12);
+  --ps-nav-cta: #1d4ed8;
+  --ps-nav-cta-hover: #1e40af;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: var(--ps-nav-bg);
+  border-bottom: 1px solid var(--ps-nav-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__brand {
+  color: var(--ps-nav-active);
+  text-decoration: none;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transition: color 140ms ease;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__brand:hover,
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__brand:focus-visible {
+  color: var(--ps-nav-cta-hover);
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__links {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__link {
+  color: var(--ps-nav-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: color 140ms ease, background-color 140ms ease;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__link:hover {
+  color: var(--ps-nav-text);
+  background: rgba(15, 23, 42, 0.06);
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__link[data-active="true"] {
+  color: var(--ps-nav-active);
+  background: var(--ps-nav-active-bg);
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__search {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 999px;
+  padding: 8px 12px;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 130px;
+  font-size: 0.875rem;
+  color: var(--ps-nav-text);
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__icon-btn {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ps-nav-muted);
+  cursor: pointer;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #fff;
+  background: var(--ps-nav-cta);
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: background-color 140ms ease;
+  white-space: nowrap;
+}
+
+[data-ps-storefront-navbar="true"] .ps-storefront-navbar__cta:hover {
+  background: var(--ps-nav-cta-hover);
+}
+
+[data-ps-storefront-navbar="true"] [data-role="cart-count-pill"] {
+  margin-left: 4px;
+}
+
+[data-ps-storefront-navbar-spacer="true"] {
+  width: 100%;
+}
+
+@media (min-width: 860px) {
+  [data-ps-storefront-navbar="true"] .ps-storefront-navbar__links {
+    display: flex;
+  }
+
+  [data-ps-storefront-navbar="true"] .ps-storefront-navbar__search {
+    display: inline-flex;
+  }
+}
+`;
+
+  document.head.appendChild(style);
+}
+
+function hideLegacyStorefrontTopNav() {
+  if (!document.body) {
+    return;
+  }
+
+  const topLevelBars = Array.from(document.body.children).filter((node) => {
+    if (!(node instanceof HTMLElement)) {
+      return false;
+    }
+
+    if (node.dataset.psStorefrontNavbar === "true") {
+      return false;
+    }
+
+    const tagName = node.tagName.toLowerCase();
+    if (tagName !== "nav" && tagName !== "header") {
+      return false;
+    }
+
+    if (node.closest("main, footer")) {
+      return false;
+    }
+
+    const classes = node.className || "";
+    const style = getComputedStyle(node);
+    const isFixedLike =
+      style.position === "fixed" ||
+      style.position === "sticky" ||
+      /\bfixed\b|\bsticky\b|\btop-0\b|\bz-\d+\b/i.test(classes);
+
+    return isFixedLike;
+  });
+
+  topLevelBars.forEach((node) => {
+    if (!(node instanceof HTMLElement)) {
+      return;
+    }
+
+    node.dataset.psLegacyTopNavHidden = "true";
+    node.style.display = "none";
+  });
+}
+
+function buildSharedStorefrontNavbar() {
+  const bar = document.createElement("header");
+  bar.dataset.psStorefrontNavbar = "true";
+
+  const activeKey = activeStorefrontNavKey(currentPageName());
+  const linksMarkup = STOREFRONT_PRIMARY_NAV_LINKS.map((link) => {
+    const active = activeKey === link.key;
+    return `<a class="ps-storefront-navbar__link" data-ps-nav-key="${link.key}" data-active="${
+      active ? "true" : "false"
+    }" href="${link.href}">${link.label}</a>`;
+  }).join("");
+
+  bar.innerHTML = `
+    <div class="ps-storefront-navbar__inner">
+      <a class="ps-storefront-navbar__brand" href="/index.html">PetShop</a>
+      <nav class="ps-storefront-navbar__links" aria-label="Primary storefront">
+        ${linksMarkup}
+      </nav>
+      <div class="ps-storefront-navbar__actions">
+        <label class="ps-storefront-navbar__search" aria-label="Search products">
+          <span class="material-symbols-outlined" aria-hidden="true">search</span>
+          <input type="text" placeholder="Search..." aria-label="Search" />
+        </label>
+        <button class="ps-storefront-navbar__icon-btn" type="button" aria-label="Go to cart">
+          <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+        </button>
+        <button class="ps-storefront-navbar__icon-btn" type="button" aria-label="Go to profile">
+          <span class="material-symbols-outlined" data-icon="person">person</span>
+        </button>
+        <a class="ps-storefront-navbar__cta" href="/dogs.html">Shop Now</a>
+      </div>
+    </div>
+  `;
+
+  return bar;
+}
+
+function updateSharedStorefrontNavbarActiveState(navbar) {
+  if (!(navbar instanceof HTMLElement)) {
+    return;
+  }
+
+  const activeKey = activeStorefrontNavKey(currentPageName());
+  const links = navbar.querySelectorAll(".ps-storefront-navbar__link[data-ps-nav-key]");
+
+  links.forEach((link) => {
+    if (!(link instanceof HTMLAnchorElement)) {
+      return;
+    }
+
+    link.dataset.active = link.dataset.psNavKey === activeKey ? "true" : "false";
+  });
+}
+
+function ensureStorefrontNavbarSpacer(navbar) {
+  if (!(navbar instanceof HTMLElement)) {
+    return;
+  }
+
+  let spacer = navbar.nextElementSibling;
+  if (!(spacer instanceof HTMLElement) || spacer.dataset.psStorefrontNavbarSpacer !== "true") {
+    spacer = document.createElement("div");
+    spacer.dataset.psStorefrontNavbarSpacer = "true";
+    navbar.insertAdjacentElement("afterend", spacer);
+  }
+
+  const syncHeight = () => {
+    const navHeight = Math.ceil(navbar.getBoundingClientRect().height);
+    spacer.style.height = `${Math.max(navHeight, 1)}px`;
+  };
+
+  syncHeight();
+
+  if (navbar.dataset.psSpacerWired === "true") {
+    return;
+  }
+
+  navbar.dataset.psSpacerWired = "true";
+  window.addEventListener("resize", syncHeight);
+}
+
+function ensureSharedStorefrontNavbar() {
+  if (isAdminPage() || !isSharedStorefrontNavbarPage(currentPageName())) {
+    return;
+  }
+
+  injectSharedStorefrontNavbarStyle();
+  hideLegacyStorefrontTopNav();
+
+  const existing = document.querySelector('[data-ps-storefront-navbar="true"]');
+  if (existing instanceof HTMLElement) {
+    updateSharedStorefrontNavbarActiveState(existing);
+    ensureStorefrontNavbarSpacer(existing);
+    return;
+  }
+
+  const navbar = buildSharedStorefrontNavbar();
+  document.body.insertAdjacentElement("afterbegin", navbar);
+  updateSharedStorefrontNavbarActiveState(navbar);
+  ensureStorefrontNavbarSpacer(navbar);
+}
+
 function wireIndexPrimaryCtas() {
   if (currentPage() !== "index.html") {
     return;
@@ -814,6 +1184,50 @@ function collectCartIconTargets() {
   return targets;
 }
 
+function collectProfileIconTargets() {
+  const targets = [];
+  const seen = new Set();
+
+  const addTarget = (clickTarget) => {
+    if (!(clickTarget instanceof HTMLElement)) {
+      return;
+    }
+
+    if (seen.has(clickTarget)) {
+      return;
+    }
+
+    seen.add(clickTarget);
+    targets.push(clickTarget);
+  };
+
+  const iconByDataAttr = document.querySelectorAll(
+    'span.material-symbols-outlined[data-icon="person"]'
+  );
+
+  iconByDataAttr.forEach((icon) => {
+    const clickTarget = icon.closest("button, a") || icon;
+    addTarget(clickTarget);
+  });
+
+  const iconSpans = document.querySelectorAll("span.material-symbols-outlined");
+  iconSpans.forEach((icon) => {
+    if (normalizeText(icon.textContent) !== "person") {
+      return;
+    }
+
+    const clickTarget = icon.closest("button, a") || icon;
+    addTarget(clickTarget);
+  });
+
+  const profileLinks = document.querySelectorAll('a[href="profile.html"], a[href="/profile.html"]');
+  profileLinks.forEach((link) => {
+    addTarget(link);
+  });
+
+  return targets;
+}
+
 function wireCartIcon() {
   if (isAdminPage()) {
     return;
@@ -834,6 +1248,30 @@ function wireCartIcon() {
     clickTarget.addEventListener("click", (event) => {
       event.preventDefault();
       window.location.href = "/cart.html";
+    });
+  });
+}
+
+function wireProfileIcon() {
+  if (isAdminPage()) {
+    return;
+  }
+
+  const targets = collectProfileIconTargets();
+
+  targets.forEach((clickTarget) => {
+    if (clickTarget.tagName.toLowerCase() === "a") {
+      return;
+    }
+
+    if (clickTarget.dataset.profileNavWired === "true") {
+      return;
+    }
+
+    clickTarget.dataset.profileNavWired = "true";
+    clickTarget.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.location.href = "/profile.html";
     });
   });
 }
