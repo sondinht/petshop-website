@@ -1,4 +1,8 @@
-const PAGE = typeof window !== "undefined" ? window.__PAGE__ : "";
+let pageName =
+  typeof window !== "undefined" && typeof window.__PAGE__ === "string" ? window.__PAGE__ : "";
+
+const ADMIN_FRAGMENT_ENDPOINT = "/api/admin/fragments";
+const ADMIN_PAGE_RE = /^admin-[a-z0-9-]+\.html$/i;
 
 const NAV_DESTINATIONS = {
   home: "/index.html",
@@ -56,6 +60,29 @@ const BEST_SELLERS_FALLBACK_BY_INDEX = [
 document.addEventListener("DOMContentLoaded", () => {
   enhanceTopNavLinks();
 
+  if (document.body.hasAttribute("data-ps-admin-shell")) {
+    initAdminShell();
+    return;
+  }
+
+  enhanceForPage(currentPage());
+});
+
+function setCurrentPage(page) {
+  pageName = typeof page === "string" ? page : "";
+
+  if (typeof window !== "undefined") {
+    window.__PAGE__ = pageName;
+  }
+}
+
+function currentPage() {
+  return pageName;
+}
+
+function enhanceForPage(page) {
+  setCurrentPage(page);
+
   if (isAdminPage()) {
     normalizeAdminSidebar();
   }
@@ -68,58 +95,58 @@ document.addEventListener("DOMContentLoaded", () => {
     hydrateCartIconCount();
   }
 
-  if (PAGE === "dogs.html") {
+  if (currentPage() === "dogs.html") {
     wireDogsAddToCart();
   }
 
-  if (PAGE === "index.html") {
+  if (currentPage() === "index.html") {
     wireIndexAddToCart();
   }
 
-  if (PAGE === "product-detail.html") {
+  if (currentPage() === "product-detail.html") {
     wireProductDetailCtas();
   }
 
-  if (PAGE === "cart.html") {
+  if (currentPage() === "cart.html") {
     hydrateCartPage();
   }
 
-  if (PAGE === "checkout.html") {
+  if (currentPage() === "checkout.html") {
     wirePlaceOrder();
   }
 
-  if (PAGE === "admin-login.html") {
+  if (currentPage() === "admin-login.html") {
     wireAdminLoginPage();
   }
 
-  if (PAGE === "profile.html") {
+  if (currentPage() === "profile.html") {
     hydrateProfileOrders();
   }
 
-  if (PAGE === "admin-products.html") {
+  if (currentPage() === "admin-products.html") {
     hydrateAdminProductsPage();
   }
 
-  if (PAGE === "admin-product-form.html") {
+  if (currentPage() === "admin-product-form.html") {
     hydrateAdminProductForm();
   }
 
-  if (PAGE === "admin-orders.html") {
+  if (currentPage() === "admin-orders.html") {
     hydrateAdminOrdersPage();
   }
-});
+}
 
 function normalizeText(value) {
   return (value || "").replace(/\s+/g, " ").trim().toLowerCase();
 }
 
 function isAdminPage() {
-  return normalizeText(PAGE).startsWith("admin-");
+  return normalizeText(currentPage()).startsWith("admin-");
 }
 
 function currentPageName() {
-  if (PAGE) {
-    return PAGE;
+  if (currentPage()) {
+    return currentPage();
   }
 
   const path = window.location.pathname || "";
@@ -164,7 +191,7 @@ function normalizeLinkHref(link) {
   try {
     const parsedUrl = new URL(rawHref, window.location.origin);
     return parsedUrl.pathname.toLowerCase();
-  } catch (_error) {
+  } catch {
     return rawHref.split("#")[0].split("?")[0].toLowerCase();
   }
 }
@@ -398,6 +425,174 @@ body[data-ps-admin="true"] aside[data-ps-admin-sidebar="true"] nav a.ps-admin-na
   document.head.appendChild(style);
 }
 
+function getAdminShellHost() {
+  const host = document.querySelector('[data-ps-admin-shell-host="true"]');
+  return host instanceof HTMLElement ? host : null;
+}
+
+function getPageFromPath(pathname) {
+  const segment = (pathname || "").split("/").filter(Boolean).pop() || "";
+
+  if (!ADMIN_PAGE_RE.test(segment) || normalizeText(segment) === "admin-login.html") {
+    return null;
+  }
+
+  return segment;
+}
+
+function getAdminShellStyleTag() {
+  const existing = document.querySelector('style[data-ps-admin-page-style="true"]');
+
+  if (existing instanceof HTMLStyleElement) {
+    return existing;
+  }
+
+  const style = document.createElement("style");
+  style.dataset.psAdminPageStyle = "true";
+  document.head.appendChild(style);
+  return style;
+}
+
+async function fetchAdminFragment(page) {
+  const response = await fetch(`${ADMIN_FRAGMENT_ENDPOINT}?page=${encodeURIComponent(page)}`, {
+    cache: "no-store",
+    credentials: "same-origin"
+  });
+
+  if (response.status === 401) {
+    redirectToAdminLogin();
+    const unauthorizedError = new Error("UNAUTHORIZED");
+    unauthorizedError.status = 401;
+    throw unauthorizedError;
+  }
+
+  if (!response.ok) {
+    throw new Error("Unable to load admin fragment");
+  }
+
+  return response.json();
+}
+
+async function loadAdminShellFragment(page, fallbackUrl) {
+  const host = getAdminShellHost();
+
+  if (!host) {
+    throw new Error("Admin shell host not found");
+  }
+
+  try {
+    const payload = await fetchAdminFragment(page);
+    host.innerHTML = typeof payload.mainInnerHtml === "string" ? payload.mainInnerHtml : "";
+
+    const styleTag = getAdminShellStyleTag();
+    styleTag.textContent = typeof payload.inlineCss === "string" ? payload.inlineCss : "";
+
+    if (typeof payload.title === "string" && payload.title.trim()) {
+      document.title = payload.title;
+    }
+
+    setCurrentPage(page);
+    window.tailwind?.refresh?.();
+    enhanceForPage(page);
+  } catch (error) {
+    if (isUnauthorizedError(error)) {
+      return;
+    }
+
+    window.location.href = fallbackUrl;
+  }
+}
+
+function adminPathToUrl(page) {
+  return `/${page}`;
+}
+
+function isPlainLeftClick(event) {
+  return (
+    event.button === 0 &&
+    !event.defaultPrevented &&
+    !event.metaKey &&
+    !event.ctrlKey &&
+    !event.shiftKey &&
+    !event.altKey
+  );
+}
+
+function resolveAdminPageFromLink(link) {
+  const href = link.getAttribute("href") || "";
+
+  if (!href) {
+    return null;
+  }
+
+  try {
+    const url = new URL(href, window.location.origin);
+
+    if (url.origin !== window.location.origin) {
+      return null;
+    }
+
+    const page = getPageFromPath(url.pathname);
+    if (!page) {
+      return null;
+    }
+
+    return {
+      page,
+      url: `${url.pathname}${url.search}${url.hash}`
+    };
+  } catch {
+    return null;
+  }
+}
+
+function initAdminShell() {
+  const host = getAdminShellHost();
+
+  if (!host) {
+    return;
+  }
+
+  const initialPage = currentPage() || getPageFromPath(window.location.pathname) || "admin-products.html";
+  void loadAdminShellFragment(initialPage, adminPathToUrl(initialPage));
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element) || !isPlainLeftClick(event)) {
+      return;
+    }
+
+    const link = event.target.closest("a[href]");
+
+    if (!(link instanceof HTMLAnchorElement)) {
+      return;
+    }
+
+    const resolved = resolveAdminPageFromLink(link);
+
+    if (!resolved || normalizeText(resolved.page) === "admin-login.html") {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (adminPathToUrl(resolved.page) !== window.location.pathname) {
+      window.history.pushState({ page: resolved.page }, "", adminPathToUrl(resolved.page));
+    }
+
+    void loadAdminShellFragment(resolved.page, resolved.url);
+  });
+
+  window.addEventListener("popstate", () => {
+    const page = getPageFromPath(window.location.pathname);
+
+    if (!page) {
+      return;
+    }
+
+    void loadAdminShellFragment(page, adminPathToUrl(page));
+  });
+}
+
 function toCurrency(value) {
   return `$${Number(value || 0).toFixed(2)}`;
 }
@@ -532,7 +727,7 @@ function enhanceTopNavLinks() {
 }
 
 function wireIndexPrimaryCtas() {
-  if (PAGE !== "index.html") {
+  if (currentPage() !== "index.html") {
     return;
   }
 
@@ -550,7 +745,7 @@ function wireIndexPrimaryCtas() {
 }
 
 function wireCartCheckoutButton() {
-  if (PAGE !== "cart.html") {
+  if (currentPage() !== "cart.html") {
     return;
   }
 
@@ -953,7 +1148,7 @@ function isIconOnlyAddButton(button) {
 }
 
 async function wireIndexAddToCart() {
-  if (PAGE !== "index.html") {
+  if (currentPage() !== "index.html") {
     return;
   }
 
@@ -1300,7 +1495,7 @@ function wireCartItemActions() {
 }
 
 function wirePlaceOrder() {
-  if (PAGE !== "checkout.html") {
+  if (currentPage() !== "checkout.html") {
     return;
   }
 

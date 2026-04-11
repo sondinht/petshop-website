@@ -73,7 +73,8 @@ export async function GET(
     }
   }
 
-  const absolutePath = path.join(publicDir, requestedFile);
+  const fileToServe = isAdminPage ? "admin-shell.html" : requestedFile;
+  const absolutePath = path.join(publicDir, fileToServe);
 
   if (!absolutePath.startsWith(publicDir)) {
     return new NextResponse("Not Found", { status: 404 });
