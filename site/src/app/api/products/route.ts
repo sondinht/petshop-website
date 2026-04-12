@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { listProducts } from "@/src/server/productRepo";
-import type { ProductCategory } from "@/src/server/catalog";
-
-const validCategories = new Set<ProductCategory>([
-  "dogs",
-  "cats",
-  "accessories",
-  "deals"
-]);
+import { isProductCategory } from "@/src/server/productTypes";
 
 export async function GET(request: NextRequest) {
   const category = request.nextUrl.searchParams.get("category");
 
-  if (category && !validCategories.has(category as ProductCategory)) {
+  if (category && !isProductCategory(category)) {
     return NextResponse.json(
       { error: "Invalid category" },
       {
@@ -21,6 +14,6 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const products = await listProducts(category as ProductCategory | undefined);
+  const products = await listProducts(category ?? undefined);
   return NextResponse.json({ products });
 }

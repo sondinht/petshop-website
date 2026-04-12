@@ -1,5 +1,8 @@
 import { prisma } from "./db/prisma";
 
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=800&q=80";
+
 export type CartViewItem = {
   productId: string;
   name: string;
@@ -31,7 +34,13 @@ async function getOrCreateCart(sessionId: string) {
     include: {
       items: {
         include: {
-          product: true
+          product: {
+            include: {
+              images: {
+                orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }]
+              }
+            }
+          }
         }
       }
     }
@@ -39,7 +48,15 @@ async function getOrCreateCart(sessionId: string) {
 }
 
 function toCartView(
-  items: Array<{ quantity: number; product: { id: string; name: string; price: number; image: string } }>
+  items: Array<{
+    quantity: number;
+    product: {
+      id: string;
+      name: string;
+      price: number;
+      images: Array<{ url: string }>;
+    };
+  }>
 ): CartView {
   const viewItems: CartViewItem[] = items.map((item) => ({
     productId: item.product.id,
@@ -47,7 +64,7 @@ function toCartView(
     price: item.product.price,
     quantity: item.quantity,
     lineTotal: toMoney(item.quantity * item.product.price),
-    image: item.product.image
+    image: item.product.images[0]?.url ?? FALLBACK_IMAGE
   }));
 
   const subtotal = toMoney(viewItems.reduce((sum, item) => sum + item.lineTotal, 0));

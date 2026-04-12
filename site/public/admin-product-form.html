@@ -198,29 +198,14 @@
 <span class="material-symbols-outlined text-primary mr-3">image</span>
 <h4 class="text-xl font-bold text-on-surface">Product Media</h4>
 </div>
-<div class="border-2 border-dashed border-outline-variant/50 rounded-2xl p-10 flex flex-col items-center justify-center bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
-<span class="material-symbols-outlined text-5xl text-primary-container mb-4">cloud_upload</span>
-<p class="text-sm font-bold text-on-surface mb-1">Drag and drop images here</p>
-<p class="text-xs text-on-surface-variant">PNG, JPG up to 10MB (Recommended 1200x1200px)</p>
-<button class="mt-4 px-4 py-2 bg-white rounded-lg border border-outline-variant text-sm font-bold hover:bg-slate-50 transition-colors">Browse Files</button>
+<div class="space-y-4">
+<label class="block text-sm font-semibold text-on-surface-variant" for="ps-admin-product-image-input">Image URL</label>
+<div class="flex flex-col sm:flex-row gap-3">
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all" data-ps-admin-product-image-input="true" id="ps-admin-product-image-input" placeholder="https://example.com/product-image.jpg" type="url"/>
+<button class="px-4 py-3 bg-primary text-on-primary rounded-xl text-sm font-bold hover:opacity-90 transition-opacity" data-ps-admin-product-image-add="true" type="button">Add Image</button>
 </div>
-<div class="grid grid-cols-4 gap-4 mt-6">
-<div class="relative group aspect-square rounded-xl overflow-hidden">
-<img alt="Product Thumbnail 1" class="w-full h-full object-cover" data-alt="top-down studio shot of organic dog biscuits on a clean white surface with natural textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlWE5wWiCHSGZcLnm8v0p95FZ6eRwiKQGdAmgxqa8pL1y5d41pQyvqM14e9WyIP1NV7VRPBDVrAP7xcN2WfR11LxuncAFq9rDXBwH0f5x8LXbyqP65nWVSiyHndDF0GtFvsnZBb1UIhV05ZUn62fFfLR0Ng_DMMC6DJNnUDIgMJXm8TlfVdmUGZjhbgdz_ky2M4q872iZgQ8H8VSlr_6_79StaZIIQsuSrdXvKpOGQou8Kh5fWLW-cBl0dL7CaXm438zHraXr3wj_W"/>
-<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-<button class="p-1 bg-white rounded-full text-error mx-1"><span class="material-symbols-outlined text-sm">delete</span></button>
-</div>
-</div>
-<div class="relative group aspect-square rounded-xl overflow-hidden border-2 border-primary/20">
-<img alt="Product Thumbnail 2" class="w-full h-full object-cover" data-alt="lifestyle shot of a happy golden retriever puppy looking at a bag of treats in a sunlit kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD50KRz7JiolLEUiT8cbNtvWWrwzsmvs-7uwOaHVYXIoqkhdIICWXCpIaMMDHbJTd2gRX4GPLOEEyFBeGQZtHn_IKIYHEAUdwIg1gOsd9tNDNQZqNgJf9b2utnl8oLed15U-3TwXqQGypCRUT-CcWK2jfgIHCd-m8QLfPO4WaQ6vgF8jU9qOte77zKVM5wY_nH0wH_o_OzE3sSKcrt98yfmRVN7kBLJ5Lu_I6JswaIEZPAHlngjEVaxTsnc1j746HKZbcf7CXEe4g85"/>
-<div class="absolute top-2 left-2 px-2 py-1 bg-primary text-white text-[10px] font-bold rounded">PRIMARY</div>
-</div>
-<div class="aspect-square rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-center">
-<span class="material-symbols-outlined text-outline-variant">add_a_photo</span>
-</div>
-<div class="aspect-square rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-center justify-center">
-<span class="material-symbols-outlined text-outline-variant">add_a_photo</span>
-</div>
+<p class="text-xs text-on-surface-variant">First image is primary and used for list/cart thumbnails.</p>
+<ol class="space-y-2" data-ps-admin-product-images-list="true"></ol>
 </div>
 </section>
 <!-- Description Section -->
