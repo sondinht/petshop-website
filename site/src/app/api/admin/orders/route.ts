@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin } from "@/src/server/auth/adminSession";
+import { requireBackofficeUser } from "@/src/server/auth/adminSession";
 import { listAdminOrders, type OrderStatus } from "@/src/server/orderRepo";
 
 const ORDER_STATUSES: OrderStatus[] = ["PENDING", "PAID", "SHIPPED", "CANCELLED"];
@@ -19,7 +19,7 @@ function parseStatus(value: string | null): OrderStatus | undefined {
 
 export async function GET(request: NextRequest) {
   try {
-    await requireAdmin(request);
+    await requireBackofficeUser(request);
   } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

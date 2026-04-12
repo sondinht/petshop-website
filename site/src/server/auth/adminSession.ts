@@ -4,14 +4,23 @@ import { prisma } from "@/src/server/db/prisma";
 
 export const ADMIN_COOKIE_NAME = "petshop_admin";
 
+const BACKOFFICE_ROLES = ["ADMIN", "STAFF"] as const;
+type BackofficeRole = (typeof BACKOFFICE_ROLES)[number];
+
+function isBackofficeRole(role: string): role is BackofficeRole {
+  return role === "ADMIN" || role === "STAFF";
+}
+
 type AdminTokenClaims = {
-  role: "ADMIN";
+  role: BackofficeRole;
+  tokenVersion: number;
 };
 
-export type AdminSessionUser = {
+export type BackofficeSessionUser = {
   id: string;
   email: string;
-  role: "ADMIN";
+  role: BackofficeRole;
+  tokenVersion: number;
   status: "ENABLED" | "DISABLED";
 };
 
@@ -25,12 +34,23 @@ function getAuthSecret(): string {
   return secret;
 }
 
-export function signAdminSessionToken(userId: string): string {
-  return jwt.sign({ role: "ADMIN" } satisfies AdminTokenClaims, getAuthSecret(), {
+export function signAdminSessionToken(user: {
+  id: string;
+  role: BackofficeRole;
+  tokenVersion: number;
+}): string {
+  return jwt.sign(
+    {
+      role: user.role,
+      tokenVersion: user.tokenVersion
+    } satisfies AdminTokenClaims,
+    getAuthSecret(),
+    {
     algorithm: "HS256",
-    subject: userId,
+    subject: user.id,
     expiresIn: "12h"
-  });
+    }
+  );
 }
 
 export function setAdminSessionCookie(response: NextResponse, token: string): NextResponse {
@@ -60,7 +80,11 @@ export function clearAdminSessionCookie(response: NextResponse): NextResponse {
   return response;
 }
 
-function readAdminUserIdFromCookie(request: NextRequest): string | null {
+function parseBackofficeTokenClaims(request: NextRequest): {
+  userId: string;
+  role: BackofficeRole;
+  tokenVersion: number;
+} | null {
   const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value;
 
   if (!token) {
@@ -72,34 +96,53 @@ function readAdminUserIdFromCookie(request: NextRequest): string | null {
       algorithms: ["HS256"]
     }) as jwt.JwtPayload & AdminTokenClaims;
 
-    if (payload.role !== "ADMIN" || typeof payload.sub !== "string" || !payload.sub) {
+    if (typeof payload.sub !== "string" || !payload.sub) {
       return null;
     }
 
-    return payload.sub;
+    if (!isBackofficeRole(payload.role)) {
+      return null;
+    }
+
+    if (!Number.isInteger(payload.tokenVersion) || payload.tokenVersion < 0) {
+      return null;
+    }
+
+    return {
+      userId: payload.sub,
+      role: payload.role,
+      tokenVersion: payload.tokenVersion
+    };
   } catch {
     return null;
   }
 }
 
-export async function getCurrentAdmin(request: NextRequest): Promise<AdminSessionUser | null> {
-  const userId = readAdminUserIdFromCookie(request);
+export async function getCurrentBackofficeUser(
+  request: NextRequest
+): Promise<BackofficeSessionUser | null> {
+  const claims = parseBackofficeTokenClaims(request);
 
-  if (!userId) {
+  if (!claims) {
     return null;
   }
 
   const user = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { id: claims.userId },
     select: {
       id: true,
       email: true,
       role: true,
+      tokenVersion: true,
       status: true
     }
   });
 
-  if (!user || user.role !== "ADMIN") {
+  if (!user || !isBackofficeRole(user.role)) {
+    return null;
+  }
+
+  if (user.role !== claims.role || user.tokenVersion !== claims.tokenVersion) {
     return null;
   }
 
@@ -107,11 +150,34 @@ export async function getCurrentAdmin(request: NextRequest): Promise<AdminSessio
     id: user.id,
     email: user.email,
     role: user.role,
+    tokenVersion: user.tokenVersion,
     status: user.status
   };
 }
 
-export async function requireAdmin(request: NextRequest): Promise<AdminSessionUser> {
+export async function getCurrentAdmin(request: NextRequest): Promise<BackofficeSessionUser | null> {
+  const user = await getCurrentBackofficeUser(request);
+
+  if (!user || user.role !== "ADMIN") {
+    return null;
+  }
+
+  return user;
+}
+
+export async function requireBackofficeUser(
+  request: NextRequest
+): Promise<BackofficeSessionUser> {
+  const user = await getCurrentBackofficeUser(request);
+
+  if (!user || user.status !== "ENABLED") {
+    throw new Error("UNAUTHORIZED");
+  }
+
+  return user;
+}
+
+export async function requireAdminUser(request: NextRequest): Promise<BackofficeSessionUser> {
   const admin = await getCurrentAdmin(request);
 
   if (!admin || admin.status !== "ENABLED") {

@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentAdmin } from "@/src/server/auth/adminSession";
+import { getCurrentBackofficeUser } from "@/src/server/auth/adminSession";
 
 export async function GET(request: NextRequest) {
-  const admin = await getCurrentAdmin(request);
+  const user = await getCurrentBackofficeUser(request);
 
-  if (!admin || admin.status !== "ENABLED") {
+  if (!user || user.status !== "ENABLED") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   return NextResponse.json({
     user: {
-      id: admin.id,
-      email: admin.email,
-      role: admin.role
+      id: user.id,
+      email: user.email,
+      role: user.role
     }
   });
 }

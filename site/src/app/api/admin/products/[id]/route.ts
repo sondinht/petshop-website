@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin } from "@/src/server/auth/adminSession";
+import { requireBackofficeUser } from "@/src/server/auth/adminSession";
 import {
   deleteProduct,
   getProductById,
@@ -22,6 +22,18 @@ function normalizeOptionalString(value: unknown): string | null | undefined {
 
   const normalized = value.trim();
   return normalized.length > 0 ? normalized : null;
+}
+
+function normalizeImageArray(value: unknown): string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  const normalized = value
+    .map((entry) => normalizeOptionalString(entry))
+    .filter((entry): entry is string => Boolean(entry));
+
+  return Array.from(new Set(normalized));
 }
 
 function parsePatchPayload(body: unknown):
@@ -51,12 +63,17 @@ function parsePatchPayload(body: unknown):
     data.category = category;
   }
 
-  if ("image" in input) {
-    const image = normalizeOptionalString(input.image);
-    if (!image) {
-      return { error: "image cannot be empty" };
+  if ("images" in input || "image" in input) {
+    const parsedImages = normalizeImageArray(input.images);
+    const legacyImage = normalizeOptionalString(input.image);
+
+    if (parsedImages.length > 0) {
+      data.images = parsedImages;
+    } else if (legacyImage) {
+      data.images = [legacyImage];
+    } else {
+      data.images = [];
     }
-    data.image = image;
   }
 
   if ("price" in input) {
@@ -113,7 +130,7 @@ function hasPrismaErrorCode(error: unknown, code: string): boolean {
 
 async function ensureAdmin(request: NextRequest): Promise<NextResponse | null> {
   try {
-    await requireAdmin(request);
+    await requireBackofficeUser(request);
     return null;
   } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

@@ -3,12 +3,13 @@ import path from "node:path";
 import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { legacyAllowlist } from "@/src/legacy/manifest";
-import { getCurrentAdmin } from "@/src/server/auth/adminSession";
+import { requireBackofficeUser } from "@/src/server/auth/adminSession";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const publicDir = path.join(process.cwd(), "public");
+const ADMIN_ONLY_PAGES = new Set(["admin-users.html", "admin-user-verification.html"]);
 
 function toRequestedFile(rawPath: string[] | undefined): string | null {
   const joined = (rawPath ?? []).join("/").trim();
@@ -59,9 +60,11 @@ export async function GET(
     requestedFile.startsWith("admin-") && requestedFile !== "admin-login.html";
 
   if (isAdminPage) {
-    const admin = await getCurrentAdmin(request);
+    let user;
 
-    if (!admin || admin.status !== "ENABLED") {
+    try {
+      user = await requireBackofficeUser(request);
+    } catch {
       const redirectUrl = request.nextUrl.clone();
       const nextPath = `/${requestedFile}${request.nextUrl.search}`;
 
@@ -70,6 +73,10 @@ export async function GET(
       redirectUrl.searchParams.set("next", nextPath);
 
       return NextResponse.redirect(redirectUrl, { status: 302 });
+    }
+
+    if (ADMIN_ONLY_PAGES.has(requestedFile) && user.role !== "ADMIN") {
+      return new NextResponse("Forbidden", { status: 403 });
     }
   }
 

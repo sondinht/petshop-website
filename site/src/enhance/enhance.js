@@ -78,6 +78,36 @@ const BEST_SELLERS_FALLBACK_BY_INDEX = [
   "accessories-collar-tan"
 ];
 
+const STOREFRONT_CARD_SELECTORS_BY_PAGE = {
+  "index.html": ["main .group.bg-surface-container-lowest.rounded-xl.p-6"],
+  "dogs.html": ["main .group.bg-surface-container-lowest.p-6.rounded-lg"],
+  "cats.html": ["main .bg-surface-container-lowest.rounded-lg.overflow-hidden.flex.flex-col.h-full"],
+  "accessories.html": ["main .group.bg-surface-container-lowest.rounded-lg.overflow-hidden"],
+  "deals.html": [".grid-4 .card", ".bundle-grid .bundle"]
+};
+
+const STOREFRONT_INTERACTIVE_DESCENDANT_SELECTOR =
+  'button, a, input, select, textarea, label, [role="button"]';
+
+const STOREFRONT_PRODUCT_ALIAS_BY_NAME = {
+  "premium salmon pate": "cats-ocean-grain",
+  "natural clumping litter": "cats-ocean-grain",
+  "multi-level cat tree": "cats-ocean-grain",
+  "organic catnip mice": "cats-ocean-grain",
+  "self-grooming wall brush": "cats-ocean-grain",
+  "grain-free kibble": "dogs-kibble-premium",
+  "leather comfort collar": "accessories-collar-tan",
+  "luxe orthopedic bed": "deals-bed-velvet",
+  "adventure harness": "dogs-harness-leather",
+  "ceramic duo bowls": "accessories-collar-tan",
+  "orthopedic comfort bed": "deals-bed-velvet",
+  "wild ocean cat formula": "cats-ocean-grain",
+  "adventure mesh harness": "dogs-harness-leather",
+  "play & enrich toy pack": "dogs-bone-indestructible",
+  "happy dog starter set": "dogs-kibble-premium",
+  "purrfect home essentials": "cats-ocean-grain"
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   enhanceTopNavLinks();
 
@@ -116,6 +146,7 @@ function enhanceForPage(page) {
 
   if (!isAdminPage()) {
     hydrateCartIconCount();
+    wireStorefrontProductClickthrough();
   }
 
   if (currentPage() === "dogs.html") {
@@ -127,6 +158,7 @@ function enhanceForPage(page) {
   }
 
   if (currentPage() === "product-detail.html") {
+    hydrateProductDetailPage();
     wireProductDetailCtas();
   }
 
@@ -156,6 +188,10 @@ function enhanceForPage(page) {
 
   if (currentPage() === "admin-orders.html") {
     hydrateAdminOrdersPage();
+  }
+
+  if (currentPage() === "admin-users.html") {
+    hydrateAdminUsersPage();
   }
 }
 
@@ -629,11 +665,43 @@ async function apiFetch(url, init) {
     }
   });
 
-  const payload = await response.json().catch(() => null);
+  const contentType = (response.headers.get("content-type") || "").toLowerCase();
+  let payload = null;
+  let textPayload = "";
+
+  if (contentType.includes("application/json")) {
+    payload = await response.json().catch(() => null);
+  } else {
+    textPayload = await response.text().catch(() => "");
+
+    if (textPayload) {
+      try {
+        payload = JSON.parse(textPayload);
+      } catch {
+        payload = null;
+      }
+    }
+  }
 
   if (!response.ok) {
-    const error = new Error(payload && payload.error ? payload.error : "Request failed");
+    const compactText = textPayload.replace(/\s+/g, " ").trim();
+    const message =
+      (payload && payload.error) ||
+      (payload && payload.message) ||
+      compactText ||
+      `Request failed (${response.status})`;
+
+    const error = new Error(message);
     error.status = response.status;
+
+    if (payload && payload.code) {
+      error.code = payload.code;
+    }
+
+    if (payload && payload.hint) {
+      error.hint = payload.hint;
+    }
+
     throw error;
   }
 
@@ -1366,6 +1434,411 @@ function resolveProductIdFromTitle(title) {
   return PRODUCT_ID_BY_NAME[normalized] || null;
 }
 
+function buildProductDetailUrl(productData) {
+  const params = new URLSearchParams();
+
+  if (productData && productData.productId) {
+    params.set("productId", String(productData.productId));
+  }
+
+  if (productData && productData.title) {
+    params.set("title", String(productData.title));
+  }
+
+  if (productData && productData.price) {
+    params.set("price", String(productData.price));
+  }
+
+  if (productData && productData.image) {
+    params.set("image", String(productData.image));
+  }
+
+  if (productData && productData.category) {
+    params.set("category", String(productData.category));
+  }
+
+  const query = params.toString();
+  return query ? `/product-detail.html?${query}` : "/product-detail.html";
+}
+
+function inferStorefrontCategory(page) {
+  if (page === "dogs.html") {
+    return "dogs";
+  }
+
+  if (page === "cats.html") {
+    return "cats";
+  }
+
+  if (page === "accessories.html") {
+    return "accessories";
+  }
+
+  if (page === "deals.html") {
+    return "deals";
+  }
+
+  return "dogs";
+}
+
+function resolveStorefrontPriceFromCard(card) {
+  const valueSelectors = [
+    ".price-row strong",
+    ".price-row span",
+    "[class*='text-2xl']",
+    "[class*='text-3xl']",
+    "strong",
+    "p",
+    "span"
+  ];
+
+  for (const selector of valueSelectors) {
+    const candidates = Array.from(card.querySelectorAll(selector));
+
+    for (const candidate of candidates) {
+      const raw = (candidate.textContent || "").trim();
+      if (/\$\s*\d/.test(raw)) {
+        return raw.replace(/\s+/g, " ");
+      }
+    }
+  }
+
+  return "";
+}
+
+function resolveStorefrontProductDataFromCard(card, page) {
+  const titleEl = card.querySelector("h4, h3, h2");
+  const imageEl = card.querySelector("img");
+  const title = (titleEl && titleEl.textContent ? titleEl.textContent : "").trim();
+  const price = resolveStorefrontPriceFromCard(card);
+  const image = imageEl instanceof HTMLImageElement ? (imageEl.getAttribute("src") || "").trim() : "";
+  const normalizedTitle = normalizeText(title);
+  const productId =
+    HOMEPAGE_CARD_PRODUCT_ID_BY_NAME[normalizedTitle] ||
+    PRODUCT_ID_BY_NAME[normalizedTitle] ||
+    HOMEPAGE_PRODUCT_ALIAS_BY_NAME[normalizedTitle] ||
+    STOREFRONT_PRODUCT_ALIAS_BY_NAME[normalizedTitle] ||
+    null;
+
+  return {
+    productId,
+    title,
+    price,
+    image,
+    category: inferStorefrontCategory(page)
+  };
+}
+
+function shouldIgnoreStorefrontCardInteraction(event, card) {
+  if (!event || event.defaultPrevented) {
+    return true;
+  }
+
+  const target = event.target;
+  if (!(target instanceof Element)) {
+    return false;
+  }
+
+  const interactive = target.closest(STOREFRONT_INTERACTIVE_DESCENDANT_SELECTOR);
+  return Boolean(interactive && card.contains(interactive));
+}
+
+function applyProductDetailLinksWithinCard(card, detailUrl) {
+  const links = Array.from(card.querySelectorAll('a[href]')).filter((link) => {
+    const href = normalizeLinkHref(link);
+    return href.endsWith("product-detail.html");
+  });
+
+  links.forEach((link) => {
+    link.setAttribute("href", detailUrl);
+  });
+}
+
+function wireStorefrontProductClickthrough() {
+  const page = currentPage();
+  const selectors = STOREFRONT_CARD_SELECTORS_BY_PAGE[page];
+
+  if (!Array.isArray(selectors) || selectors.length === 0) {
+    return;
+  }
+
+  const cards = selectors.flatMap((selector) => Array.from(document.querySelectorAll(selector)));
+  const uniqueCards = Array.from(new Set(cards)).filter((card) => card instanceof HTMLElement);
+
+  uniqueCards.forEach((card) => {
+    if (!(card instanceof HTMLElement) || card.dataset.psProductCardClickWired === "true") {
+      return;
+    }
+
+    const productData = resolveStorefrontProductDataFromCard(card, page);
+    if (!productData.title || !productData.price || !productData.image) {
+      return;
+    }
+
+    const detailUrl = buildProductDetailUrl(productData);
+    applyProductDetailLinksWithinCard(card, detailUrl);
+
+    card.dataset.psProductCardClickWired = "true";
+    card.dataset.psProductDetailUrl = detailUrl;
+    card.setAttribute("tabindex", card.getAttribute("tabindex") || "0");
+    card.setAttribute("role", "link");
+    card.style.cursor = "pointer";
+
+    card.addEventListener("click", (event) => {
+      if (shouldIgnoreStorefrontCardInteraction(event, card)) {
+        return;
+      }
+
+      window.location.href = detailUrl;
+    });
+
+    card.addEventListener("keydown", (event) => {
+      const key = event.key;
+      if (key !== "Enter" && key !== " ") {
+        return;
+      }
+
+      if (shouldIgnoreStorefrontCardInteraction(event, card)) {
+        return;
+      }
+
+      event.preventDefault();
+      window.location.href = detailUrl;
+    });
+  });
+}
+
+function detailPriceFromValue(value) {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return toCurrency(value);
+  }
+
+  const text = String(value || "").trim();
+  if (!text) {
+    return "";
+  }
+
+  return text.includes("$") ? text : `$${text}`;
+}
+
+function normalizeUrlList(values) {
+  const seen = new Set();
+  const normalized = [];
+
+  values.forEach((value) => {
+    if (typeof value !== "string") {
+      return;
+    }
+
+    const trimmed = value.trim();
+
+    if (!trimmed || seen.has(trimmed)) {
+      return;
+    }
+
+    seen.add(trimmed);
+    normalized.push(trimmed);
+  });
+
+  return normalized;
+}
+
+async function hydrateProductDetailPage() {
+  if (currentPage() !== "product-detail.html") {
+    return;
+  }
+
+  const search = new URLSearchParams(window.location.search);
+  const queryProductId = (search.get("productId") || "").trim();
+  const queryTitle = (search.get("title") || "").trim();
+  const queryPrice = (search.get("price") || "").trim();
+  const queryImage = (search.get("image") || "").trim();
+  const queryCategory = (search.get("category") || "").trim();
+
+  const fallbackData = {
+    productId: queryProductId || null,
+    title: queryTitle,
+    price: queryPrice,
+    image: queryImage,
+    category: queryCategory,
+    images: null
+  };
+
+  let resolvedData = { ...fallbackData };
+
+  if (queryProductId) {
+    try {
+      const payload = await apiFetch(`/api/products/${encodeURIComponent(queryProductId)}`);
+      const product = payload && payload.product;
+
+      if (product && typeof product === "object") {
+        const orderedImages = Array.isArray(product.images)
+          ? product.images
+              .filter((image) => {
+                if (typeof image === "string") {
+                  return image.trim();
+                }
+
+                return (
+                  image &&
+                  typeof image === "object" &&
+                  typeof image.url === "string" &&
+                  image.url.trim()
+                );
+              })
+              .map((image, index) => {
+                if (typeof image === "string") {
+                  return {
+                    url: image.trim(),
+                    alt: "",
+                    sortOrder: index
+                  };
+                }
+
+                return {
+                  url: image.url.trim(),
+                  alt:
+                    typeof image.alt === "string" && image.alt.trim()
+                      ? image.alt.trim()
+                      : "",
+                  sortOrder:
+                    typeof image.sortOrder === "number" && Number.isFinite(image.sortOrder)
+                      ? image.sortOrder
+                      : index
+                };
+              })
+              .sort((left, right) => left.sortOrder - right.sortOrder)
+          : [];
+
+        resolvedData = {
+          productId: queryProductId,
+          title:
+            typeof product.name === "string" && product.name.trim()
+              ? product.name.trim()
+              : fallbackData.title,
+          price:
+            typeof product.price === "number" && Number.isFinite(product.price)
+              ? toCurrency(product.price)
+              : fallbackData.price,
+          image:
+            typeof product.image === "string" && product.image.trim()
+              ? product.image.trim()
+              : fallbackData.image,
+          category:
+            typeof product.category === "string" && product.category.trim()
+              ? product.category.trim()
+              : fallbackData.category,
+          images: orderedImages.length > 0 ? orderedImages : null
+        };
+      }
+    } catch (error) {
+      console.warn("Unable to hydrate product detail from API", error);
+    }
+  }
+
+  const titleEl = document.querySelector("main h1");
+  const priceEl = document.querySelector("main h1 + div span");
+  const heroImageEl =
+    document.querySelector('main img[alt="Main product"]') ||
+    document.querySelector("main .aspect-square img") ||
+    document.querySelector("main img");
+
+  if (titleEl && resolvedData.title) {
+    titleEl.textContent = resolvedData.title;
+    document.title = resolvedData.title;
+  }
+
+  const displayPrice = detailPriceFromValue(resolvedData.price);
+  if (priceEl && displayPrice) {
+    priceEl.textContent = displayPrice;
+  }
+
+  const detailImages = Array.isArray(resolvedData.images) ? resolvedData.images : null;
+  const hasDetailImages = Boolean(detailImages && detailImages.length > 0);
+
+  if (heroImageEl instanceof HTMLImageElement && hasDetailImages) {
+    const heroContainer = heroImageEl.closest("div");
+    let thumbnailStrip = null;
+
+    if (
+      heroContainer instanceof HTMLElement &&
+      heroContainer.previousElementSibling instanceof HTMLElement &&
+      heroContainer.previousElementSibling.querySelector("img")
+    ) {
+      thumbnailStrip = heroContainer.previousElementSibling;
+    }
+
+    if (!(thumbnailStrip instanceof HTMLElement)) {
+      const thumbnailImage = document.querySelector('main img[alt*="thumbnail" i]');
+      if (thumbnailImage instanceof HTMLImageElement) {
+        const thumbnailCard = thumbnailImage.parentElement;
+        if (thumbnailCard instanceof HTMLElement && thumbnailCard.parentElement instanceof HTMLElement) {
+          thumbnailStrip = thumbnailCard.parentElement;
+        }
+      }
+    }
+
+    const activeClasses = ["ring-2", "ring-primary", "ring-offset-2"];
+
+    const setHeroFromImage = (image) => {
+      heroImageEl.src = image.url;
+      heroImageEl.alt = image.alt || resolvedData.title || heroImageEl.alt;
+    };
+
+    setHeroFromImage(detailImages[0]);
+
+    if (thumbnailStrip instanceof HTMLElement) {
+      const firstThumbnail = thumbnailStrip.firstElementChild;
+      const thumbnailClassName =
+        firstThumbnail instanceof HTMLElement
+          ? firstThumbnail.className
+          : "w-20 h-20 rounded-xl bg-surface-container-high overflow-hidden cursor-pointer hover:opacity-80 transition-opacity";
+
+      thumbnailStrip.innerHTML = "";
+
+      const thumbnailNodes = detailImages.map((image, index) => {
+        const thumb = document.createElement("div");
+        thumb.className = thumbnailClassName;
+        thumb.style.cursor = "pointer";
+
+        const thumbImage = document.createElement("img");
+        thumbImage.className = "w-full h-full object-cover";
+        thumbImage.src = image.url;
+        thumbImage.alt = image.alt || `Product thumbnail ${index + 1}`;
+
+        thumb.appendChild(thumbImage);
+        thumbnailStrip.appendChild(thumb);
+        return thumb;
+      });
+
+      const setActiveThumbnail = (activeIndex) => {
+        thumbnailNodes.forEach((thumb, index) => {
+          activeClasses.forEach((className) => {
+            thumb.classList.toggle(className, index === activeIndex);
+          });
+        });
+
+        setHeroFromImage(detailImages[activeIndex]);
+      };
+
+      thumbnailNodes.forEach((thumb, index) => {
+        thumb.addEventListener("click", () => {
+          setActiveThumbnail(index);
+        });
+      });
+
+      setActiveThumbnail(0);
+    }
+  }
+
+  if (heroImageEl instanceof HTMLImageElement && resolvedData.image && !hasDetailImages) {
+    heroImageEl.src = resolvedData.image;
+    if (resolvedData.title) {
+      heroImageEl.alt = resolvedData.title;
+    }
+  }
+}
+
 async function addToCart(productId, quantity) {
   return apiFetch("/api/cart/items", {
     method: "POST",
@@ -1564,16 +2037,6 @@ function resolveIndexFallbackProductId(button) {
   }
 
   return null;
-}
-
-function markUnavailableIndexButton(button) {
-  if (!(button instanceof HTMLButtonElement)) {
-    return;
-  }
-
-  button.title = "Product unavailable right now";
-  button.style.opacity = "0.6";
-  button.style.cursor = "not-allowed";
 }
 
 function isIconOnlyAddButton(button) {
@@ -2367,6 +2830,389 @@ async function hydrateAdminOrdersPage() {
   await fetchAndRender();
 }
 
+function formatAdminUserDate(isoDate) {
+  const date = new Date(isoDate);
+
+  if (Number.isNaN(date.getTime())) {
+    return "-";
+  }
+
+  return new Intl.DateTimeFormat(undefined, {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(date);
+}
+
+function displayNameFromEmail(email) {
+  const value = String(email || "").trim();
+
+  if (!value.includes("@")) {
+    return value || "Unknown";
+  }
+
+  const local = value.split("@")[0];
+  return local
+    .split(/[._-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function userRoleChipClass(role) {
+  const normalized = normalizeText(role).toUpperCase();
+
+  if (normalized === "ADMIN") {
+    return "admin";
+  }
+
+  if (normalized === "STAFF") {
+    return "staff";
+  }
+
+  return "user";
+}
+
+function userRoleLabel(role) {
+  const normalized = normalizeText(role).toUpperCase();
+
+  if (normalized === "ADMIN") {
+    return "Admin";
+  }
+
+  if (normalized === "STAFF") {
+    return "Staff";
+  }
+
+  return "Customer";
+}
+
+function toAdminUserRow(user, currentUserId) {
+  const email = escapeHtml(user.email || "-");
+  const displayName = escapeHtml(displayNameFromEmail(user.email));
+  const role = normalizeText(user.role).toUpperCase() || "CUSTOMER";
+  const status = normalizeText(user.status).toUpperCase() || "DISABLED";
+  const statusClass = status === "ENABLED" ? "live" : "disabled";
+  const verificationLabel = status === "ENABLED" ? "Account Active" : "Access Paused";
+  const verificationClass = status === "ENABLED" ? "live" : "pending";
+  const lastUpdated = escapeHtml(formatAdminUserDate(user.updatedAt));
+  const userId = escapeHtml(user.id || "");
+  const isCurrentUser = currentUserId && currentUserId === user.id;
+
+  return `
+    <tr>
+      <td><strong>${displayName}</strong><br /><span class="hint">${email}${
+    isCurrentUser ? " (you)" : ""
+  }</span></td>
+      <td><span class="chip ${userRoleChipClass(role)}">${escapeHtml(userRoleLabel(role))}</span></td>
+      <td><span class="chip ${statusClass}">${escapeHtml(status === "ENABLED" ? "Enabled" : "Disabled")}</span></td>
+      <td><span class="chip ${verificationClass}">${escapeHtml(verificationLabel)}</span></td>
+      <td>${lastUpdated}</td>
+      <td>
+        <div class="row-actions">
+          <button class="mini" data-action="set-user-role" data-user-id="${userId}" data-current-role="${escapeHtml(
+    role
+  )}" type="button">Set Role</button>
+          <button class="mini" data-action="toggle-user-status" data-user-id="${userId}" data-current-status="${escapeHtml(
+    status
+  )}" type="button">${status === "ENABLED" ? "Disable" : "Enable"}</button>
+        </div>
+      </td>
+    </tr>
+  `;
+}
+
+function getAdminUsersControls() {
+  const tableBody = selectAdminTableBody('tbody[data-ps-admin-users-tbody]');
+
+  if (!tableBody) {
+    return null;
+  }
+
+  const searchInput = selectAdminSearchInput('input[data-ps-admin-users-search]');
+  const roleFilter = document.querySelector('select[data-ps-admin-users-role-filter]');
+  const statusFilter = document.querySelector('select[data-ps-admin-users-status-filter]');
+
+  return {
+    tableBody,
+    searchInput: searchInput instanceof HTMLInputElement ? searchInput : null,
+    roleFilter: roleFilter instanceof HTMLSelectElement ? roleFilter : null,
+    statusFilter: statusFilter instanceof HTMLSelectElement ? statusFilter : null
+  };
+}
+
+function updateAdminUsersMetrics(summary) {
+  const setMetric = (key, value) => {
+    const node = document.querySelector(`[data-ps-admin-users-metric="${key}"]`);
+
+    if (!(node instanceof HTMLElement)) {
+      return;
+    }
+
+    node.textContent = String(Number.isFinite(Number(value)) ? Number(value) : 0);
+  };
+
+  setMetric("total", summary && summary.total);
+  setMetric("enabled", summary && summary.enabled);
+  setMetric("disabled", summary && summary.disabled);
+  setMetric("admins", summary && summary.admins);
+}
+
+function wireAdminChangePasswordForm() {
+  const form = document.querySelector('form[data-ps-admin-change-password-form]');
+
+  if (!(form instanceof HTMLFormElement) || form.dataset.psWired === "true") {
+    return;
+  }
+
+  form.dataset.psWired = "true";
+
+  const currentPasswordInput = form.querySelector('input[name="currentPassword"]');
+  const newPasswordInput = form.querySelector('input[name="newPassword"]');
+  const confirmPasswordInput = form.querySelector('input[name="confirmPassword"]');
+  const feedbackEl = form.querySelector('[data-ps-admin-change-password-feedback]');
+
+  if (
+    !(currentPasswordInput instanceof HTMLInputElement) ||
+    !(newPasswordInput instanceof HTMLInputElement) ||
+    !(confirmPasswordInput instanceof HTMLInputElement)
+  ) {
+    return;
+  }
+
+  const setFeedback = (message, isError) => {
+    if (!(feedbackEl instanceof HTMLElement)) {
+      return;
+    }
+
+    feedbackEl.textContent = message || "";
+    feedbackEl.style.color = isError ? "#93000a" : "#005b59";
+  };
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    setFeedback("", false);
+
+    const currentPassword = currentPasswordInput.value;
+    const newPassword = newPasswordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+
+    if (newPassword.length < 8) {
+      setFeedback("New password must be at least 8 characters.", true);
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setFeedback("New password and confirm password must match.", true);
+      return;
+    }
+
+    try {
+      const result = await withAdminAuth(() =>
+        apiFetch("/api/admin/auth/change-password", {
+          method: "POST",
+          body: JSON.stringify({
+            currentPassword,
+            newPassword
+          })
+        })
+      );
+
+      if (!result) {
+        return;
+      }
+
+      currentPasswordInput.value = "";
+      newPasswordInput.value = "";
+      confirmPasswordInput.value = "";
+      setFeedback("Password updated.", false);
+    } catch (error) {
+      const message =
+        error && typeof error === "object" && typeof error.message === "string"
+          ? error.message
+          : "Unable to update password";
+      setFeedback(message, true);
+    }
+  });
+}
+
+async function hydrateAdminUsersPage() {
+  const controls = getAdminUsersControls();
+  wireAdminChangePasswordForm();
+
+  if (!controls) {
+    return;
+  }
+
+  const state = {
+    q: "",
+    role: "ALL",
+    status: "ALL"
+  };
+
+  const fetchAndRender = async () => {
+    try {
+      const params = new URLSearchParams();
+
+      if (state.q) {
+        params.set("q", state.q);
+      }
+
+      if (state.role !== "ALL") {
+        params.set("role", state.role);
+      }
+
+      if (state.status !== "ALL") {
+        params.set("status", state.status);
+      }
+
+      params.set("limit", "200");
+
+      const payload = await withAdminAuth(() => apiFetch(`/api/admin/users?${params.toString()}`));
+
+      if (!payload) {
+        return;
+      }
+
+      const users = Array.isArray(payload.users) ? payload.users : [];
+      const currentUserId =
+        typeof payload.currentUserId === "string" && payload.currentUserId
+          ? payload.currentUserId
+          : "";
+
+      updateAdminUsersMetrics(payload.summary || null);
+
+      if (users.length === 0) {
+        controls.tableBody.innerHTML =
+          '<tr><td class="hint" colspan="6">No users found for the current filters.</td></tr>';
+        return;
+      }
+
+      controls.tableBody.innerHTML = users.map((user) => toAdminUserRow(user, currentUserId)).join("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  controls.tableBody.addEventListener("click", async (event) => {
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const actionButton = target.closest("button[data-action]");
+
+    if (!(actionButton instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const action = actionButton.dataset.action;
+    const userId = actionButton.dataset.userId;
+
+    if (!action || !userId) {
+      return;
+    }
+
+    if (action === "set-user-role") {
+      const defaultRole = (actionButton.dataset.currentRole || "STAFF").toUpperCase();
+      const nextRole = window.prompt("Enter role: ADMIN, STAFF, CUSTOMER", defaultRole);
+
+      if (!nextRole) {
+        return;
+      }
+
+      const normalizedRole = nextRole.trim().toUpperCase();
+
+      if (!["ADMIN", "STAFF", "CUSTOMER"].includes(normalizedRole)) {
+        alert("Invalid role");
+        return;
+      }
+
+      try {
+        const result = await withAdminAuth(() =>
+          apiFetch(`/api/admin/users/${encodeURIComponent(userId)}`, {
+            method: "PATCH",
+            body: JSON.stringify({ role: normalizedRole })
+          })
+        );
+
+        if (!result) {
+          return;
+        }
+
+        await fetchAndRender();
+      } catch (error) {
+        const message =
+          error && typeof error === "object" && typeof error.message === "string"
+            ? error.message
+            : "Unable to update role";
+        alert(message);
+      }
+    }
+
+    if (action === "toggle-user-status") {
+      const currentStatus = (actionButton.dataset.currentStatus || "ENABLED").toUpperCase();
+      const nextStatus = currentStatus === "ENABLED" ? "DISABLED" : "ENABLED";
+
+      if (!window.confirm(`Set account status to ${nextStatus}?`)) {
+        return;
+      }
+
+      try {
+        const result = await withAdminAuth(() =>
+          apiFetch(`/api/admin/users/${encodeURIComponent(userId)}`, {
+            method: "PATCH",
+            body: JSON.stringify({ status: nextStatus })
+          })
+        );
+
+        if (!result) {
+          return;
+        }
+
+        await fetchAndRender();
+      } catch (error) {
+        const message =
+          error && typeof error === "object" && typeof error.message === "string"
+            ? error.message
+            : "Unable to update status";
+        alert(message);
+      }
+    }
+  });
+
+  if (controls.searchInput) {
+    let debounceId = 0;
+
+    controls.searchInput.addEventListener("input", () => {
+      window.clearTimeout(debounceId);
+      debounceId = window.setTimeout(() => {
+        state.q = controls.searchInput ? controls.searchInput.value.trim() : "";
+        fetchAndRender();
+      }, 200);
+    });
+  }
+
+  if (controls.roleFilter) {
+    controls.roleFilter.addEventListener("change", () => {
+      state.role = (controls.roleFilter ? controls.roleFilter.value : "ALL").toUpperCase();
+      fetchAndRender();
+    });
+  }
+
+  if (controls.statusFilter) {
+    controls.statusFilter.addEventListener("change", () => {
+      state.status = (controls.statusFilter ? controls.statusFilter.value : "ALL").toUpperCase();
+      fetchAndRender();
+    });
+  }
+
+  await fetchAndRender();
+}
+
 function toAdminProductRow(product) {
   const productName = escapeHtml(product.name);
   const productImage = escapeHtml(product.image || "");
@@ -2583,9 +3429,61 @@ function collectAdminProductFormPayload(formFields) {
     category: categoryToStoreValue(rawCategory),
     price,
     description: formFields.description?.value.trim() || null,
-    stockQty,
-    image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=800&q=80"
+    stockQty
   };
+}
+
+function readProductImageUrls(product) {
+  const fromImages = Array.isArray(product?.images)
+    ? product.images.map((entry) => {
+        if (typeof entry === "string") {
+          return entry;
+        }
+
+        if (entry && typeof entry === "object" && typeof entry.url === "string") {
+          return entry.url;
+        }
+
+        return "";
+      })
+    : [];
+
+  const legacyImage = typeof product?.image === "string" ? product.image : "";
+  return normalizeUrlList([...fromImages, legacyImage]);
+}
+
+function renderAdminProductImageList(listEl, imageUrls) {
+  if (!(listEl instanceof HTMLElement)) {
+    return;
+  }
+
+  if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+    listEl.innerHTML =
+      '<li class="text-xs text-on-surface-variant">No images yet. Add at least one URL.</li>';
+    return;
+  }
+
+  listEl.innerHTML = imageUrls
+    .map((url, index) => {
+      const encodedUrl = escapeHtml(url);
+      const isPrimary = index === 0;
+
+      return `
+        <li class="flex items-center justify-between gap-3 rounded-xl bg-surface-container-low px-3 py-2" data-index="${index}">
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-semibold text-on-surface">${isPrimary ? "Primary" : `Image ${index + 1}`}</div>
+            <div class="text-xs text-on-surface-variant truncate">${encodedUrl}</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button class="px-2 py-1 text-xs rounded border border-outline-variant" data-action="move-up" type="button">Up</button>
+            <button class="px-2 py-1 text-xs rounded border border-outline-variant" data-action="move-down" type="button">Down</button>
+            <button class="px-2 py-1 text-xs rounded border border-outline-variant" data-action="make-primary" type="button">Primary</button>
+            <button class="px-2 py-1 text-xs rounded border border-outline-variant text-error" data-action="remove" type="button">Remove</button>
+          </div>
+        </li>
+      `;
+    })
+    .join("");
 }
 
 async function hydrateAdminProductForm() {
@@ -2604,10 +3502,101 @@ async function hydrateAdminProductForm() {
     description: findAdminProductField("description", "Product Story"),
     stockQty: findAdminProductField("stockQty", "Current Stock")
   };
+  const imageInput = document.querySelector('[data-ps-admin-product-image-input="true"]');
+  const addImageButton = document.querySelector('[data-ps-admin-product-image-add="true"]');
+  const imagesList = document.querySelector('[data-ps-admin-product-images-list="true"]');
+  const imageState = {
+    urls: []
+  };
 
   if (!saveButton || !formFields.name || !formFields.price || !formFields.category) {
     return;
   }
+
+  const renderImages = () => {
+    renderAdminProductImageList(imagesList, imageState.urls);
+  };
+
+  const addImage = () => {
+    if (!(imageInput instanceof HTMLInputElement)) {
+      return;
+    }
+
+    const nextUrl = imageInput.value.trim();
+    if (!nextUrl) {
+      return;
+    }
+
+    imageState.urls = normalizeUrlList([...imageState.urls, nextUrl]);
+    imageInput.value = "";
+    renderImages();
+  };
+
+  if (addImageButton instanceof HTMLButtonElement) {
+    addImageButton.addEventListener("click", addImage);
+  }
+
+  if (imageInput instanceof HTMLInputElement) {
+    imageInput.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") {
+        return;
+      }
+
+      event.preventDefault();
+      addImage();
+    });
+  }
+
+  if (imagesList instanceof HTMLElement) {
+    imagesList.addEventListener("click", (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const button = target.closest("button[data-action]");
+      const row = target.closest("li[data-index]");
+
+      if (!(button instanceof HTMLButtonElement) || !(row instanceof HTMLElement)) {
+        return;
+      }
+
+      const index = Number(row.dataset.index);
+      if (!Number.isInteger(index) || index < 0 || index >= imageState.urls.length) {
+        return;
+      }
+
+      const action = button.dataset.action;
+
+      if (action === "remove") {
+        imageState.urls.splice(index, 1);
+      }
+
+      if (action === "move-up" && index > 0) {
+        const moved = imageState.urls[index];
+        imageState.urls.splice(index, 1);
+        imageState.urls.splice(index - 1, 0, moved);
+      }
+
+      if (action === "move-down" && index < imageState.urls.length - 1) {
+        const moved = imageState.urls[index];
+        imageState.urls.splice(index, 1);
+        imageState.urls.splice(index + 1, 0, moved);
+      }
+
+      if (action === "make-primary" && index > 0) {
+        const moved = imageState.urls[index];
+        imageState.urls.splice(index, 1);
+        imageState.urls.unshift(moved);
+      }
+
+      imageState.urls = normalizeUrlList(imageState.urls);
+      renderImages();
+    });
+  }
+
+  renderImages();
 
   const search = new URLSearchParams(window.location.search);
   const productId = search.get("id");
@@ -2632,6 +3621,8 @@ async function hydrateAdminProductForm() {
         setControlValue(formFields.price, product.price);
         setControlValue(formFields.description, product.description);
         setControlValue(formFields.stockQty, product.stockQty);
+        imageState.urls = readProductImageUrls(product);
+        renderImages();
       }
     } catch (error) {
       console.error(error);
@@ -2641,7 +3632,10 @@ async function hydrateAdminProductForm() {
   saveButton.addEventListener("click", async (event) => {
     event.preventDefault();
 
-    const payload = collectAdminProductFormPayload(formFields);
+    const payload = {
+      ...collectAdminProductFormPayload(formFields),
+      images: normalizeUrlList(imageState.urls)
+    };
 
     if (!payload.name || !Number.isFinite(payload.price) || payload.price < 0) {
       alert("Please provide name and a valid price");

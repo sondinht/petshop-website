@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin } from "@/src/server/auth/adminSession";
+import { requireBackofficeUser } from "@/src/server/auth/adminSession";
 import { createProduct, listAdminProducts } from "@/src/server/productRepo";
 
 const FALLBACK_IMAGE =
@@ -14,11 +14,22 @@ function normalizeOptionalString(value: unknown): string | null {
   return normalized.length > 0 ? normalized : null;
 }
 
+function parseImageList(input: Record<string, unknown> | null): string[] {
+  const fromArray = Array.isArray(input?.images)
+    ? input.images
+        .map((value) => normalizeOptionalString(value))
+        .filter((value): value is string => Boolean(value))
+    : [];
+  const legacy = normalizeOptionalString(input?.image);
+  const ordered = fromArray.length > 0 ? fromArray : legacy ? [legacy] : [];
+  return Array.from(new Set(ordered));
+}
+
 function parseCreatePayload(body: unknown) {
   const input = body as Record<string, unknown> | null;
   const name = normalizeOptionalString(input?.name);
   const category = normalizeOptionalString(input?.category);
-  const image = normalizeOptionalString(input?.image) ?? FALLBACK_IMAGE;
+  const images = parseImageList(input);
   const price = Number(input?.price);
   const stockQtyRaw = input?.stockQty;
   const stockQty =
@@ -39,7 +50,7 @@ function parseCreatePayload(body: unknown) {
       name,
       category,
       price,
-      image,
+      images: images.length > 0 ? images : [FALLBACK_IMAGE],
       sku: normalizeOptionalString(input?.sku),
       description: normalizeOptionalString(input?.description),
       brand: normalizeOptionalString(input?.brand),
@@ -59,7 +70,7 @@ function hasPrismaErrorCode(error: unknown, code: string): boolean {
 
 export async function GET(request: NextRequest) {
   try {
-    await requireAdmin(request);
+    await requireBackofficeUser(request);
     const products = await listAdminProducts();
     return NextResponse.json({ products });
   } catch {
@@ -69,7 +80,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    await requireAdmin(request);
+    await requireBackofficeUser(request);
   } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

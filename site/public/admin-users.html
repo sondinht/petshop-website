@@ -84,33 +84,38 @@
     <header class="ps-admin-topbar">
       <div class="ps-admin-topbar-title">
         <h1>Users</h1>
-        <p>Manage internal staff accounts, roles, and verification readiness.</p>
+        <p>Manage customer and backoffice accounts, roles, and account status.</p>
       </div>
       <div class="ps-admin-topbar-actions">
-        <input class="ps-input" data-ps-admin-search="true" data-ps-admin-users-search type="text" placeholder="Search by name, email, team" />
-        <select class="filter"><option>All roles</option><option>Admin</option><option>Staff</option><option>User</option></select>
-        <select class="filter"><option>All statuses</option><option>Verified</option><option>Pending</option><option>Disabled</option></select>
+        <input class="ps-input" data-ps-admin-search="true" data-ps-admin-users-search type="text" placeholder="Search by email" />
+        <select class="filter" data-ps-admin-users-role-filter>
+          <option value="ALL">All roles</option>
+          <option value="ADMIN">Admin</option>
+          <option value="STAFF">Staff</option>
+          <option value="CUSTOMER">Customer</option>
+        </select>
+        <select class="filter" data-ps-admin-users-status-filter>
+          <option value="ALL">All statuses</option>
+          <option value="ENABLED">Enabled</option>
+          <option value="DISABLED">Disabled</option>
+        </select>
         <a class="ps-btn ps-btn--secondary" href="admin-user-verification.html">Open Verification Queue</a>
-        <a class="ps-btn ps-btn--primary" href="admin-product-form.html">Invite Staff</a>
       </div>
     </header>
 
     <div class="ps-admin-page">
       <section class="metrics">
-        <article class="card ps-card ps-card--pad"><span class="eyebrow">Total Staff</span><span class="metric">42</span><span class="hint">Across operations, content, support, and merchandising</span></article>
-        <article class="card ps-card ps-card--pad"><span class="eyebrow">Pending Verification</span><span class="metric">6</span><span class="hint">2 urgent reviews due before today's shift</span></article>
-        <article class="card ps-card ps-card--pad"><span class="eyebrow">Disabled Accounts</span><span class="metric">3</span><span class="hint">Temporarily paused for policy, leave, or access cleanup</span></article>
-        <article class="card ps-card ps-card--pad"><span class="eyebrow">Admins</span><span class="metric">5</span><span class="hint">Full control over pricing, orders, content, and permissions</span></article>
+        <article class="card ps-card ps-card--pad"><span class="eyebrow">Total Users</span><span class="metric" data-ps-admin-users-metric="total">0</span><span class="hint">All customer and internal accounts in the database</span></article>
+        <article class="card ps-card ps-card--pad"><span class="eyebrow">Enabled Users</span><span class="metric" data-ps-admin-users-metric="enabled">0</span><span class="hint">Accounts that can currently sign in</span></article>
+        <article class="card ps-card ps-card--pad"><span class="eyebrow">Disabled Accounts</span><span class="metric" data-ps-admin-users-metric="disabled">0</span><span class="hint">Access paused by policy or admin action</span></article>
+        <article class="card ps-card ps-card--pad"><span class="eyebrow">Enabled Admins</span><span class="metric" data-ps-admin-users-metric="admins">0</span><span class="hint">Admin users with full privileged access</span></article>
       </section>
       <section class="content">
         <div class="table-wrap ps-card ps-card--pad">
           <table data-ps-admin-table="true" data-ps-admin-primary-table="true">
             <thead><tr><th>Staff</th><th>Role</th><th>Status</th><th>Verification</th><th>Last Active</th><th>Actions</th></tr></thead>
             <tbody data-ps-admin-users-tbody data-ps-admin-table-body="true">
-              <tr><td><strong>Mai Nguyen</strong><br /><span class="hint">mai@petshop.co</span></td><td><span class="chip admin">Admin</span></td><td><span class="chip live">Enabled</span></td><td><span class="chip live">Verified</span></td><td>4 min ago</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">Review</a><a class="mini" href="admin-users.html">Assign Role</a></div></td></tr>
-              <tr><td><strong>Jasper Reed</strong><br /><span class="hint">jasper.ops@petshop.co</span></td><td><span class="chip staff">Staff</span></td><td><span class="chip live">Enabled</span></td><td><span class="chip pending">Pending Docs</span></td><td>18 min ago</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">Open Queue</a><a class="mini" href="admin-users.html">Disable</a></div></td></tr>
-              <tr><td><strong>Luna Hart</strong><br /><span class="hint">luna.blog@petshop.co</span></td><td><span class="chip staff">Staff</span></td><td><span class="chip live">Enabled</span></td><td><span class="chip live">Verified</span></td><td>42 min ago</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">View Record</a><a class="mini" href="admin-blog.html">Open Blog</a></div></td></tr>
-              <tr><td><strong>Oliver Stone</strong><br /><span class="hint">oliver.temp@petshop.co</span></td><td><span class="chip user">User</span></td><td><span class="chip disabled">Disabled</span></td><td><span class="chip pending">Needs Review</span></td><td>Yesterday</td><td><div class="row-actions"><a class="mini" href="admin-user-verification.html">Escalate</a><a class="mini" href="admin-users.html">Enable</a></div></td></tr>
+              <tr><td class="hint" colspan="6">Loading users...</td></tr>
             </tbody>
           </table>
         </div>
@@ -120,17 +125,27 @@
             <div class="stack">
               <div class="role-card"><strong>Admin</strong><span>Full control over products, prices, orders, blog publishing, user roles, and verification actions.</span></div>
               <div class="role-card"><strong>Staff</strong><span>Operational access for catalog, content, and order workflows. No permission escalation without admin approval.</span></div>
-              <div class="role-card"><strong>User</strong><span>Exists in system taxonomy for limited access cases, but not the primary target of this internal staff management view.</span></div>
+              <div class="role-card"><strong>Customer</strong><span>Storefront account role. Can be promoted to staff or admin by an enabled admin.</span></div>
             </div>
           </section>
           <section class="feed ps-card ps-card--pad">
-            <h2 class="section-title">Recent Activity</h2>
-            <div class="stack">
-              <div class="feed-item"><strong>2 new invites sent</strong><span>Operations and customer care staff were invited for next week onboarding.</span></div>
-              <div class="feed-item"><strong>Verification requested for Jasper Reed</strong><span>Missing identity document and supervisor confirmation. Continue in the verification queue.</span></div>
-              <div class="feed-item"><strong>Access cleanup completed</strong><span>Three inactive temporary accounts were disabled after policy review.</span></div>
-              <a class="ps-btn ps-btn--primary" href="admin-user-verification.html">Go To Verification</a>
-            </div>
+            <h2 class="section-title">Change My Password</h2>
+            <form class="stack" data-ps-admin-change-password-form>
+              <div class="feed-item">
+                <strong>Current Password</strong>
+                <input class="ps-input" data-ps-admin-current-password name="currentPassword" required type="password" autocomplete="current-password" />
+              </div>
+              <div class="feed-item">
+                <strong>New Password</strong>
+                <input class="ps-input" data-ps-admin-new-password name="newPassword" required type="password" autocomplete="new-password" minlength="8" />
+              </div>
+              <div class="feed-item">
+                <strong>Confirm New Password</strong>
+                <input class="ps-input" data-ps-admin-confirm-password name="confirmPassword" required type="password" autocomplete="new-password" minlength="8" />
+              </div>
+              <p class="hint" data-ps-admin-change-password-feedback></p>
+              <button class="ps-btn ps-btn--primary" data-ps-admin-change-password-submit type="submit">Update Password</button>
+            </form>
           </section>
         </div>
       </section>
