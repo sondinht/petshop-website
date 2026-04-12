@@ -9,10 +9,10 @@ datasource db {
 
 model Product {
   id          String      @id @default(cuid())
+  publicId    String?     @unique
   name        String
   price       Float
   category    String
-  image       String
   sku         String?
   description String?
   brand       String?
@@ -21,10 +21,26 @@ model Product {
   updatedAt   DateTime    @updatedAt
   cartItems   CartItem[]
   orderItems  OrderItem[]
+  images      ProductImage[]
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  url       String
+  alt       String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sortOrder])
+  @@unique([productId, url])
 }
 
 enum UserRole {
   ADMIN
+  STAFF
   CUSTOMER
 }
 
@@ -38,6 +54,7 @@ model User {
   email        String     @unique
   passwordHash String
   role         UserRole   @default(CUSTOMER)
+  tokenVersion Int        @default(0)
   status       UserStatus @default(ENABLED)
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt

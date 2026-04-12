@@ -3,12 +3,13 @@ import path from "node:path";
 import { parse } from "node-html-parser";
 import { NextRequest, NextResponse } from "next/server";
 import { legacyAllowlist } from "@/src/legacy/manifest";
-import { getCurrentAdmin } from "@/src/server/auth/adminSession";
+import { requireBackofficeUser } from "@/src/server/auth/adminSession";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const publicDir = path.join(process.cwd(), "public");
+const ADMIN_ONLY_PAGES = new Set(["admin-users.html", "admin-user-verification.html"]);
 
 function normalizeAdminPage(rawPage: string | null): string | null {
   const page = (rawPage || "").trim().replace(/\\/g, "/").replace(/^\/+/, "");
@@ -35,10 +36,16 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Invalid admin page" }, { status: 400 });
   }
 
-  const admin = await getCurrentAdmin(request);
+  let user;
 
-  if (!admin || admin.status !== "ENABLED") {
+  try {
+    user = await requireBackofficeUser(request);
+  } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (ADMIN_ONLY_PAGES.has(page) && user.role !== "ADMIN") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const absolutePath = path.join(publicDir, page);

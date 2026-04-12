@@ -13,6 +13,8 @@ npm run prisma:seed
 npm run dev
 ```
 
+Admin login in local development expects `ADMIN_SEED_EMAIL` and `ADMIN_SEED_PASSWORD` in `site/.env`, and a migrated/seeded database.
+
 ## Database (Prisma)
 
 1. Copy `.env.example` to `.env`.
