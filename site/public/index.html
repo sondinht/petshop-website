@@ -91,30 +91,7 @@
       </style>
 </head>
 <body class="bg-background text-on-background font-body selection:bg-secondary-container/30">
-<!-- Header (Shared Component: TopNavBar) -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm font-['Plus_Jakarta_Sans'] tracking-tight">
-<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-<div class="text-2xl font-black text-blue-900 dark:text-blue-100">PetShop</div>
-<div class="hidden md:flex items-center gap-8">
-<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 transition-all duration-200 hover:opacity-80" href="index.html">Home</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="dogs.html">Dogs</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="cats.html">Cats</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="accessories.html">Accessories</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="blog.html">Blog</a>
-</div>
-<div class="flex items-center gap-6">
-<div class="hidden lg:flex items-center bg-slate-100/50 dark:bg-slate-800/50 px-4 py-2 rounded-full">
-<span class="material-symbols-outlined text-slate-500 text-sm">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-32" placeholder="Search..." type="text"/>
-</div>
-<div class="flex items-center gap-4">
-<button class="transition-transform scale-105 active:scale-95"><span class="material-symbols-outlined text-slate-600" data-icon="shopping_cart">shopping_cart</span></button>
-<button class="transition-transform scale-105 active:scale-95"><span class="material-symbols-outlined text-slate-600" data-icon="person">person</span></button>
-<button class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-800 transition-all">Shop Now</button>
-</div>
-</div>
-</div>
-</nav>
+<main>
 <!-- Hero Section -->
 <section class="relative pt-32 pb-24 lg:pt-48 lg:pb-40 bg-primary-container overflow-hidden">
 <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center">
@@ -163,6 +140,7 @@
 <div class="text-secondary font-bold tracking-[0.2em] uppercase text-xs">Limited Time Offer</div>
 <h2 class="text-4xl font-headline font-extrabold text-on-background">Flash Sale</h2>
 </div>
+<div class="flex flex-col items-end gap-3">
 <div class="flex items-center gap-4 bg-surface-container-high px-8 py-4 rounded-2xl">
 <span class="text-on-surface-variant font-medium">Ends in:</span>
 <div class="flex gap-4 text-xl font-bold font-headline text-primary">
@@ -171,77 +149,35 @@
 <span>12 <small class="text-[10px] uppercase opacity-60 block">Sec</small></span>
 </div>
 </div>
+<div class="flex items-center gap-2">
+<button aria-label="Previous flash sale products" class="h-11 w-11 rounded-full border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-colors" data-ps-carousel-nav="true" data-ps-carousel-prev="flash-sale" type="button">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button aria-label="Next flash sale products" class="h-11 w-11 rounded-full border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-colors" data-ps-carousel-nav="true" data-ps-carousel-next="flash-sale" type="button">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-<!-- Product Card 1 -->
+</div>
+</div>
+<template data-ps-product-card-template="flash-sale">
 <div class="group bg-surface-container-lowest rounded-xl p-6 editorial-shadow transition-transform hover:-translate-y-2 flex flex-col h-full">
 <div class="relative mb-6 rounded-lg overflow-hidden bg-surface-container-low aspect-square">
-<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-30%</span>
-<img alt="Luxury Dog Bed" class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="luxury round dog bed in grey velvet fabric resting on a wooden floor in a minimalist living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDrbWGlI2QemlNgkpifb41G9Ae2_UuWzejDq7lIKolG5R6_y8V2elbT8juZJEQ2pnQxGDVVSYPDaZ8qvsWu_aR793OySVSBM2LpXeXEaDaYPGONW0qAtBfg6Qs31L-YdlCdtemB7YqVk-LJCl0e2TQCmqwC1M0tkgQqvesQrW3K9lrDHniOC7x8TOD4Cru6SDcCCYFJ-iX89bY_5YkyhJkIeGutsnLLXsAAg17Qt2LrESW2yjVt3kAFtbUI0HROMwxVHXoPvvo26ZF"/>
+<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">Sale</span>
+<img alt="Product" class="w-full h-full object-cover transition-transform group-hover:scale-110" src=""/>
 </div>
-<h3 class="font-bold text-lg mb-2 text-on-background">Velvet Orthopedic Bed</h3>
+<h3 class="font-bold text-lg mb-2 text-on-background">Product</h3>
 <div class="mt-auto flex justify-between items-center">
-<div>
-<span class="text-2xl font-black text-primary">$89.00</span>
-<span class="text-sm text-outline line-through ml-2">$120.00</span>
+<div class="price-row flex items-end gap-2">
+<strong class="text-2xl font-black text-primary">$0.00</strong>
+<span class="hidden text-sm text-on-surface-variant line-through">$0.00</span>
 </div>
 <button class="bg-secondary-container text-on-secondary-fixed p-3 rounded-full hover:shadow-lg transition-all">
 <span class="material-symbols-outlined block fill-icon">shopping_bag</span>
 </button>
 </div>
 </div>
-<!-- Product Card 2 -->
-<div class="group bg-surface-container-lowest rounded-xl p-6 editorial-shadow transition-transform hover:-translate-y-2 flex flex-col h-full">
-<div class="relative mb-6 rounded-lg overflow-hidden bg-surface-container-low aspect-square">
-<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-15%</span>
-<img alt="Interactive Toy" class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="bright colorful interactive puzzle toy for dogs and cats on a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3QI9Qcq7pJdq3xKXWCvllKVIT-40qzv3Ux12knw_vxYHSiZODJV6ipVoG52mXaeOuf5UeUSDFk_P4LH0gLoBNFFuejsM0YEXBoSEbKQoi0Gy8j51mXe_Q8HjUJVWyqVxJ9a_mtC0ku5w-OLKLDjy9WkA_i4tfgvBZyOC_qEEuEM_tUBGDqP14hR-HAgBwqfuwoRrtrLVu3bTzebi0VDTcvYr0v_dd6nsngc4r33JeHYGHJDsFkQtlXg5QlnhRWRGBajqp8BMyt2S9"/>
-</div>
-<h3 class="font-bold text-lg mb-2 text-on-background">Smart Puzzle Feeder</h3>
-<div class="mt-auto flex justify-between items-center">
-<div>
-<span class="text-2xl font-black text-primary">$24.99</span>
-<span class="text-sm text-outline line-through ml-2">$35.00</span>
-</div>
-<button class="bg-secondary-container text-on-secondary-fixed p-3 rounded-full hover:shadow-lg transition-all">
-<span class="material-symbols-outlined block fill-icon">shopping_bag</span>
-</button>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="group bg-surface-container-lowest rounded-xl p-6 editorial-shadow transition-transform hover:-translate-y-2 flex flex-col h-full">
-<div class="relative mb-6 rounded-lg overflow-hidden bg-surface-container-low aspect-square">
-<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-20%</span>
-<img alt="Premium Cat Food" class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="high quality organic cat food kibble spilling out of a sleek modern packaging design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHlSkYPMl2-m5Jk3GPhQufw8U2hjAhN989QP_OtMTn1LQUHP80j6H0QldZXJNnZc4i5uOj0Z50HrfJaQCkN4aFB5lobEOeDNjs467fGg1kGEwh0gfGqRRWtGwR76d1oHhW-bdGbM_qW-o2aAPLMTJCp3RIeGtCe2LWiASeIMAjClaJgGDYS1Lhud-8ngnZ0iZJ3c37M5UlVbPIOwRNxBXqEkl47shHx30iaHHpVjLXXdIx2TlJ_hcnmogvhSvrj5IYIxHhDVV2XuaJ"/>
-</div>
-<h3 class="font-bold text-lg mb-2 text-on-background">Wild Ocean Cat Grain</h3>
-<div class="mt-auto flex justify-between items-center">
-<div>
-<span class="text-2xl font-black text-primary">$45.00</span>
-<span class="text-sm text-outline line-through ml-2">$55.00</span>
-</div>
-<button class="bg-secondary-container text-on-secondary-fixed p-3 rounded-full hover:shadow-lg transition-all">
-<span class="material-symbols-outlined block fill-icon">shopping_bag</span>
-</button>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="group bg-surface-container-lowest rounded-xl p-6 editorial-shadow transition-transform hover:-translate-y-2 flex flex-col h-full">
-<div class="relative mb-6 rounded-lg overflow-hidden bg-surface-container-low aspect-square">
-<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-50%</span>
-<img alt="Leather Collar" class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="artisanal leather dog collar with gold brass hardware and personalized name tag on soft linen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtY1kSfXkIyAMJjdakLF6b6NoE_0G1pYzyvwmIEOG9y83hypEcefjN0joLHIAXzwjILrkB3B7YxLIcElPPoDd1EduBF-EEqcXl-V1RxXkJEau8XBTESyVbMzi4WiJCk0NNW2L9Uuvfr38qHAlJY6kstcHZxdrnmh_bmrn-y5Ge21NniqPyIyPHOAqaRRizETMb3jKFRvlN9l1UZbgJ7Be0tBNwuCJoN5002yQb8bZo7tkSkUV611Pjgf_NHh3bsmfVG3X5_6hgk41H"/>
-</div>
-<h3 class="font-bold text-lg mb-2 text-on-background">Tan Leather Collar</h3>
-<div class="mt-auto flex justify-between items-center">
-<div>
-<span class="text-2xl font-black text-primary">$15.00</span>
-<span class="text-sm text-outline line-through ml-2">$30.00</span>
-</div>
-<button class="bg-secondary-container text-on-secondary-fixed p-3 rounded-full hover:shadow-lg transition-all">
-<span class="material-symbols-outlined block fill-icon">shopping_bag</span>
-</button>
-</div>
-</div>
-</div>
+</template>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" data-ps-product-grid="flash-sale"></div>
 </div>
 </section>
 <!-- Categories Section -->
@@ -299,80 +235,33 @@
 <div class="max-w-7xl mx-auto px-8">
 <div class="flex justify-between items-center mb-16">
 <h2 class="text-4xl font-headline font-extrabold text-on-background">Best Sellers</h2>
-<a class="text-primary font-bold hover:underline flex items-center gap-2" href="product-detail.html">
-                    View All <span class="material-symbols-outlined">arrow_forward</span>
-</a>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<button aria-label="Previous best sellers products" class="h-11 w-11 rounded-full border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-colors" data-ps-carousel-nav="true" data-ps-carousel-prev="best-sellers" type="button">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button aria-label="Next best sellers products" class="h-11 w-11 rounded-full border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-colors" data-ps-carousel-nav="true" data-ps-carousel-next="best-sellers" type="button">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-<!-- Product 1 -->
+</div>
+</div>
+<template data-ps-product-card-template="best-sellers">
 <div class="flex flex-col space-y-4">
-<div class="bg-surface-container-low rounded-xl overflow-hidden aspect-square">
-<img alt="Luxury Harness" class="w-full h-full object-cover" data-alt="premium mesh dog harness in olive green on a white studio background, highly detailed textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbD6XhHLkPRQa8md3m1OqSScIU05cJ2su7dMvXQl2YbUD9nWVthFwPP0OxtAzxYeCB-MiOtpy4wFEMyvGStGvsiMsHEGVvOlM4KpC3itQL0wSuS0IAQpZUxyvTTX-C4SL9BK9LsJhjv8GZ3bM4NIsJvHEkPsihvBhshvmh8VKLTjkc4XTXss5ezFG4xjSaIxbl0wJotqvsu6CKhnNsqTapQu2N8iigcUN4P-4FOnYrWqWdl3Ya6Db8BAm7FQHo42GHLEK3yDxRf6t8"/>
+<div class="relative bg-surface-container-low rounded-xl overflow-hidden aspect-square">
+<span class="badge absolute top-3 left-3 hidden bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-0%</span>
+<img alt="Product" class="w-full h-full object-cover" src=""/>
 </div>
 <div class="flex flex-col flex-grow">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-yellow-400 text-sm fill-icon">star</span>
-<span class="text-xs font-bold text-on-surface-variant">4.9 (120 reviews)</span>
-</div>
-<h3 class="font-bold text-lg text-on-background mb-1">Comfort Pro Harness</h3>
-<p class="text-primary font-black text-xl mb-4">$34.90</p>
+<h3 class="font-bold text-lg text-on-background mb-1">Product</h3>
+<p class="price-row text-primary font-black text-xl mb-4 flex items-end gap-2"><strong>$0.00</strong><span class="hidden text-sm text-on-surface-variant line-through">$0.00</span></p>
 <button class="w-full py-4 bg-secondary-container text-on-secondary-fixed rounded-full font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-sm">add_shopping_cart</span> Add to Cart
                         </button>
 </div>
 </div>
-<!-- Product 2 -->
-<div class="flex flex-col space-y-4">
-<div class="bg-surface-container-low rounded-xl overflow-hidden aspect-square">
-<img alt="Dog Bowl" class="w-full h-full object-cover" data-alt="ceramic elevated dog feeder with bamboo stand on a light grey stone floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhw0YoDYqrROK7CdvztU37a1Qm6efrRe3ot6-pXOntApQ6r23EV96-BfowwMN4z0tcY0j4zaI1kS8QcLHyhTNxua2ToGhd4Cb4HDhVuTPxOZ4L1-3KiwtXCmG6OKjw6P3S66_XrROXWWLPPytQJiwKB4fiDUBHEXEKjFGQr73lkF7iKGftBRdDZVJxJki32ke5aA3OXdIE_mPOIp0D-WTjsxaN2BXBgZcbOqW1_xxNhmxEZO5fee99UGh8yWvg7WBbaBu9UegY7vQ9"/>
-</div>
-<div class="flex flex-col flex-grow">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-yellow-400 text-sm fill-icon">star</span>
-<span class="text-xs font-bold text-on-surface-variant">4.8 (85 reviews)</span>
-</div>
-<h3 class="font-bold text-lg text-on-background mb-1">Zen Bamboo Bowl</h3>
-<p class="text-primary font-black text-xl mb-4">$22.00</p>
-<button class="w-full py-4 bg-secondary-container text-on-secondary-fixed rounded-full font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-sm">add_shopping_cart</span> Add to Cart
-                        </button>
-</div>
-</div>
-<!-- Product 3 -->
-<div class="flex flex-col space-y-4">
-<div class="bg-surface-container-low rounded-xl overflow-hidden aspect-square">
-<img alt="Cat Scratcher" class="w-full h-full object-cover" data-alt="modern minimalist cat scratching post made of light wood and sisal rope in a sunny apartment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2WoV0p4bp5W5DNmE2pFK9vqRwNIp_VGqetGrh2a9RiaNIAKjXV3zr7jbonvuHav6Gg2VqHv6EFskcCVoZ7QAa-GRyydtpACOfaMPFMkFhhJbj93wxsF3vVjsEJi6EfYHxjhcrCfCm0lx94MU1SIUlx4LY4GVJSHuS5f7B4waZaApnd5kbAPnuEIZDIabijlOA9Kz7leG5HXCgRB4QreEk-0jt4q8BFE9f2wctuVES6ZP91whUD5plq0TjzWGaU617zQj5TmEozWiB"/>
-</div>
-<div class="flex flex-col flex-grow">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-yellow-400 text-sm fill-icon">star</span>
-<span class="text-xs font-bold text-on-surface-variant">4.9 (210 reviews)</span>
-</div>
-<h3 class="font-bold text-lg text-on-background mb-1">Sisal Wave Scratcher</h3>
-<p class="text-primary font-black text-xl mb-4">$45.00</p>
-<button class="w-full py-4 bg-secondary-container text-on-secondary-fixed rounded-full font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-sm">add_shopping_cart</span> Add to Cart
-                        </button>
-</div>
-</div>
-<!-- Product 4 -->
-<div class="flex flex-col space-y-4">
-<div class="bg-surface-container-low rounded-xl overflow-hidden aspect-square">
-<img alt="Organic Shampoo" class="w-full h-full object-cover" data-alt="set of organic pet grooming products in sleek amber glass bottles with minimalist labels" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiOUL1yOauvoo-y6Kxsv-QHScJE_2J4BADKIc9f47n5G5hZt30wFHJJOp70PUVC8iJ5uXIhfE2rFLqUjvyAq1A3VAoV_XE5IiRA5e897CKZv-sr2v4fLfoeagJ_CHU_12XjD2KyhTx9CE3aRGCUbOSlIfO6ma2a8_1eUMv7N2Vx1b1DUlJ48GdQsfiC3eYvOMzeNZlGtpYzDElPfWpv8n2CH-V6f3tHKq4owXDy-u12Y_UPuR_z-ukzcwtpr3FnMclfhvmL1yM1xp2"/>
-</div>
-<div class="flex flex-col flex-grow">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-yellow-400 text-sm fill-icon">star</span>
-<span class="text-xs font-bold text-on-surface-variant">5.0 (42 reviews)</span>
-</div>
-<h3 class="font-bold text-lg text-on-background mb-1">Pure Pet Shampoo</h3>
-<p class="text-primary font-black text-xl mb-4">$18.50</p>
-<button class="w-full py-4 bg-secondary-container text-on-secondary-fixed rounded-full font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-sm">add_shopping_cart</span> Add to Cart
-                        </button>
-</div>
-</div>
-</div>
+</template>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16" data-ps-product-grid="best-sellers"></div>
 </div>
 </section>
 <!-- Promo Banner -->
@@ -474,6 +363,7 @@
 </div>
 </div>
 </section>
+</main>
 <!-- Footer (Shared Component) -->
 <footer class="bg-slate-50 dark:bg-slate-950 w-full pt-16 pb-8 font-['Inter'] text-sm">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto">

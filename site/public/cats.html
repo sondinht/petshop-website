@@ -89,40 +89,16 @@
     </style>
 </head>
 <body class="bg-surface font-body text-on-surface">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
-<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-<a class="text-2xl font-bold tracking-tighter text-blue-700 dark:text-blue-400 font-headline" href="#">PetShop</a>
-<div class="hidden md:flex items-center space-x-8">
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Home</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Dogs</a>
-<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Cats</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Accessories</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:scale-105 font-inter" href="#">Blog</a>
-</div>
-<div class="flex items-center space-x-5">
-<button class="transition-all duration-200 hover:scale-105 text-slate-600">
-<span class="material-symbols-outlined">search</span>
-</button>
-<button class="transition-all duration-200 hover:scale-105 text-slate-600">
-<span class="material-symbols-outlined">shopping_cart</span>
-</button>
-<button class="transition-all duration-200 hover:scale-105 text-slate-600">
-<span class="material-symbols-outlined">person</span>
-</button>
-</div>
-</div>
-</nav>
 <main class="pt-20">
 <!-- Category Hero -->
 <section class="bg-[#EAF3FB] py-20 px-8">
-<div class="max-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12">
 <div class="md:w-1/2 space-y-6">
 <h1 class="text-5xl md:text-7xl font-headline font-bold text-primary tracking-tight leading-none">
                         Purr-fect Essentials for Your Feline
                     </h1>
 <p class="text-xl text-on-surface-variant font-body max-w-lg">
-                        Curated food, cozy trees, and engaging toys for cats of all ages. 
+                        Curated food, cozy trees, and engaging toys for cats of all ages.
                         Expertly selected to keep your companion thriving.
                     </p>
 <div class="flex flex-wrap gap-3 pt-4">
@@ -198,93 +174,25 @@
 </aside>
 <!-- Main Grid -->
 <div class="flex-1">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Product Card 1 -->
+<template data-ps-product-card-template="cats">
 <div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
 <div class="relative h-64 bg-slate-100">
-<img class="w-full h-full object-cover" data-alt="High-end gourmet cat food tin with elegant salmon illustration on a clean white background with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE2mlzyBxeM90VTV1v3eTosJj3cviGpR5PL41fNdHfUf03Mp-SxFdzBemMldWCTeFw3NUSVngkGgMIqa7YX0_3TrzoGggX-pLPwK3mKQXUXLbFAv1s7L7Nc8xbxK4QqYBMiFAiAiF5dBewwmftTln6fdcsE-AFGo8HjoKZ-ox2Ris-h4COUBzyDy7DfVz4vZp4TQg8xjCsUrxo6jgO_JuDdpbkDiByZ0bG88QpQoti8Xboc9vfRplBwJWBzXRTy1-8-lnPQBw3zyPF"/>
-<span class="absolute top-4 left-4 bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">New Arrival</span>
+<span class="badge absolute top-3 left-3 hidden bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-0%</span>
+<img class="w-full h-full object-cover" src="" alt="Product"/>
 </div>
 <div class="p-8 flex flex-col flex-1">
-<span class="text-sm font-label text-on-surface-variant mb-2">Premium Nutrition</span>
-<h4 class="text-xl font-headline font-bold mb-4">Premium Salmon Pate</h4>
+<h4 class="text-xl font-headline font-bold mb-4">Product</h4>
 <div class="mt-auto flex items-center justify-between pt-6">
-<span class="text-2xl font-headline font-bold text-primary">$4.99</span>
+<div class="price-row flex items-end gap-2">
+<strong class="text-2xl font-headline font-bold text-primary">$0.00</strong>
+<span class="hidden text-sm text-on-surface-variant line-through">$0.00</span>
+</div>
 <button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
 </div>
 </div>
 </div>
-<!-- Product Card 2 -->
-<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-64 bg-slate-100">
-<img class="w-full h-full object-cover" data-alt="Modern minimalist bag of cat litter with natural clay texture and clean typography in a bright airy studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY0SZOoEtZjmm5cQG03LISW44IWBWTp8MbvGFX6DLbuXl2I4a6_QYjvoJ2dXLKiAky-4DIDnhbgAAy_pemxx9ezK8f7wyy0sC4DQ1KgLav7FQl2z08qrKeGlHITer1rMU0e7MgzkKi6G_h7UuAhnPYdSu6Zyc6_xBDSJThTdiS29nxV2hIPxp7PcZ_6rI5X2C9KnhMgzesXuMYUd4cpf2d4mEb82nYX8njO7igd8qu6aRG8zISPAGtzPnagvU8URprkkY-zusrn6AG"/>
-</div>
-<div class="p-8 flex flex-col flex-1">
-<span class="text-sm font-label text-on-surface-variant mb-2">Eco-Friendly</span>
-<h4 class="text-xl font-headline font-bold mb-4">Natural Clumping Litter</h4>
-<div class="mt-auto flex items-center justify-between pt-6">
-<span class="text-2xl font-headline font-bold text-primary">$18.50</span>
-<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
-</div>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-64 bg-slate-100">
-<img class="w-full h-full object-cover" data-alt="Luxury multi-level modern cat tree with cream fabric and natural wood scratching posts in a stylish contemporary living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0R4M6gEzuxsj-HM_Du1R6CcqXLOQhY1_Zz-at5pwY39U7OU5uHh4AiS7ao8SVDDmxgse94mRRKQL_VVyvdhkLKoaJaedeznHnsNDXk928R_JEyekjGXTO0r1-o4CyFSZQpdrsucTK-2QLztsW0bSalbxQdrlIRaVx_-iHfzXxZiM6E-bqc3uOwVvLiAD58dT-C6Et396Mz4hjRvjlOm34R0btLP0IbhL4YBFLVEoo471bSFpeywEvCGLWfwUb0NozrC967uVVKx4T"/>
-</div>
-<div class="p-8 flex flex-col flex-1">
-<span class="text-sm font-label text-on-surface-variant mb-2">Furniture</span>
-<h4 class="text-xl font-headline font-bold mb-4">Multi-Level Cat Tree</h4>
-<div class="mt-auto flex items-center justify-between pt-6">
-<span class="text-2xl font-headline font-bold text-primary">$145.00</span>
-<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
-</div>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-64 bg-slate-100">
-<img class="w-full h-full object-cover" data-alt="Set of three organic fabric catnip mice in soft pastel tones arranged on a clean wooden surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl289lLNlm-KUyVLaq0l5cGVrAghRHYX4EIlhZWZKonjs6Oh7lrfoaQ55w_vZwqg5j7PgkWsriLkeWXaBHWkqJtVgSezSUn6N89bXP00mcsM6kDWM7TXW6tzoFhrtV-ieJfg5QdG6sgE5FGnVhcNpCafLkPbVIclbWp5BE5SP3cUlhykR08nlgNs_HGyMtAZTS0laZWQS9iWeHZr__jk3pg13ctVGa6cSZYx4zPDOZDNoe9M2XghDuuIJBwFyExgUiv--4Ebfn9lHK"/>
-</div>
-<div class="p-8 flex flex-col flex-1">
-<span class="text-sm font-label text-on-surface-variant mb-2">Toys &amp; Play</span>
-<h4 class="text-xl font-headline font-bold mb-4">Organic Catnip Mice</h4>
-<div class="mt-auto flex items-center justify-between pt-6">
-<span class="text-2xl font-headline font-bold text-primary">$12.99</span>
-<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
-</div>
-</div>
-</div>
-<!-- Product Card 5 -->
-<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-64 bg-slate-100">
-<img class="w-full h-full object-cover" data-alt="Self-grooming wall corner brush for cats with ergonomic blue bristles being used by a fluffy white cat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQy1KHNjGds9CFoplf0y71jZXOOqmiBNDYEqsmOmO6RxfndcePcwb2DhKuVBgzGqapNk3bNr_zE7OtRSQU8i3MQbaVTRr7YnLFXTNeVq7aQpTduxkR3uFU-lISs-HcONqZX9XBLNO5YHP_C60DZY8C0oGHsexpKRyCZjz-vOqeeMkS2x_R5xYBfQkCFz3OHemrshlCPF4oQJT4BP8lLLSyAfHNsCycCytx_z3O3yxMpz-2YQRx-N0LOOlBMWA9PVtCA53VtsqSR71e"/>
-</div>
-<div class="p-8 flex flex-col flex-1">
-<span class="text-sm font-label text-on-surface-variant mb-2">Grooming</span>
-<h4 class="text-xl font-headline font-bold mb-4">Self-Grooming Wall Brush</h4>
-<div class="mt-auto flex items-center justify-between pt-6">
-<span class="text-2xl font-headline font-bold text-primary">$9.95</span>
-<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
-</div>
-</div>
-</div>
-<!-- Product Card 6 -->
-<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col h-full hover:bg-surface-container-high hover:-translate-y-1 transition-all duration-300">
-<div class="relative h-64 bg-slate-100">
-<img class="w-full h-full object-cover" data-alt="Top view of high-quality dry cat kibble in a minimalist ceramic bowl on a blue-toned surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ_FLbvdeRdlwqkW5baX0xSZqjJPIcx1aElubm1xrvW-0_gzd9c6REJk5TwKDfC5tTDcGjVj8sUyiGu5qN6NvmctEcHqBj2FaPEJF9ABa0ouw8qPyTT_bWg9E_HtxFVLDu0iWZG_iGij4qcoQSwQL1sG7lFMXM1xZdXyVwAyB0z-U8DV_ysrZ6tUJV_mkAumGee0mt-qwBGcNOFzpAQuNlE-fJWthRCACkxOE7AhTDjsri9gNq01T95cKb96fEfmqYk_8ab7DTVtWv"/>
-</div>
-<div class="p-8 flex flex-col flex-1">
-<span class="text-sm font-label text-on-surface-variant mb-2">Dry Food</span>
-<h4 class="text-xl font-headline font-bold mb-4">Grain-Free Kibble</h4>
-<div class="mt-auto flex items-center justify-between pt-6">
-<span class="text-2xl font-headline font-bold text-primary">$32.00</span>
-<button class="bg-secondary-container text-on-secondary-container rounded-full py-3 px-6 hover:scale-105 transition-transform font-bold">Add to Cart</button>
-</div>
-</div>
-</div>
-</div>
+</template>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-ps-product-grid="cats"></div>
 </div>
 </div>
 </section>

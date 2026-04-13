@@ -6,6 +6,7 @@ import {
   patchProduct,
   type AdminProductPatchInput
 } from "@/src/server/productRepo";
+import { isStorefrontPage } from "@/src/server/productTypes";
 
 function normalizeOptionalString(value: unknown): string | null | undefined {
   if (value === undefined) {
@@ -36,6 +37,110 @@ function normalizeImageArray(value: unknown): string[] {
   return Array.from(new Set(normalized));
 }
 
+function normalizeStorefrontPages(value: unknown): string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  const normalized = value
+    .map((entry) => normalizeOptionalString(entry))
+    .filter((entry): entry is string => Boolean(entry))
+    .map((entry) => entry.toLowerCase())
+    .filter((entry) => isStorefrontPage(entry));
+
+  return Array.from(new Set(normalized));
+}
+
+function normalizeVariants(value: unknown):
+  | {
+      variants: Array<{
+        id?: string | null;
+        name: string;
+        price: number;
+        originalPrice: number | null;
+        stockQty: number | null;
+        enabled: boolean;
+        sortOrder: number;
+      }>;
+    }
+  | { error: string } {
+  if (!Array.isArray(value)) {
+    return { variants: [] };
+  }
+
+  const normalized = value
+    .map((entry, index) => {
+      const row = entry as Record<string, unknown>;
+      const id = normalizeOptionalString(row?.id);
+      const name = normalizeOptionalString(row?.name);
+      const price = Number(row?.price);
+      const rawOriginalPrice = row?.originalPrice;
+      const originalPrice =
+        rawOriginalPrice === undefined || rawOriginalPrice === null || rawOriginalPrice === ""
+          ? null
+          : Number(rawOriginalPrice);
+      const rawStockQty = row?.stockQty;
+      const stockQty =
+        rawStockQty === undefined || rawStockQty === null || rawStockQty === ""
+          ? null
+          : Number(rawStockQty);
+      const enabled = row?.enabled === undefined ? true : row?.enabled;
+      const sortOrder = row?.sortOrder === undefined ? index : Number(row?.sortOrder);
+
+      return {
+        id,
+        name,
+        price,
+        originalPrice,
+        stockQty,
+        enabled,
+        sortOrder
+      };
+    })
+    .filter((variant) => Boolean(variant.name));
+
+  for (const variant of normalized) {
+    if (!variant.name) {
+      return { error: "variant name is required" };
+    }
+
+    if (!Number.isFinite(variant.price) || variant.price < 0) {
+      return { error: "variant price must be a non-negative number" };
+    }
+
+    if (typeof variant.enabled !== "boolean") {
+      return { error: "variant enabled must be a boolean" };
+    }
+
+    if (
+      variant.originalPrice !== null &&
+      (!Number.isFinite(variant.originalPrice) || variant.originalPrice < variant.price)
+    ) {
+      return { error: "variant originalPrice must be null or greater than or equal to price" };
+    }
+
+    if (variant.stockQty !== null && (!Number.isInteger(variant.stockQty) || variant.stockQty < 0)) {
+      return { error: "variant stockQty must be a non-negative integer or null" };
+    }
+
+    if (!Number.isInteger(variant.sortOrder) || variant.sortOrder < 0) {
+      return { error: "variant sortOrder must be a non-negative integer" };
+    }
+  }
+
+  return {
+    variants: normalized.map((variant) => ({
+      id: variant.id,
+      name: variant.name as string,
+      price: variant.price,
+      originalPrice: variant.originalPrice,
+      stockQty: variant.stockQty,
+      enabled: variant.enabled as boolean,
+      sortOrder: variant.sortOrder
+    }))
+  };
+}
+
 function parsePatchPayload(body: unknown):
   | { data: AdminProductPatchInput }
   | { error: string } {
@@ -61,6 +166,14 @@ function parsePatchPayload(body: unknown):
       return { error: "category cannot be empty" };
     }
     data.category = category;
+  }
+
+  if ("storefrontPages" in input) {
+    const storefrontPages = normalizeStorefrontPages(input.storefrontPages);
+    if (storefrontPages.length === 0) {
+      return { error: "storefrontPages must include at least one valid page" };
+    }
+    data.storefrontPages = storefrontPages;
   }
 
   if ("images" in input || "image" in input) {
@@ -112,6 +225,40 @@ function parsePatchPayload(body: unknown):
     data.description = description ?? null;
   }
 
+  if ("enabled" in input) {
+    if (typeof input.enabled !== "boolean") {
+      return { error: "enabled must be a boolean" };
+    }
+
+    data.enabled = input.enabled;
+  }
+
+  if ("flashSaleEligible" in input) {
+    if (typeof input.flashSaleEligible !== "boolean") {
+      return { error: "flashSaleEligible must be a boolean" };
+    }
+
+    data.flashSaleEligible = input.flashSaleEligible;
+  }
+
+  if ("bestSeller" in input) {
+    if (typeof input.bestSeller !== "boolean") {
+      return { error: "bestSeller must be a boolean" };
+    }
+
+    data.bestSeller = input.bestSeller;
+  }
+
+  if ("variants" in input) {
+    const parsedVariants = normalizeVariants(input.variants);
+
+    if ("error" in parsedVariants) {
+      return { error: parsedVariants.error };
+    }
+
+    data.variants = parsedVariants.variants;
+  }
+
   if (Object.keys(data).length === 0) {
     return { error: "No fields to update" };
   }
@@ -147,7 +294,7 @@ export async function GET(
     return unauthorized;
   }
 
-  const product = await getProductById(context.params.id);
+  const product = await getProductById(context.params.id, { includeDisabled: true });
 
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });

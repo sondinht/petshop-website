@@ -4,8 +4,7 @@ import { prisma } from "@/src/server/db/prisma";
 
 export const ADMIN_COOKIE_NAME = "petshop_admin";
 
-const BACKOFFICE_ROLES = ["ADMIN", "STAFF"] as const;
-type BackofficeRole = (typeof BACKOFFICE_ROLES)[number];
+type BackofficeRole = "ADMIN" | "STAFF";
 
 function isBackofficeRole(role: string): role is BackofficeRole {
   return role === "ADMIN" || role === "STAFF";

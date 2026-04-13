@@ -33,7 +33,13 @@ npm run prisma:generate
 npm run prisma:migrate -- --name init
 ```
 
-If you hit migration history issues during early development, run `npx prisma migrate reset`.
+If you are upgrading from an older local DB that used slug product ids/public ids, use a reset so all seeded product ids are UUIDs:
+
+```bash
+npm run prisma:reset
+```
+
+This repo now treats product ids as UUID-only for seeded/new products. To keep existing local data usable, seeding preserves any existing product id for matching product names (including legacy slug ids). For a fully UUID-only local dataset, run `npm run prisma:reset`.
 
 4. Seed products from the current catalog:
 

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { getProductById } from "@/src/server/productRepo";
+import { getProductById, listRelatedProducts } from "@/src/server/productRepo";
 
 export async function GET(
-  _request: Request,
+  request: Request,
   context: { params: { id: string } }
 ) {
   const product = await getProductById(context.params.id);
@@ -11,5 +11,13 @@ export async function GET(
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ product });
+  const url = new URL(request.url);
+  const relatedLimitRaw = url.searchParams.get("relatedLimit");
+  const relatedLimit = relatedLimitRaw ? Number(relatedLimitRaw) : 4;
+  const relatedProducts = await listRelatedProducts(
+    context.params.id,
+    Number.isInteger(relatedLimit) && relatedLimit > 0 ? relatedLimit : 4
+  );
+
+  return NextResponse.json({ product, relatedProducts });
 }

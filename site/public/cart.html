@@ -119,7 +119,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 <!-- Left Column: Cart Items -->
 <div class="lg:col-span-8 space-y-8">
-<div class="space-y-6">
+<div class="space-y-6" data-ps-cart-items="true">
 <!-- Cart Item 1 -->
 <div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col sm:flex-row gap-6 ambient-shadow transition-transform hover:scale-[1.01]">
 <div class="w-full sm:w-40 h-40 rounded-lg overflow-hidden flex-shrink-0">
@@ -205,9 +205,10 @@
 </div>
 <!-- Save for Later -->
 <div>
-<h4 class="font-bold text-lg mb-4 flex items-center gap-2">
+<h4 class="font-bold text-lg mb-4 flex items-center gap-2" data-ps-saved-items-heading="true">
 <span class="material-symbols-outlined">bookmark</span> Saved for Later (1)
                     </h4>
+<div data-ps-saved-items="true">
 <div class="bg-surface-container-lowest opacity-60 rounded-lg p-4 flex gap-4 items-center">
 <div class="w-16 h-16 rounded-md bg-surface-container-high overflow-hidden">
 <img class="w-full h-full object-cover" data-alt="Self-cleaning cat litter box in white futuristic design on wooden floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqu22W3lugiQsH5CK0KDQ6MLXD1YFnSCJH9hhpau3M-d4CzSeqbDwVvthh7fxtQGMgjf7AfYrJti0gwEO0YXxSXG7vvKFOOY7sYBz-ituZ-lGLXe8tDuT7eZhho7sI4cx_Z09Kk4_n8ANsognEVdpliylKm-rYfMunNdoCe9PL4wDO2JiJyrQf5B3Q-LulBXGCwSf1l5Sfc0lBBbLD_c_OIYkMDZgHBQkDbzZKW1jbxt0JvFEPFMK-IiBUBuMrp2DPW115wKqtGXYF"/>
@@ -217,6 +218,7 @@
 <p class="text-xs">$199.00</p>
 </div>
 <button class="text-primary font-bold text-xs uppercase tracking-wider">Move to Cart</button>
+</div>
 </div>
 </div>
 </div>
@@ -279,7 +281,7 @@
 <!-- Cross-sell Section -->
 <section class="mt-32">
 <h2 class="text-3xl font-extrabold font-headline mb-10">Companions Also Bought</h2>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" data-ps-cart-recommendations="true">
 <!-- Product Card 1 -->
 <div class="bg-surface-container-lowest rounded-lg p-4 ambient-shadow group cursor-pointer hover:scale-[1.02] transition-all">
 <div class="aspect-square rounded-lg overflow-hidden mb-4 bg-surface-container-low">

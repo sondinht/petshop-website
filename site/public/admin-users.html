@@ -72,7 +72,7 @@
     <nav class="flex-1 px-4 space-y-1">
       <a href="admin-products.html"><span aria-hidden="true" class="material-symbols-outlined">inventory_2</span><span>Products</span></a>
       <a href="admin-product-form.html"><span aria-hidden="true" class="material-symbols-outlined">edit_note</span><span>Product Form</span></a>
-      <a href="admin-pricing.html"><span aria-hidden="true" class="material-symbols-outlined">sell</span><span>Pricing &amp; Flash Sale</span></a>
+      <a href="admin-flashsale.html"><span aria-hidden="true" class="material-symbols-outlined">sell</span><span>Flash Sale Campaigns</span></a>
       <a href="admin-orders.html"><span aria-hidden="true" class="material-symbols-outlined">shopping_cart</span><span>Orders</span></a>
       <a href="admin-blog.html"><span aria-hidden="true" class="material-symbols-outlined">article</span><span>Blog</span></a>
       <a href="admin-users.html"><span aria-hidden="true" class="material-symbols-outlined">group</span><span>Users</span></a>
@@ -84,7 +84,7 @@
     <header class="ps-admin-topbar">
       <div class="ps-admin-topbar-title">
         <h1>Users</h1>
-        <p>Manage customer and backoffice accounts, roles, and account status.</p>
+        <p>Manage internal admin and staff accounts, roles, and account status.</p>
       </div>
       <div class="ps-admin-topbar-actions">
         <input class="ps-input" data-ps-admin-search="true" data-ps-admin-users-search type="text" placeholder="Search by email" />
@@ -92,21 +92,21 @@
           <option value="ALL">All roles</option>
           <option value="ADMIN">Admin</option>
           <option value="STAFF">Staff</option>
-          <option value="CUSTOMER">Customer</option>
         </select>
         <select class="filter" data-ps-admin-users-status-filter>
           <option value="ALL">All statuses</option>
           <option value="ENABLED">Enabled</option>
           <option value="DISABLED">Disabled</option>
         </select>
+        <button class="ps-btn ps-btn--primary" data-ps-admin-users-create type="button">Create Internal User</button>
         <a class="ps-btn ps-btn--secondary" href="admin-user-verification.html">Open Verification Queue</a>
       </div>
     </header>
 
     <div class="ps-admin-page">
       <section class="metrics">
-        <article class="card ps-card ps-card--pad"><span class="eyebrow">Total Users</span><span class="metric" data-ps-admin-users-metric="total">0</span><span class="hint">All customer and internal accounts in the database</span></article>
-        <article class="card ps-card ps-card--pad"><span class="eyebrow">Enabled Users</span><span class="metric" data-ps-admin-users-metric="enabled">0</span><span class="hint">Accounts that can currently sign in</span></article>
+        <article class="card ps-card ps-card--pad"><span class="eyebrow">Internal Accounts</span><span class="metric" data-ps-admin-users-metric="total">0</span><span class="hint">Admin and staff users only</span></article>
+        <article class="card ps-card ps-card--pad"><span class="eyebrow">Enabled Accounts</span><span class="metric" data-ps-admin-users-metric="enabled">0</span><span class="hint">Accounts that can currently sign in</span></article>
         <article class="card ps-card ps-card--pad"><span class="eyebrow">Disabled Accounts</span><span class="metric" data-ps-admin-users-metric="disabled">0</span><span class="hint">Access paused by policy or admin action</span></article>
         <article class="card ps-card ps-card--pad"><span class="eyebrow">Enabled Admins</span><span class="metric" data-ps-admin-users-metric="admins">0</span><span class="hint">Admin users with full privileged access</span></article>
       </section>
@@ -125,7 +125,6 @@
             <div class="stack">
               <div class="role-card"><strong>Admin</strong><span>Full control over products, prices, orders, blog publishing, user roles, and verification actions.</span></div>
               <div class="role-card"><strong>Staff</strong><span>Operational access for catalog, content, and order workflows. No permission escalation without admin approval.</span></div>
-              <div class="role-card"><strong>Customer</strong><span>Storefront account role. Can be promoted to staff or admin by an enabled admin.</span></div>
             </div>
           </section>
           <section class="feed ps-card ps-card--pad">
@@ -153,3 +152,4 @@
   </main>
 </body>
 </html>
+

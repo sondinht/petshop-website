@@ -87,24 +87,6 @@
     </style>
 </head>
 <body class="bg-background font-body text-on-surface">
-<!-- TopAppBar Section -->
-<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md">
-<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-<div class="text-2xl font-black text-blue-800">The Airy Boutique</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="font-headline font-semibold tracking-tight text-slate-600 hover:text-blue-600 transition-opacity duration-300" href="#">Home</a>
-<a class="font-headline font-semibold tracking-tight text-slate-600 hover:text-blue-600 transition-opacity duration-300" href="#">Dogs</a>
-<a class="font-headline font-semibold tracking-tight text-slate-600 hover:text-blue-600 transition-opacity duration-300" href="#">Cats</a>
-<a class="font-headline font-semibold tracking-tight text-blue-700 border-b-2 border-blue-600 pb-1" href="#">Accessories</a>
-<a class="font-headline font-semibold tracking-tight text-slate-600 hover:text-blue-600 transition-opacity duration-300" href="#">Blog</a>
-</nav>
-<div class="flex items-center gap-6">
-<button class="material-symbols-outlined text-slate-600 hover:opacity-80 transition-opacity">shopping_cart</button>
-<button class="material-symbols-outlined text-slate-600 hover:opacity-80 transition-opacity">person</button>
-</div>
-</div>
-<div class="h-[1px] bg-blue-50"></div>
-</header>
 <main class="pt-20">
 <!-- Hero Section: Editorial Layout -->
 <section class="relative px-8 py-16 md:py-24 max-w-7xl mx-auto overflow-hidden">
@@ -160,92 +142,22 @@
 <button class="p-2 rounded-full bg-surface-container-lowest hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">view_list</span></button>
 </div>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-<!-- Product Card 1 -->
+<template data-ps-product-card-template="accessories">
 <div class="group bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-300 hover:bg-surface-bright">
 <div class="aspect-square relative overflow-hidden rounded-sm m-3">
-<img alt="Leather Comfort Collar" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close-up of a handcrafted cognac-colored leather dog collar with solid brass hardware on a clean neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIOBEBDpOV64xbk7UVDtrN3YlrVyVarHsIOp6l7lgrwBuNvEnhaVUNZjN53j9LzsX4abZ3CWHHFlYJu5mdyljQRr2qdjeOjnql_LAgwLuNIzvNniAyKdCJ_0leriAwm1SwiQRYUi3uxzQdg3UM5w8Xim333P-USmu0bm1lQJXLmFCbiLpFJxgw07ZvuxkkteC1fudEF2QFCbGu4OzQZC05aZOYFSdQyriPnCZ5wTR7Kr_nHmoJ9owAtWyyYagSA8deUd3SFl2E1Pv4"/>
-<button class="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full text-primary hover:bg-white">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
-</button>
+<span class="badge absolute top-3 left-3 hidden bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-0%</span>
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src=""/>
 </div>
 <div class="p-6 pt-2">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-sm font-semibold">4.9</span>
-<span class="text-sm text-on-surface-variant ml-1">(124)</span>
-</div>
-<h4 class="font-headline font-bold text-lg mb-1">Leather Comfort Collar</h4>
-<p class="text-primary font-bold text-xl mb-6">$48.00</p>
+<h4 class="font-headline font-bold text-lg mb-1">Product</h4>
+<p class="price-row text-primary font-bold text-xl mb-6 flex items-end gap-2"><strong>$0.00</strong><span class="hidden text-sm text-on-surface-variant line-through">$0.00</span></p>
 <button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-full font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
 <span class="material-symbols-outlined">shopping_bag</span> Add to Cart
                         </button>
 </div>
 </div>
-<!-- Product Card 2 -->
-<div class="group bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-300 hover:bg-surface-bright">
-<div class="aspect-square relative overflow-hidden rounded-sm m-3">
-<img alt="Luxe Orthopedic Bed" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Large plush grey orthopedic pet bed with high density foam and velvet texture in a brightly lit modern living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA3_xZXfPP0_GYEvMG2mcfAjITHmi70npoy-jmI7Ar76yaMD8gV-62AV-dG0P4ZFQIl7rf3FFx3yx1ye42GR9W1OhsrTmf-E-T5vROB-2BEc-KONUsqDxSfEBGENVyXdfOar5OUfHLcUDHvSgYL3Ktd98iR40SAQWz6uHkHXCBF5iFA7twh1_77n3egRv_A2J_-ocfWV_5yoQaDCLcNgxlcYLm6KcNSQ2p83GynhMfdFSh4-nmTcN2aNul8-cK4zcwLrgyecol3jPv"/>
-<button class="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full text-primary hover:bg-white">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
-</button>
-</div>
-<div class="p-6 pt-2">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-sm font-semibold">5.0</span>
-<span class="text-sm text-on-surface-variant ml-1">(89)</span>
-</div>
-<h4 class="font-headline font-bold text-lg mb-1">Luxe Orthopedic Bed</h4>
-<p class="text-primary font-bold text-xl mb-6">$125.00</p>
-<button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-full font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-<span class="material-symbols-outlined">shopping_bag</span> Add to Cart
-                        </button>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="group bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-300 hover:bg-surface-bright">
-<div class="aspect-square relative overflow-hidden rounded-sm m-3">
-<img alt="Adventure Harness" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Technical teal dog harness with reflective stitching and mountain-grade buckles, studio lighting on soft grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByCJnWw4qT-v0tsHsr375E3k2QnWq1SN7wyDdb2Slno1ov8tbIpwuA_8akJJcqcRkZOWECD7lySdFK55SOgfvrbaSFcxzvmhbluV9OaC5PMnncfsrwL35lxqxf6UriwHEEzUDYootdRdVPKgb8q1VVs5gQ_F0o0ifnqPAbOzi2YTenC_OfmkvvQPS5BJ6-i4Ikb1jvF93JD8xNkhNXZ4dNiu0mKwFWtpk2Ob_EioI-knVTYLSfEcXqQl9nwv0kPrS5g4cz1_gF33Hv"/>
-<button class="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full text-primary hover:bg-white">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
-</button>
-</div>
-<div class="p-6 pt-2">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-sm font-semibold">4.8</span>
-<span class="text-sm text-on-surface-variant ml-1">(210)</span>
-</div>
-<h4 class="font-headline font-bold text-lg mb-1">Adventure Harness</h4>
-<p class="text-primary font-bold text-xl mb-6">$64.00</p>
-<button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-full font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-<span class="material-symbols-outlined">shopping_bag</span> Add to Cart
-                        </button>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="group bg-surface-container-lowest rounded-lg overflow-hidden transition-all duration-300 hover:bg-surface-bright">
-<div class="aspect-square relative overflow-hidden rounded-sm m-3">
-<img alt="Ceramic Duo Bowls" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Elegant set of two hand-thrown ceramic pet bowls in matte white and sage green, placed on a light oak wooden tray" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7VLmbCoztidMTCwdoIdvSH7IuQa3quupMxLGr2rj2ecygl3ojJQjMZvohuB2yNvfm75i8u0_ncsWDpNez_9Lz3dcB9SUsKdtTyJfAJhzg8Gj2CGr77UtwcYJJAac6baPRRTdWG36mgXwHZBnOiom9OjNU0dDp-C-yvcvzFloG87Uqk4--KI3TUWHnW0EpxdQ8g_U_F8McvAM9QcQ087sQU2Y4xfpi7AgOG84amvbHmN0eLSVN7SkK9eh2X6z5VEFWWTbnH6wCWRNr"/>
-<button class="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full text-primary hover:bg-white">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
-</button>
-</div>
-<div class="p-6 pt-2">
-<div class="flex items-center gap-1 mb-2">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-sm font-semibold">4.7</span>
-<span class="text-sm text-on-surface-variant ml-1">(56)</span>
-</div>
-<h4 class="font-headline font-bold text-lg mb-1">Ceramic Duo Bowls</h4>
-<p class="text-primary font-bold text-xl mb-6">$35.00</p>
-<button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-full font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-<span class="material-symbols-outlined">shopping_bag</span> Add to Cart
-                        </button>
-</div>
-</div>
-</div>
+</template>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" data-ps-product-grid="accessories"></div>
 </section>
 <!-- Lifestyle Promo: Travel Bundles -->
 <section class="mb-20 px-8 max-w-7xl mx-auto">
