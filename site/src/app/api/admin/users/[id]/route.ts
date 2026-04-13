@@ -18,7 +18,7 @@ function parseOptionalRole(value: unknown): UserRole | null {
   }
 
   const normalized = value.trim().toUpperCase();
-  if (USER_ROLES.includes(normalized as UserRole)) {
+  if ((normalized === "ADMIN" || normalized === "STAFF") && USER_ROLES.includes(normalized as UserRole)) {
     return normalized as UserRole;
   }
 

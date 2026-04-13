@@ -87,30 +87,6 @@
     </style>
 </head>
 <body class="bg-surface font-body text-on-surface antialiased">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm">
-<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto font-['Plus_Jakarta_Sans'] tracking-tight">
-<div class="text-2xl font-black text-blue-900 dark:text-blue-100">PetShop</div>
-<div class="hidden md:flex items-center space-x-8">
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Home</a>
-<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 transition-all duration-200 hover:opacity-80" href="#">Dogs</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Cats</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Accessories</a>
-<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-200 hover:opacity-80" href="#">Blog</a>
-</div>
-<div class="flex items-center gap-6">
-<div class="relative hidden sm:block">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-sm w-48 transition-all" placeholder="Search..." type="text"/>
-</div>
-<div class="flex items-center gap-4">
-<button class="transition-transform scale-105 active:scale-95"><span class="material-symbols-outlined text-on-surface-variant">shopping_cart</span></button>
-<button class="transition-transform scale-105 active:scale-95"><span class="material-symbols-outlined text-on-surface-variant">person</span></button>
-<button class="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold shadow-md hover:opacity-90 transition-all">Shop Now</button>
-</div>
-</div>
-</div>
-</nav>
 <main class="pt-24">
 <!-- Category Hero -->
 <section class="px-8 max-w-7xl mx-auto mb-16">
@@ -140,7 +116,7 @@
 <span class="ml-3 text-on-surface-variant group-hover:text-primary transition-colors">Puppy</span>
 </label>
 <label class="flex items-center group cursor-pointer">
-<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
 <span class="ml-3 text-on-surface-variant group-hover:text-primary transition-colors">Adult</span>
 </label>
 <label class="flex items-center group cursor-pointer">
@@ -153,7 +129,7 @@
 <h3 class="font-headline font-bold text-lg text-on-background mb-4">Breed Size</h3>
 <div class="flex flex-wrap gap-2">
 <button class="px-4 py-2 rounded-full border border-outline-variant text-sm hover:border-primary hover:text-primary transition-all">Small</button>
-<button class="px-4 py-2 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-medium text-sm">Medium</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-sm hover:border-primary hover:text-primary transition-all">Medium</button>
 <button class="px-4 py-2 rounded-full border border-outline-variant text-sm hover:border-primary hover:text-primary transition-all">Large</button>
 <button class="px-4 py-2 rounded-full border border-outline-variant text-sm hover:border-primary hover:text-primary transition-all">Giant</button>
 </div>
@@ -198,140 +174,25 @@
 <option>Price: Low to High</option>
 </select>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Product Card 1 -->
+<template data-ps-product-card-template="dogs">
 <div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
 <div class="relative h-64 mb-6 overflow-hidden rounded-lg">
-<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="premium grain free kibble dog food bag with illustrations of natural ingredients and a happy dog on a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq7fRkBOhsz4doOmogbepHHV0Y9ly2mh5jV3PLUsFJhACTdqFle_-ey1OI6Zbg9GG5laesnu6dLG4DAPUgtx4Inyvj8MDbXlhu4CWZaS20wuHp9cZlwHJwPBSJJ04PVYJYqLZPzRQIMBG4OHW8q54yJrtO2mxbRIIS0k4au0M_fv2dBu_VdZ7DBcG_wP-a_kDxYkJncw0MemGkSZktvAqoLv3CLTEcmrJBRMpE_Ed4twXxX2YqGYlH6pbSkOQy-IPHoWpQcwMxp3a7"/>
-<span class="absolute top-2 left-2 px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-xs font-bold uppercase tracking-widest">Bestseller</span>
+<span class="badge absolute top-3 left-3 hidden bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full z-10">-0%</span>
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="" alt="Product"/>
 </div>
-<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Premium Grain-Free Kibble</h4>
-<div class="flex items-center gap-1 mb-4">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
-<span class="text-xs text-outline font-medium ml-2">(4.8)</span>
-</div>
+<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Product</h4>
 <div class="mt-auto flex items-center justify-between">
-<span class="text-2xl font-black text-on-background">$64.99</span>
-<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-<!-- Product Card 2 -->
-<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
-<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
-<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="red heavy duty rubber bone chew toy for dogs on a clean bright background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpzH5EfJbunUXGoCTyuYZo84vaa2wZE_Efb00mmEKbufZyyhHDwDtU6kNt38ccp7WrrFooLyBHT6v-TMHJ6q81LWawpQAS6N7hPKIn6L2LDJFaKxgLWD4PEmemhvdtd4OW-baTyxXkVzJ0_DM_qKbqyjQrDghUmtLAtePTzZ5tF62JoBGnsOEoINDdoQr2OuKq09McAxfUq6PVo4pJqJNgkPWOjpX8J_O2E7COdEXfMaBVnAA-Pf-m0fg90E8LogJf3ANKXMjdF9Ek"/>
-</div>
-<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Indestructible Rubber Bone</h4>
-<div class="flex items-center gap-1 mb-4">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-xs text-outline font-medium ml-2">(5.0)</span>
-</div>
-<div class="mt-auto flex items-center justify-between">
-<span class="text-2xl font-black text-on-background">$18.50</span>
-<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
-<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
-<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="modern grey orthopedic memory foam dog bed with plush bolsters on a wooden floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu9-Wm28oU_bBhrn5HrlPjW2ncGFj-MPMqANI80H3hglq0ghIU02PH3hIKlJZgmVpLHL_LCA1SNDolHinZkCzkOaTMXoqTecZHr-rSrwo0f1IuW15zg_oSb97zOHgA1jKcm4zzG88FmBOufbm2etmDYcnKimUmpxANe9H3GIssm8ozTGUFVYIrr8dmzoWg_4De7L4rALQJV8TXDzJa5Z-t6BAGIUmQs5WRvPWNOKp_GjgUJSClGCyECg0wzJ3Bd8LEnE8abg9vfzdF"/>
-<span class="absolute top-2 left-2 px-3 py-1 bg-primary text-white rounded-full text-xs font-bold uppercase tracking-widest">New</span>
-</div>
-<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Orthopedic Memory Foam Bed</h4>
-<div class="flex items-center gap-1 mb-4">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
-<span class="text-xs text-outline font-medium ml-2">(4.7)</span>
-</div>
-<div class="mt-auto flex items-center justify-between">
-<span class="text-2xl font-black text-on-background">$129.00</span>
-<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
-<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
-<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="high quality brown adjustable leather harness for medium dogs displayed on a minimal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9E-zg3VgEWA81JxuBAVIrx8rbf98NekOdIO-OynVYrG6f3-oC-64iFQbRs8dicQCDlHZI9aQ2aNJpz3HTGgz9AEyRl7c1jJf0sdL8kqoTXZpdKN3F2WltAX_P-B05hxada7IoEuKhFjj-3eqgtJo_H3lUt7z71P1W6R4IZ-7VQpNoyS5KPDq0ZagpIK3m-UB5DDED7mqnA10Ht87Uk98LjCVtuD5J9DjdJwTizYf0nde5M-y2pKBgJd3tfZSWTXrpMH7-B6S7flqU"/>
-</div>
-<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Adjustable Leather Harness</h4>
-<div class="flex items-center gap-1 mb-4">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-outline-variant text-sm" style="font-variation-settings: 'FILL' 1;">star_half</span>
-<span class="text-xs text-outline font-medium ml-2">(4.5)</span>
-</div>
-<div class="mt-auto flex items-center justify-between">
-<span class="text-2xl font-black text-on-background">$42.00</span>
-<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-<!-- Product Card 5 -->
-<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
-<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
-<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="glass jar filled with green calming hemp dog treats in heart shapes on a neutral aesthetic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4-6Zti1zk08j7miyafXeTBg-usY4QlW4DVoIWOUdtgaAh1xNoaJtF3Ze60N_J4zYCcKSW-eDOUUd2PdFJZb2F199FAFuLPLnTx6rUEGhNaa3icm259okozllmlyQZlD9G-bo8JMAIHjZVjoajPDUrhJvXSui3m68QmanCyg8TPsAS2XIEH6pgb8WyKRAq-dFIkM4PO6rehwtZv-VcIxd1ERnn17YaHCUGoe1b4pWUXffIyGNzdyPx_V201JLW4P_I6a03MMhgoMpB"/>
-</div>
-<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Calming Hemp Treats</h4>
-<div class="flex items-center gap-1 mb-4">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-xs text-outline font-medium ml-2">(4.9)</span>
-</div>
-<div class="mt-auto flex items-center justify-between">
-<span class="text-2xl font-black text-on-background">$24.95</span>
-<button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-<!-- Product Card 6 -->
-<div class="group bg-surface-container-lowest p-6 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,29,55,0.06)] flex flex-col h-full">
-<div class="relative h-64 mb-6 overflow-hidden rounded-lg">
-<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="yellow bright waterproof raincoat for a dog lying on a surface with water droplets for realistic effect" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCynmpkXS-lByIBRlxTF8DfIm2O9CkBoWePlrWqgDq18vnlQWfUhDHGS9fXhE8zRFNZdyv5Glyi5X-XganFRQXgKX_O9vQEOk2sYMOeKCXZ0QTtc2avB1L-AQYxdnU_IHb6lgHd1Q4JYIxIFx6x-ynAvVfzt9B3rLivp3gRnif57ZMW7gRDWw2MSoi1erALWnE0LiTG9Jhpxw3ZoRkVzb9Rj9J1XCvlm9BsvkAotTi_V-b6JnewJkJLq-uDPCLMk6Ff6fdtpDhq2nMm"/>
-<span class="absolute top-2 left-2 px-3 py-1 bg-error text-white rounded-full text-xs font-bold uppercase tracking-widest">Sale</span>
-</div>
-<h4 class="font-headline font-bold text-xl mb-2 text-on-background">Waterproof Raincoat</h4>
-<div class="flex items-center gap-1 mb-4">
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
-<span class="material-symbols-outlined text-outline-variant text-sm">star</span>
-<span class="text-xs text-outline font-medium ml-2">(3.2)</span>
-</div>
-<div class="mt-auto flex items-center justify-between">
-<div class="flex flex-col">
-<span class="text-xs text-error line-through">$35.00</span>
-<span class="text-2xl font-black text-on-background">$28.00</span>
+<div class="price-row flex items-end gap-2">
+<strong class="text-2xl font-black text-on-background">$0.00</strong>
+<span class="hidden text-sm text-on-surface-variant line-through">$0.00</span>
 </div>
 <button class="bg-secondary-container text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all scale-100 hover:scale-110 active:scale-95">
 <span class="material-symbols-outlined">add_shopping_cart</span>
 </button>
 </div>
 </div>
-</div>
+</template>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-ps-product-grid="dogs"></div>
 </div>
 </section>
 <!-- Promo Banner -->

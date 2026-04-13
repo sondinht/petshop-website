@@ -18,7 +18,9 @@ export const legacyPages: LegacyPage[] = [
   { file: "admin-products.html", canonicalRoute: "/admin-products.html" },
   { file: "admin-product-form.html", canonicalRoute: "/admin-product-form.html" },
   { file: "admin-orders.html", canonicalRoute: "/admin-orders.html" },
+  { file: "admin-customers.html", canonicalRoute: "/admin-customers.html" },
   { file: "admin-pricing.html", canonicalRoute: "/admin-pricing.html" },
+  { file: "admin-flashsale.html", canonicalRoute: "/admin-flashsale.html" },
   { file: "admin-login.html", canonicalRoute: "/admin-login.html" },
   { file: "admin-users.html", canonicalRoute: "/admin-users.html" },
   {

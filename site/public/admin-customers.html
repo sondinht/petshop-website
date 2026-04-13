@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Customers | PetShop Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="/admin-shell.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-container": "#672c00",
+              "on-secondary-fixed": "#331200",
+              "surface-variant": "#e0e3e7",
+              background: "#f7fafe",
+              "tertiary-fixed": "#8ff3ef",
+              "on-primary-fixed": "#001c39",
+              "surface-bright": "#f7fafe",
+              "surface-container": "#ebeef2",
+              "on-surface": "#181c1f",
+              "tertiary-container": "#007673",
+              outline: "#727781",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#763300",
+              "on-tertiary-fixed-variant": "#00504e",
+              "surface-container-highest": "#e0e3e7",
+              secondary: "#9b4500",
+              "on-secondary": "#ffffff",
+              "on-tertiary-fixed": "#00201f",
+              "tertiary-fixed-dim": "#72d7d3",
+              "secondary-container": "#FF8C42",
+              "inverse-surface": "#2d3134",
+              "surface-container-low": "#f1f4f8",
+              surface: "#f7fafe",
+              "primary-fixed": "#d3e3ff",
+              "outline-variant": "#c2c7d2",
+              "surface-dim": "#d7dade",
+              "secondary-fixed": "#ffdbc9",
+              "secondary-fixed-dim": "#ffb68d",
+              "on-primary": "#ffffff",
+              error: "#ba1a1a",
+              "error-container": "#ffdad6",
+              tertiary: "#005b59",
+              "on-primary-container": "#dfeaff",
+              "on-tertiary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "inverse-primary": "#a3c9ff",
+              "on-tertiary-container": "#97fbf7",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#424750",
+              "surface-container-high": "#e5e8ec",
+              "inverse-on-surface": "#eef1f5",
+              "primary-fixed-dim": "#a3c9ff",
+              "on-primary-fixed-variant": "#004882",
+              "primary-container": "#306bac",
+              primary: "#306BAC",
+              "surface-tint": "#2160a0",
+              "on-background": "#181c1f"
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem"
+            },
+            fontFamily: {
+              headline: ["Poppins"],
+              body: ["Inter"],
+              label: ["Inter"]
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      .brand-font {
+        font-family: "Poppins", sans-serif;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-surface" data-ps-admin="true">
+    <!-- SideNavBar (rendered directly when opening the HTML file; admin shell provides its own sidebar in-app) -->
+    <aside class="fixed left-0 top-0 h-screen overflow-y-auto flex flex-col z-50" data-ps-admin-sidebar="true">
+      <div class="mb-6 flex items-center gap-3">
+        <span aria-hidden="true" class="material-symbols-outlined">pets</span>
+        <div>
+          <div data-ps-admin-sidebar-brand-title="true">PetShop Admin</div>
+          <div data-ps-admin-sidebar-brand-caption="true">Customer Console</div>
+        </div>
+      </div>
+      <nav class="flex-1 space-y-1" aria-label="Admin navigation">
+        <a href="admin-products.html"><span aria-hidden="true" class="material-symbols-outlined">inventory_2</span><span>Products</span></a>
+        <a href="admin-product-form.html"><span aria-hidden="true" class="material-symbols-outlined">edit_note</span><span>Product Form</span></a>
+        <a href="admin-flashsale.html"><span aria-hidden="true" class="material-symbols-outlined">sell</span><span>Flash Sale Campaigns</span></a>
+        <a href="admin-orders.html"><span aria-hidden="true" class="material-symbols-outlined">shopping_cart</span><span>Orders</span></a>
+        <a href="admin-customers.html"><span aria-hidden="true" class="material-symbols-outlined">person</span><span>Customers</span></a>
+        <a href="admin-blog.html"><span aria-hidden="true" class="material-symbols-outlined">article</span><span>Blog</span></a>
+        <a href="admin-users.html"><span aria-hidden="true" class="material-symbols-outlined">group</span><span>Users</span></a>
+        <a href="admin-user-verification.html"><span aria-hidden="true" class="material-symbols-outlined">verified_user</span><span>Verification</span></a>
+        <a href="index.html"><span aria-hidden="true" class="material-symbols-outlined">storefront</span><span>Storefront</span></a>
+      </nav>
+    </aside>
+
+    <!-- Main Content (this is what the admin shell hydrates as a fragment) -->
+    <main class="ps-admin-main min-h-screen pb-12" data-ps-admin-fragment="content" data-ps-admin-customers-page="true">
+      <header class="ps-admin-topbar">
+        <div class="ps-admin-topbar-title">
+          <h1>Customers</h1>
+          <p>Understand who buys, what they buy, and who needs follow-up.</p>
+        </div>
+
+        <div class="ps-admin-topbar-actions" role="search">
+          <div class="relative">
+            <span
+              aria-hidden="true"
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 text-lg"
+              >search</span
+            >
+            <input
+              class="ps-input pl-10 w-72"
+              data-ps-admin-search="true"
+              data-ps-admin-customers-search
+              placeholder="Search by name, email, or customer ID..."
+              type="search"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-on-surface-variant text-lg" aria-hidden="true">tune</span>
+            <label class="sr-only" for="ps-admin-customers-status">Customer status</label>
+            <select
+              class="ps-input w-44"
+              id="ps-admin-customers-status"
+              data-ps-admin-customers-status-filter
+              aria-label="Filter by customer status"
+            >
+              <option value="ALL">All statuses</option>
+              <option value="ACTIVE">Active</option>
+              <option value="INACTIVE">Inactive</option>
+              <option value="DISABLED">Disabled</option>
+            </select>
+          </div>
+
+          <button class="ps-btn ps-btn--secondary" type="button" data-ps-admin-customers-export>
+            <span aria-hidden="true" class="material-symbols-outlined">download</span>
+            Export
+          </button>
+        </div>
+      </header>
+
+      <div class="ps-admin-page grid grid-cols-12 gap-8">
+        <!-- Summary Metrics -->
+        <section class="col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" aria-label="Customer metrics">
+          <article class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">Total Customers</p>
+            <h3 class="text-3xl font-black text-on-surface" data-ps-admin-customers-metric="total">0</h3>
+            <p class="text-xs text-on-surface-variant mt-2">All customer accounts (excluding staff/admin)</p>
+          </article>
+
+          <article class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">Active (30d)</p>
+            <h3 class="text-3xl font-black text-on-surface" data-ps-admin-customers-metric="active30">0</h3>
+            <p class="text-xs text-on-surface-variant mt-2">Placed an order within the last 30 days</p>
+          </article>
+
+          <article class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">New This Week</p>
+            <h3 class="text-3xl font-black text-on-surface" data-ps-admin-customers-metric="new7">0</h3>
+            <p class="text-xs text-on-surface-variant mt-2">Recently created accounts and first-time buyers</p>
+          </article>
+
+          <article class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 mb-1">At Risk</p>
+            <h3 class="text-3xl font-black text-error" data-ps-admin-customers-metric="atRisk">0</h3>
+            <p class="text-xs text-on-surface-variant mt-2">High value, low recency (placeholder)</p>
+          </article>
+        </section>
+
+        <!-- Primary Content (table + filters) -->
+        <section class="col-span-12 lg:col-span-9 space-y-6" aria-label="Customer list">
+          <div
+            class="flex items-center justify-between bg-surface-container-low px-6 py-4 rounded-xl gap-4 flex-wrap"
+            data-ps-admin-customers-controls
+          >
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="text-xs font-semibold text-on-surface-variant">Quick filters:</span>
+
+              <div class="inline-flex rounded-full bg-surface-container-highest p-1" role="group" aria-label="Customer quick filters">
+                <button
+                  class="px-4 py-2 rounded-full text-xs font-bold text-on-surface"
+                  type="button"
+                  data-ps-admin-customers-segment="ALL"
+                  aria-pressed="true"
+                >
+                  All
+                </button>
+                <button
+                  class="px-4 py-2 rounded-full text-xs font-bold text-on-surface-variant"
+                  type="button"
+                  data-ps-admin-customers-segment="HIGH_VALUE"
+                  aria-pressed="false"
+                >
+                  High value
+                </button>
+                <button
+                  class="px-4 py-2 rounded-full text-xs font-bold text-on-surface-variant"
+                  type="button"
+                  data-ps-admin-customers-segment="NEEDS_FOLLOWUP"
+                  aria-pressed="false"
+                >
+                  Needs follow-up
+                </button>
+              </div>
+
+              <span class="text-xs text-on-surface-variant" data-ps-admin-customers-results-meta aria-live="polite">
+                Showing <span data-ps-admin-customers-results-count>0</span> customers
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span aria-hidden="true" class="material-symbols-outlined text-on-surface-variant text-lg">sort</span>
+              <label class="sr-only" for="ps-admin-customers-sort">Sort customers</label>
+              <select
+                id="ps-admin-customers-sort"
+                class="ps-input w-56"
+                data-ps-admin-customers-sort
+                aria-label="Sort customers"
+              >
+                <option value="RECENT_ACTIVITY">Recent activity</option>
+                <option value="LAST_ORDER">Last order date</option>
+                <option value="TOTAL_SPEND">Total spend</option>
+                <option value="CREATED_AT">Joined date</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-lowest rounded-2xl overflow-x-auto overflow-y-hidden">
+            <table class="w-full min-w-[1020px] text-left border-collapse" data-ps-admin-table="true" data-ps-admin-primary-table="true">
+              <thead class="bg-surface-container-low">
+                <tr>
+                  <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Customer</th>
+                  <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Status</th>
+                  <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Orders</th>
+                  <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Total Spend</th>
+                  <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Last Order</th>
+                  <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Joined</th>
+                  <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-container-low" data-ps-admin-customers-tbody data-ps-admin-table-body="true">
+                <tr>
+                  <td class="px-6 py-6 text-sm text-on-surface-variant" colspan="7" data-ps-admin-customers-loading>
+                    Loading customers...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <template data-ps-admin-customers-row-template>
+            <tr class="hover:bg-surface-container-low/30 transition-colors group" data-ps-admin-customer-row>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant" aria-hidden="true">
+                    <span class="material-symbols-outlined">person</span>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="text-sm font-bold text-on-surface truncate" data-ps-admin-customer-name></div>
+                    <div class="text-xs text-on-surface-variant truncate" data-ps-admin-customer-email></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span
+                  class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-surface-container text-on-surface-variant uppercase tracking-tight"
+                  data-ps-admin-customer-status
+                ></span>
+              </td>
+              <td class="px-6 py-4 text-sm text-on-surface" data-ps-admin-customer-order-count></td>
+              <td class="px-6 py-4 text-sm font-bold text-on-surface" data-ps-admin-customer-total-spend></td>
+              <td class="px-6 py-4 text-sm text-on-surface" data-ps-admin-customer-last-order></td>
+              <td class="px-6 py-4 text-sm text-on-surface" data-ps-admin-customer-joined></td>
+              <td class="px-6 py-4 text-right space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <a
+                  class="inline-flex p-1.5 hover:bg-surface-container rounded-lg text-on-surface-variant"
+                  href="#"
+                  data-ps-admin-customer-view
+                  title="View"
+                >
+                  <span class="material-symbols-outlined text-lg" aria-hidden="true">open_in_new</span>
+                </a>
+                <button
+                  class="p-1.5 hover:bg-surface-container rounded-lg text-on-surface-variant"
+                  type="button"
+                  data-ps-admin-customer-note
+                  title="Add note"
+                >
+                  <span class="material-symbols-outlined text-lg" aria-hidden="true">sticky_note_2</span>
+                </button>
+              </td>
+            </tr>
+          </template>
+        </section>
+
+        <!-- Insights / Help -->
+        <aside class="col-span-12 lg:col-span-3 space-y-6" aria-label="Customer insights">
+          <section class="ps-card ps-card--pad">
+            <h2 class="text-base font-black text-on-surface mb-1">Insights</h2>
+            <p class="text-xs text-on-surface-variant mb-4">
+              Use this page for customer health signals. It’s intentionally separate from staff/admin access controls.
+            </p>
+
+            <div class="space-y-3" data-ps-admin-customers-insights>
+              <div class="rounded-xl bg-surface-container-low p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="material-symbols-outlined text-lg text-on-surface-variant" aria-hidden="true">local_fire_department</span>
+                  <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60">Suggested segment</p>
+                </div>
+                <p class="text-sm font-bold text-on-surface">Repeat buyers</p>
+                <p class="text-xs text-on-surface-variant">Customers with 2+ orders in the last 90 days (hook for JS)</p>
+              </div>
+
+              <div class="rounded-xl bg-surface-container-low p-4">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="material-symbols-outlined text-lg text-on-surface-variant" aria-hidden="true">schedule</span>
+                  <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60">Follow-up queue</p>
+                </div>
+                <p class="text-sm font-bold text-on-surface">No order since 60 days</p>
+                <p class="text-xs text-on-surface-variant">Prioritize customers with high lifetime value (hook for JS)</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="ps-card ps-card--pad">
+            <h2 class="text-base font-black text-on-surface mb-1">Operational notes</h2>
+            <ul class="text-xs text-on-surface-variant space-y-2" data-ps-admin-customers-help>
+              <li class="flex gap-2">
+                <span class="material-symbols-outlined text-base" aria-hidden="true">lock</span>
+                <span>Customer PII should not be embedded in static HTML; hydrate from the admin API.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="material-symbols-outlined text-base" aria-hidden="true">info</span>
+                <span>Use <strong>Users</strong> for role/access management; use <strong>Customers</strong> for purchasing behavior.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="material-symbols-outlined text-base" aria-hidden="true">history</span>
+                <span>Consider linking to recent orders from a customer row action (hook included).</span>
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>

@@ -331,25 +331,7 @@
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a class="brand" href="index.html">PetShop</a>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="dogs.html">Dogs</a>
-        <a href="cats.html">Cats</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="blog.html">Blog</a>
-        <a class="active" href="deals.html">Deals</a>
-      </nav>
-      <div class="actions">
-        <input class="search" type="text" placeholder="Search products" />
-        <a class="btn secondary" href="cart.html">Cart</a>
-        <a class="btn primary" href="checkout.html">Shop Deals</a>
-      </div>
-    </div>
-  </header>
-
+  <main>
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-main">
@@ -396,48 +378,18 @@
           <p>Fast-moving offers chosen to convert quickly: hero products, strong urgency, and standout savings.</p>
         </div>
       </div>
-      <div class="grid-4">
+      <template data-ps-product-card-template="deals">
         <article class="card">
-          <div class="card-media"><img src="https://images.unsplash.com/photo-1583511655826-05700442b31b?auto=format&fit=crop&w=900&q=80" alt="Dog bed"></div>
+          <div class="card-media"><img src="" alt="Product"></div>
           <div class="card-body">
-            <span class="badge orange">-35%</span>
-            <h3>Orthopedic Comfort Bed</h3>
-            <p style="color:var(--muted); margin:0;">Premium support with washable cover and calming edges.</p>
-            <div class="price-row"><strong>$64</strong><span>$99</span></div>
+            <span class="badge orange">Deal</span>
+            <h3>Product</h3>
+            <div class="price-row"><strong>$0.00</strong><span class="hidden">$0.00</span></div>
             <a class="btn primary" href="product-detail.html">Buy Now</a>
           </div>
         </article>
-        <article class="card">
-          <div class="card-media"><img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=900&q=80" alt="Cat food"></div>
-          <div class="card-body">
-            <span class="badge orange">-20%</span>
-            <h3>Wild Ocean Cat Formula</h3>
-            <p style="color:var(--muted); margin:0;">Protein-rich nutrition with salmon and omega support.</p>
-            <div class="price-row"><strong>$36</strong><span>$45</span></div>
-            <a class="btn primary" href="product-detail.html">Buy Now</a>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=900&q=80" alt="Harness"></div>
-          <div class="card-body">
-            <span class="badge orange">-30%</span>
-            <h3>Adventure Mesh Harness</h3>
-            <p style="color:var(--muted); margin:0;">Breathable everyday harness built for long walks and trips.</p>
-            <div class="price-row"><strong>$28</strong><span>$40</span></div>
-            <a class="btn primary" href="product-detail.html">Buy Now</a>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80" alt="Toy set"></div>
-          <div class="card-body">
-            <span class="badge orange">-25%</span>
-            <h3>Play & Enrich Toy Pack</h3>
-            <p style="color:var(--muted); margin:0;">Best-selling puzzle toys and squeakers for active pets.</p>
-            <div class="price-row"><strong>$24</strong><span>$32</span></div>
-            <a class="btn primary" href="product-detail.html">Buy Now</a>
-          </div>
-        </article>
-      </div>
+      </template>
+      <div class="grid-4" data-ps-product-grid="deals"></div>
     </div>
   </section>
 
@@ -534,5 +486,6 @@
       </div>
     </div>
   </footer>
+  </main>
 </body>
 </html>

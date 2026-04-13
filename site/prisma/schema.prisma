@@ -8,11 +8,11 @@ datasource db {
 }
 
 model Product {
-  id          String      @id @default(cuid())
-  publicId    String?     @unique
+  id          String      @id @default(uuid())
   name        String
   price       Float
   category    String
+  enabled     Boolean     @default(true)
   sku         String?
   description String?
   brand       String?
@@ -22,6 +22,70 @@ model Product {
   cartItems   CartItem[]
   orderItems  OrderItem[]
   images      ProductImage[]
+  placements  ProductPlacement[]
+  collections ProductCollectionMembership[]
+  variants    ProductVariant[]
+  reviews     Review[]
+}
+
+model ProductVariant {
+  id          String    @id @default(uuid())
+  productId   String
+  name        String
+  price       Float
+  originalPrice Float?
+  stockQty    Int?
+  enabled     Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cartItems   CartItem[]
+
+  @@index([productId, sortOrder])
+  @@index([productId, enabled, sortOrder])
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  productId   String?
+  rating      Int
+  title       String?
+  body        String
+  authorName  String
+  enabled     Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([productId, enabled, sortOrder])
+  @@index([enabled, createdAt])
+}
+
+enum ProductCollectionType {
+  FLASH_SALE
+  BEST_SELLERS
+}
+
+model ProductCollectionMembership {
+  productId   String
+  collection  ProductCollectionType
+  createdAt   DateTime @default(now())
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([productId, collection])
+  @@index([collection])
+}
+
+model ProductPlacement {
+  productId      String
+  storefrontPage String
+  createdAt      DateTime @default(now())
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([productId, storefrontPage])
+  @@index([storefrontPage])
 }
 
 model ProductImage {
@@ -68,18 +132,23 @@ model Cart {
 }
 
 model CartItem {
-  id          Int      @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   cartSessionId String
-  productId   String
-  quantity    Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  productId     String
+  productVariantId String?
+  variantName   String?
+  unitPrice     Float
+  quantity      Int
+  savedForLater Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  cart        Cart     @relation(fields: [cartSessionId], references: [sessionId], onDelete: Cascade)
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  cart          Cart     @relation(fields: [cartSessionId], references: [sessionId], onDelete: Cascade)
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productVariant ProductVariant? @relation(fields: [productVariantId], references: [id], onDelete: SetNull)
 
-  @@unique([cartSessionId, productId])
   @@index([cartSessionId])
+  @@index([cartSessionId, productId, productVariantId])
 }
 
 enum OrderStatus {
@@ -122,15 +191,17 @@ model Order {
 }
 
 model OrderItem {
-  id         Int      @id @default(autoincrement())
-  orderId    Int
-  productId  String
-  name       String
-  price      Float
-  quantity   Int
+  id              Int      @id @default(autoincrement())
+  orderId         Int
+  productId       String
+  productVariantId String?
+  variantName     String?
+  name            String
+  price           Float
+  quantity        Int
 
-  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product    Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
 
   @@index([orderId])
 }
@@ -146,4 +217,23 @@ model Payment {
   order      Order           @relation(fields: [orderId], references: [id], onDelete: Restrict)
 
   @@index([orderId])
+}
+
+enum FlashSaleDiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+model FlashSaleCampaign {
+  id            String                @id @default(cuid())
+  name          String
+  startAt       DateTime
+  endAt         DateTime
+  discountType  FlashSaleDiscountType @default(PERCENTAGE)
+  discountValue Float?
+  isActive      Boolean               @default(true)
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+
+  @@index([isActive, startAt, endAt])
 }

@@ -1,10 +1,13 @@
 import { getCartView, type CartViewItem } from "./cartRepo";
 import { prisma } from "./db/prisma";
+import type { Prisma } from "@prisma/client";
 
 export type OrderStatus = "PENDING" | "PAID" | "SHIPPED" | "CANCELLED";
 
 export type OrderItem = {
   productId: string;
+  productVariantId: string | null;
+  variantName: string | null;
   name: string;
   price: number;
   quantity: number;
@@ -61,7 +64,14 @@ function mapOrder(order: {
   subtotal: number;
   tax: number;
   total: number;
-  items: Array<{ productId: string; name: string; price: number; quantity: number }>;
+  items: Array<{
+    productId: string;
+    productVariantId: string | null;
+    variantName: string | null;
+    name: string;
+    price: number;
+    quantity: number;
+  }>;
 }): OrderView {
   return {
     orderNumber: order.orderNumber,
@@ -74,6 +84,8 @@ function mapOrder(order: {
     deliveryMethod: order.deliveryMethod,
     items: order.items.map((item) => ({
       productId: item.productId,
+      productVariantId: item.productVariantId,
+      variantName: item.variantName,
       name: item.name,
       price: item.price,
       quantity: item.quantity
@@ -93,6 +105,8 @@ function createOrderNumber(): string {
 function toOrderItems(items: CartViewItem[]) {
   return items.map((item) => ({
     productId: item.productId,
+    productVariantId: item.variantId,
+    variantName: item.variantName,
     name: item.name,
     price: item.price,
     quantity: item.quantity
@@ -124,7 +138,7 @@ export async function createOrder(
     const orderNumber = createOrderNumber();
 
     try {
-      const order = await prisma.$transaction(async (tx: any) => {
+      const order = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
         const createdOrder = await tx.order.create({
           data: {
             orderNumber,
@@ -153,7 +167,10 @@ export async function createOrder(
         });
 
         await tx.cartItem.deleteMany({
-          where: { cartSessionId: sessionId }
+          where: {
+            cartSessionId: sessionId,
+            savedForLater: false
+          }
         });
 
         return createdOrder;

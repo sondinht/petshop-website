@@ -3,6 +3,32 @@ import { prisma } from "@/src/server/db/prisma";
 export const USER_ROLES = ["ADMIN", "STAFF", "CUSTOMER"] as const;
 export type UserRole = (typeof USER_ROLES)[number];
 
+export async function createAdminManagedUser(input: {
+  email: string;
+  passwordHash: string;
+  role: Extract<UserRole, "ADMIN" | "STAFF">;
+  status?: UserStatus;
+}): Promise<AdminManagedUser> {
+  const created = await prisma.user.create({
+    data: {
+      email: input.email,
+      passwordHash: input.passwordHash,
+      role: input.role,
+      status: input.status ?? "ENABLED"
+    },
+    select: {
+      id: true,
+      email: true,
+      role: true,
+      status: true,
+      tokenVersion: true,
+      createdAt: true,
+      updatedAt: true
+    }
+  });
+
+  return mapAdminManagedUser(created);
+}
 export const USER_STATUSES = ["ENABLED", "DISABLED"] as const;
 export type UserStatus = (typeof USER_STATUSES)[number];
 
@@ -64,12 +90,15 @@ function mapAdminManagedUser(user: {
 export async function listAdminUsers(input: AdminUserListInput): Promise<AdminManagedUser[]> {
   const where: {
     role?: UserRole;
+    roleIn?: { in: UserRole[] };
     status?: UserStatus;
     email?: { contains: string };
   } = {};
 
   if (input.role) {
     where.role = input.role;
+  } else {
+    where.roleIn = { in: ["ADMIN", "STAFF"] };
   }
 
   if (input.status) {
@@ -85,7 +114,12 @@ export async function listAdminUsers(input: AdminUserListInput): Promise<AdminMa
   const take = Math.min(Math.max(requestedLimit, 1), 200);
 
   const users = await prisma.user.findMany({
-    where,
+    where: {
+      ...(where.role ? { role: where.role } : {}),
+      ...(where.roleIn ? { role: where.roleIn } : {}),
+      ...(where.status ? { status: where.status } : {}),
+      ...(where.email ? { email: where.email } : {})
+    },
     orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
     take,
     select: {
@@ -104,9 +138,9 @@ export async function listAdminUsers(input: AdminUserListInput): Promise<AdminMa
 
 export async function getAdminUserSummary(): Promise<AdminUserSummary> {
   const [total, enabled, disabled, admins, staff, customers] = await Promise.all([
-    prisma.user.count(),
-    prisma.user.count({ where: { status: "ENABLED" } }),
-    prisma.user.count({ where: { status: "DISABLED" } }),
+    prisma.user.count({ where: { role: { in: ["ADMIN", "STAFF"] } } }),
+    prisma.user.count({ where: { status: "ENABLED", role: { in: ["ADMIN", "STAFF"] } } }),
+    prisma.user.count({ where: { status: "DISABLED", role: { in: ["ADMIN", "STAFF"] } } }),
     prisma.user.count({ where: { role: "ADMIN", status: "ENABLED" } }),
     prisma.user.count({ where: { role: "STAFF", status: "ENABLED" } }),
     prisma.user.count({ where: { role: "CUSTOMER" } })

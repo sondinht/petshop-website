@@ -99,7 +99,7 @@
 <nav class="flex-1 space-y-1">
 <a href="admin-products.html"><span aria-hidden="true" class="material-symbols-outlined">inventory_2</span><span>Products</span></a>
 <a href="admin-product-form.html"><span aria-hidden="true" class="material-symbols-outlined">edit_note</span><span>Product Form</span></a>
-<a href="admin-pricing.html"><span aria-hidden="true" class="material-symbols-outlined">sell</span><span>Pricing &amp; Flash Sale</span></a>
+<a href="admin-flashsale.html"><span aria-hidden="true" class="material-symbols-outlined">sell</span><span>Flash Sale Campaigns</span></a>
 <a href="admin-orders.html"><span aria-hidden="true" class="material-symbols-outlined">shopping_cart</span><span>Orders</span></a>
 <a href="admin-blog.html"><span aria-hidden="true" class="material-symbols-outlined">article</span><span>Blog</span></a>
 <a href="admin-users.html"><span aria-hidden="true" class="material-symbols-outlined">group</span><span>Users</span></a>
@@ -155,7 +155,7 @@
 <div class="flex items-center gap-4">
 <span class="text-xs font-semibold text-on-surface-variant">Bulk Actions:</span>
 <button class="text-xs font-bold px-4 py-2 bg-surface-container-highest rounded text-on-surface hover:bg-surface-variant transition-colors">Hide Selected</button>
-<button class="text-xs font-bold px-4 py-2 bg-error-container text-on-error-container rounded hover:opacity-80 transition-colors">Delete Selected</button>
+<button class="text-xs font-bold px-4 py-2 bg-error-container text-on-error-container rounded hover:opacity-80 transition-colors" data-ps-admin-products-bulk-delete>Delete Selected</button>
 </div>
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-on-surface-variant text-lg">filter_list</span>
@@ -163,19 +163,21 @@
 </div>
 </div>
 <!-- Product Table -->
-<div class="bg-surface-container-lowest rounded-2xl overflow-hidden">
-<table class="w-full text-left border-collapse" data-ps-admin-table="true" data-ps-admin-primary-table="true">
+<div class="bg-surface-container-lowest rounded-2xl overflow-x-auto overflow-y-hidden">
+<table class="w-full min-w-[1120px] text-left border-collapse" data-ps-admin-table="true" data-ps-admin-primary-table="true">
 <thead class="bg-surface-container-low">
 <tr>
 <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 w-12">
-<input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+<input class="rounded border-outline-variant text-primary focus:ring-primary/20" data-ps-admin-products-select-all type="checkbox"/>
 </th>
 <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Product</th>
 <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">SKU</th>
 <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Category</th>
 <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Price</th>
 <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Stock</th>
-<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Status</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60">Pages</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 text-center">Status</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 text-center">Public</th>
 <th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 text-right">Actions</th>
 </tr>
 </thead>
@@ -198,7 +200,16 @@
 <td class="px-6 py-4 text-sm font-bold text-on-surface">$64.99</td>
 <td class="px-6 py-4 text-sm text-on-surface">230</td>
 <td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-container text-on-surface-variant">Home</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-container text-on-surface-variant">Dogs</span>
+</div>
+</td>
+<td class="px-6 py-4">
 <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-container text-on-tertiary-container uppercase tracking-tight">Active</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-container text-on-tertiary-container uppercase tracking-tight">Yes</span>
 </td>
 <td class="px-6 py-4 text-right space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
 <a class="inline-flex p-1.5 hover:bg-surface-container rounded-lg text-on-surface-variant" href="admin-product-form.html" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></a>
@@ -224,7 +235,16 @@
 <td class="px-6 py-4 text-sm font-bold text-on-surface">$18.50</td>
 <td class="px-6 py-4 text-sm text-error font-semibold">12</td>
 <td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-container text-on-surface-variant">Dogs</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-container text-on-surface-variant">Deals</span>
+</div>
+</td>
+<td class="px-6 py-4">
 <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-container text-on-tertiary-container uppercase tracking-tight">Active</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-container text-on-tertiary-container uppercase tracking-tight">Yes</span>
 </td>
 <td class="px-6 py-4 text-right space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
 <a class="inline-flex p-1.5 hover:bg-surface-container rounded-lg text-on-surface-variant" href="admin-product-form.html"><span class="material-symbols-outlined text-lg">edit</span></a>
@@ -250,7 +270,13 @@
 <td class="px-6 py-4 text-sm font-bold text-on-surface">$129.99</td>
 <td class="px-6 py-4 text-sm text-on-surface">45</td>
 <td class="px-6 py-4">
+<span class="text-xs text-on-surface-variant">-</span>
+</td>
+<td class="px-6 py-4">
 <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed-variant uppercase tracking-tight">Hidden</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-surface-container text-on-surface-variant uppercase tracking-tight">No</span>
 </td>
 <td class="px-6 py-4 text-right space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
 <a class="inline-flex p-1.5 hover:bg-surface-container rounded-lg text-on-surface-variant" href="admin-product-form.html"><span class="material-symbols-outlined text-lg">edit</span></a>
@@ -276,7 +302,15 @@
 <td class="px-6 py-4 text-sm font-bold text-on-surface">$42.00</td>
 <td class="px-6 py-4 text-sm text-on-surface">88</td>
 <td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-container text-on-surface-variant">Accessories</span>
+</div>
+</td>
+<td class="px-6 py-4">
 <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-container text-on-tertiary-container uppercase tracking-tight">Active</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-container text-on-tertiary-container uppercase tracking-tight">Yes</span>
 </td>
 <td class="px-6 py-4 text-right space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
 <a class="inline-flex p-1.5 hover:bg-surface-container rounded-lg text-on-surface-variant" href="admin-product-form.html"><span class="material-symbols-outlined text-lg">edit</span></a>
@@ -287,13 +321,13 @@
 </tbody>
 </table>
 <div class="px-6 py-4 bg-surface-container-low flex items-center justify-between">
-<span class="text-xs text-on-surface-variant">Showing 1-4 of 2,450 products</span>
-<div class="flex gap-1">
-<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
-<button class="w-8 h-8 rounded flex items-center justify-center bg-primary text-white text-xs font-bold">1</button>
-<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface text-xs font-bold">2</button>
-<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface text-xs font-bold">3</button>
-<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+<span class="text-xs text-on-surface-variant" data-ps-admin-products-pagination-summary>Showing 1-4 of 2,450 products</span>
+<div class="flex gap-1" data-ps-admin-products-pagination>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface" data-ps-admin-products-page-prev><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-primary text-white text-xs font-bold" data-page="1" data-ps-admin-products-page-btn>1</button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface text-xs font-bold" data-page="2" data-ps-admin-products-page-btn>2</button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface text-xs font-bold" data-page="3" data-ps-admin-products-page-btn>3</button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-container-lowest border border-outline-variant/30 text-on-surface" data-ps-admin-products-page-next><span class="material-symbols-outlined text-sm">chevron_right</span></button>
 </div>
 </div>
 </div>
@@ -350,3 +384,4 @@
 </div>
 </main>
 </body></html>
+

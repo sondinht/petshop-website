@@ -5,7 +5,7 @@ import { applySessionCookie, getOrCreateSessionId } from "@/src/server/session";
 export async function POST(request: NextRequest) {
   const session = getOrCreateSessionId(request);
   const body = (await request.json().catch(() => null)) as
-    | { productId?: string; quantity?: number }
+    | { productId?: string; variantId?: string; quantity?: number }
     | null;
 
   if (!body?.productId) {
@@ -22,12 +22,21 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const cart = await addCartItem(session.id, body.productId, quantity);
+    const cart = await addCartItem(
+      session.id,
+      body.productId,
+      quantity,
+      typeof body.variantId === "string" ? body.variantId : undefined
+    );
     const response = NextResponse.json(cart, { status: 201 });
     return applySessionCookie(response, session);
   } catch (error) {
     if (error instanceof Error && error.message === "PRODUCT_NOT_FOUND") {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    if (error instanceof Error && error.message === "VARIANT_NOT_FOUND") {
+      return NextResponse.json({ error: "Variant not found" }, { status: 404 });
     }
 
     return NextResponse.json({ error: "Unable to add cart item" }, { status: 500 });
