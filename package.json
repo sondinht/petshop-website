@@ -1,0 +1,13 @@
+{
+  "name": "petshop-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ecommerce website - Petshop",
+  "scripts": {
+    "install:ci": "npm ci || npm install",
+    "lint": "echo \"No lint configured\"",
+    "typecheck": "echo \"No typecheck configured\"",
+    "build": "echo \"No build step required for static site\"",
+    "test": "echo \"No tests yet\""
+  }
+}
