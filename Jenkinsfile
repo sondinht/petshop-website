@@ -9,6 +9,7 @@ pipeline {
 
   environment {
     CI = 'true'
+    PLAYWRIGHT_BROWSERS_PATH = '/var/lib/jenkins/pw-browsers'
   }
 
   stages {
@@ -22,6 +23,7 @@ pipeline {
       steps {
         dir('site') {
           sh 'npm ci'
+          sh 'mkdir -p $PLAYWRIGHT_BROWSERS_PATH'
           sh 'npx playwright install chromium'
         }
       }
