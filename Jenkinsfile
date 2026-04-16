@@ -16,13 +16,25 @@ pipeline {
 
     stage('Install') {
       steps {
-        sh 'npm run install:ci'
+        sh 'npm ci'
       }
     }
 
-    stage('Lint HTML') {
+    stage('Lint') {
       steps {
         sh 'npm run lint'
+      }
+    }
+
+    stage('Type Check') {
+      steps {
+        sh 'npm run typecheck'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'npm run build'
       }
     }
   }

@@ -1,16 +1,10 @@
 {
-  "name": "petshop-website",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Ecommerce website - Petshop",
   "scripts": {
-    "install:ci": "npm ci || npm install",
-    "lint": "htmlhint \"site/public/**/*.html\"",
-    "typecheck": "echo \"No typecheck required for static HTML site\"",
-    "build": "echo \"No build step required for static site\"",
-    "test": "echo \"No tests yet\""
-  },
-  "devDependencies": {
-    "htmlhint": "^1.6.3"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "install:ci": "npm ci"
   }
 }
