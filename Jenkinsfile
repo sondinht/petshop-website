@@ -20,34 +20,45 @@ pipeline {
 
     stage('Install') {
       steps {
-        sh 'npm ci'
+        dir('site') {
+          sh 'npm ci'
+        }
       }
     }
 
     stage('Debug Tooling') {
       steps {
-        sh 'node -v'
-        sh 'npm -v'
-        sh 'npx eslint -v'
-        sh 'npx tsc -v'
+        dir('site') {
+          sh 'node -v'
+          sh 'npm -v'
+          sh 'npx next --version'
+          sh 'npx eslint -v'
+          sh 'npx tsc -v'
+        }
       }
     }
 
     stage('Lint') {
       steps {
-        sh 'npm run lint'
+        dir('site') {
+          sh 'npm run lint'
+        }
       }
     }
 
     stage('Type Check') {
       steps {
-        sh 'npm run typecheck'
+        dir('site') {
+          sh 'npm run typecheck'
+        }
       }
     }
 
     stage('Build') {
       steps {
-        sh 'npm run build'
+        dir('site') {
+          sh 'npm run build'
+        }
       }
     }
   }
