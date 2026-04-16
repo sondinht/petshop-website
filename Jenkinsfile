@@ -61,6 +61,28 @@ pipeline {
         }
       }
     }
+
+    stage('Playwright Smoke E2E') {
+      steps {
+        dir('site') {
+          sh 'npm run test:e2e:smoke'
+        }
+      }
+      post {
+        always {
+          junit allowEmptyResults: true, testResults: 'site/test-results/junit/results.xml'
+          publishHTML(target: [
+            reportDir: 'site/playwright-report',
+            reportFiles: 'index.html',
+            reportName: 'Playwright Report',
+            keepAll: true,
+            alwaysLinkToLastBuild: true,
+            allowMissing: true
+          ])
+          archiveArtifacts artifacts: 'site/playwright-report/**,site/test-results/**', allowEmptyArchive: true
+        }
+      }
+    }
   }
 
   post {
