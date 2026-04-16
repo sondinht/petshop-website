@@ -5,10 +5,13 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "install:ci": "npm ci"
+    "install:ci": "npm ci",
+    "test": "echo \"No tests configured yet\"",
+    "test:ci": "npm run lint && npm run typecheck && npm run build"
   },
   "devDependencies": {
     "eslint": "^9.39.4",
-    "eslint-config-next": "^15.5.15"
+    "eslint-config-next": "^15.5.15",
+    "typescript": "^5.9.3"
   }
 }

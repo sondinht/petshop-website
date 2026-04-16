@@ -7,6 +7,10 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '20'))
   }
 
+  environment {
+    CI = 'true'
+  }
+
   stages {
     stage('Checkout') {
       steps {
@@ -17,6 +21,15 @@ pipeline {
     stage('Install') {
       steps {
         sh 'npm ci'
+      }
+    }
+
+    stage('Debug Tooling') {
+      steps {
+        sh 'node -v'
+        sh 'npm -v'
+        sh 'npx eslint -v'
+        sh 'npx tsc -v'
       }
     }
 
