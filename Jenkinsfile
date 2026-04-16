@@ -57,7 +57,7 @@ pipeline {
     stage('Build') {
       steps {
         dir('site') {
-          sh 'npm run build'
+          sh 'if [ ! -f .env ]; then cp .env.example .env; fi && npx prisma generate && npm run build'
         }
       }
     }
