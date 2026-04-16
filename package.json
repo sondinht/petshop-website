@@ -6,5 +6,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "install:ci": "npm ci"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^15.5.15"
   }
 }
