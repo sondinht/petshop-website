@@ -11,6 +11,7 @@ site/out/
 site/.turbo/
 site/.vercel/
 
+
 # Local databases
 site/dev.db
 site/dev.db-journal
@@ -27,6 +28,10 @@ site/.env
 
 # Logs
 *.log
+
+#Tests
+site/test-results/
+site/playwright-report/
 
 # OS junk
 .DS_Store
