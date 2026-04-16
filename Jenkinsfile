@@ -22,7 +22,7 @@ pipeline {
       steps {
         dir('site') {
           sh 'npm ci'
-          sh 'npx playwright install --with-deps chromium'
+          sh 'npx playwright install chromium'
         }
       }
     }
