@@ -29,6 +29,18 @@ jobs:
         working-directory: site
         run: npm ci
 
+      - name: Deploy Prisma migrations
+        working-directory: site
+        run: npx prisma migrate deploy
+
+      - name: Generate Prisma client
+        working-directory: site
+        run: npm run prisma:generate
+
+      - name: Seed Prisma database
+        working-directory: site
+        run: npm run prisma:seed
+
       - name: Run lint
         working-directory: site
         run: npm run lint
@@ -61,6 +73,18 @@ jobs:
       - name: Install dependencies
         working-directory: site
         run: npm ci
+
+      - name: Deploy Prisma migrations
+        working-directory: site
+        run: npx prisma migrate deploy
+
+      - name: Generate Prisma client
+        working-directory: site
+        run: npm run prisma:generate
+
+      - name: Seed Prisma database
+        working-directory: site
+        run: npm run prisma:seed
 
       - name: Install Playwright browsers
         working-directory: site
