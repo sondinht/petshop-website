@@ -1,0 +1,36 @@
+name: Site CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Run lint
+        working-directory: site
+        run: npm run lint
+
+      - name: Run typecheck
+        working-directory: site
+        run: npm run typecheck
+
+      - name: Build site
+        working-directory: site
+        run: npm run build
