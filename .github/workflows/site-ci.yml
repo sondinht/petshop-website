@@ -37,10 +37,6 @@ jobs:
         working-directory: site
         run: npm run prisma:generate
 
-      - name: Seed Prisma database
-        working-directory: site
-        run: npm run prisma:seed
-
       - name: Run lint
         working-directory: site
         run: npm run lint
@@ -58,6 +54,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: file:./dev.db
+      ADMIN_SEED_EMAIL: admin@example.com
+      ADMIN_SEED_PASSWORD: testing-secret
+      AUTH_SECRET: testing-secret
 
     steps:
       - name: Checkout repository
