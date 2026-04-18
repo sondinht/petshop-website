@@ -2874,16 +2874,25 @@ async function hydrateIndexHomepageSections() {
     return;
   }
 
+  let hasActiveFlashSale = false;
+
   try {
-    const [flashPayload, bestPayload] = await Promise.all([
-      apiFetch("/api/products?collection=FLASH_SALE"),
+    const [campaignPayload, bestPayload] = await Promise.all([
+      fetchFlashSaleCampaign(),
       apiFetch("/api/products?collection=BEST_SELLERS")
     ]);
 
-    const flashProducts = Array.isArray(flashPayload?.products) ? flashPayload.products : [];
-    const bestSellerProducts = Array.isArray(bestPayload?.products) ? bestPayload.products : [];
+    hasActiveFlashSale = isFlashSaleCampaignActive(campaignPayload?.campaign);
 
-    hydrateStorefrontGridByKey("flash-sale", flashProducts);
+    if (hasActiveFlashSale) {
+      const flashPayload = await apiFetch("/api/products?collection=FLASH_SALE");
+      const flashProducts = Array.isArray(flashPayload?.products) ? flashPayload.products : [];
+      hydrateStorefrontGridByKey("flash-sale", flashProducts);
+    } else {
+      promoteBestSellersAboveFlashSale();
+    }
+
+    const bestSellerProducts = Array.isArray(bestPayload?.products) ? bestPayload.products : [];
     hydrateStorefrontGridByKey("best-sellers", bestSellerProducts);
   } catch (error) {
     console.warn("Unable to hydrate index homepage sections", error);
@@ -2892,6 +2901,48 @@ async function hydrateIndexHomepageSections() {
   wireStorefrontProductClickthrough();
   wireIndexProductCarousels();
   await wireIndexAddToCart();
+}
+
+async function fetchFlashSaleCampaign() {
+  try {
+    return await apiFetch("/api/flash-sale-campaign");
+  } catch (error) {
+    console.warn("Unable to fetch flash sale campaign", error);
+    return null;
+  }
+}
+
+function isFlashSaleCampaignActive(campaign) {
+  if (!campaign || typeof campaign !== "object") {
+    return false;
+  }
+
+  const now = new Date();
+  const startAt = typeof campaign.startAt === "string" ? new Date(campaign.startAt) : new Date(campaign.startAt);
+  const endAt = typeof campaign.endAt === "string" ? new Date(campaign.endAt) : new Date(campaign.endAt);
+
+  return (
+    startAt instanceof Date && !Number.isNaN(startAt.valueOf()) &&
+    endAt instanceof Date && !Number.isNaN(endAt.valueOf()) &&
+    startAt <= now && endAt > now
+  );
+}
+
+function promoteBestSellersAboveFlashSale() {
+  const flashSection = sectionByHeading("Flash Sale");
+  const bestSection = sectionByHeading("Best Sellers");
+
+  if (!(bestSection instanceof HTMLElement)) {
+    return;
+  }
+
+  if (flashSection instanceof HTMLElement) {
+    const flashParent = flashSection.parentElement;
+    if (flashParent && flashParent.contains(bestSection)) {
+      flashParent.insertBefore(bestSection, flashSection);
+    }
+    flashSection.remove();
+  }
 }
 
 function toFlashCountdownParts(targetDate, nowDate) {
