@@ -59,4 +59,4 @@ jobs:
 
       - name: Run smoke tests
         working-directory: site
-        run: npm run test:e2e:smoke
+        run: npm run test:e2e
