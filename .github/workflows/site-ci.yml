@@ -15,27 +15,8 @@ jobs:
       DATABASE_URL: file:./dev.db
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: site/package-lock.json
-
-      - name: Install dependencies
-        working-directory: site
-        run: npm ci
-
-      - name: Deploy Prisma migrations
-        working-directory: site
-        run: npx prisma migrate deploy
-
-      - name: Generate Prisma client
-        working-directory: site
-        run: npm run prisma:generate
+      - name: Site setup
+        uses: ./.github/actions/site-setup
 
       - name: Run lint
         working-directory: site
@@ -59,27 +40,8 @@ jobs:
       AUTH_SECRET: testing-secret
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: site/package-lock.json
-
-      - name: Install dependencies
-        working-directory: site
-        run: npm ci
-
-      - name: Deploy Prisma migrations
-        working-directory: site
-        run: npx prisma migrate deploy
-
-      - name: Generate Prisma client
-        working-directory: site
-        run: npm run prisma:generate
+      - name: Site setup
+        uses: ./.github/actions/site-setup
 
       - name: Seed Prisma database
         working-directory: site

@@ -1,0 +1,26 @@
+name: Site setup
+description: Checkout repo, install Node dependencies, deploy Prisma migrations, and generate Prisma client for the site app.
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: site/package-lock.json
+
+    - name: Install dependencies
+      working-directory: site
+      run: npm ci
+
+    - name: Deploy Prisma migrations
+      working-directory: site
+      run: npx prisma migrate deploy
+
+    - name: Generate Prisma client
+      working-directory: site
+      run: npm run prisma:generate
