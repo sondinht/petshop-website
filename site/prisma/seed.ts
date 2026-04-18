@@ -80,12 +80,20 @@ async function main() {
         id: nextProductId,
         name: product.name,
         price: product.price,
-        category: product.category
+        category: product.category,
+        dogLifeStage: product.dogLifeStage ?? null,
+        dogBreedSize: product.dogBreedSize ?? null,
+        catAge: product.catAge ?? null,
+        catType: product.catType ?? null
       },
       update: {
         name: product.name,
         price: product.price,
-        category: product.category
+        category: product.category,
+        dogLifeStage: product.dogLifeStage ?? null,
+        dogBreedSize: product.dogBreedSize ?? null,
+        catAge: product.catAge ?? null,
+        catType: product.catType ?? null
       }
     });
 

@@ -7,6 +7,10 @@ export type SeedProduct = {
   storefrontPages?: ProductCategory[];
   image: string;
   images?: string[];
+  dogLifeStage?: string;
+  dogBreedSize?: string;
+  catAge?: string;
+  catType?: string;
   variants?: Array<{
     name: string;
     price: number;
@@ -23,6 +27,8 @@ export const seedProducts: SeedProduct[] = [
     price: 64.99,
     category: "dogs",
     storefrontPages: ["dogs"],
+    dogLifeStage: "Adult",
+    dogBreedSize: "Medium",
     variants: [
       { name: "15 lb", price: 64.99, originalPrice: 74.99, stockQty: 34, sortOrder: 0 },
       { name: "30 lb", price: 109.99, originalPrice: 124.99, stockQty: 19, sortOrder: 1 },
@@ -36,6 +42,8 @@ export const seedProducts: SeedProduct[] = [
     price: 18.5,
     category: "dogs",
     storefrontPages: ["dogs"],
+    dogLifeStage: "Adult",
+    dogBreedSize: "Medium",
     variants: [
       { name: "Standard", price: 18.5, originalPrice: 21.99, stockQty: 62, sortOrder: 0 },
       { name: "Large", price: 24.5, originalPrice: 28.99, stockQty: 41, sortOrder: 1 }
@@ -48,6 +56,8 @@ export const seedProducts: SeedProduct[] = [
     price: 129,
     category: "dogs",
     storefrontPages: ["dogs"],
+    dogLifeStage: "Senior",
+    dogBreedSize: "Large",
     variants: [
       { name: "Medium", price: 129, originalPrice: 159, stockQty: 8, sortOrder: 0 },
       { name: "Large", price: 159, originalPrice: 189, stockQty: 5, sortOrder: 1 }
@@ -60,6 +70,8 @@ export const seedProducts: SeedProduct[] = [
     price: 42,
     category: "dogs",
     storefrontPages: ["dogs", "accessories"],
+    dogLifeStage: "Adult",
+    dogBreedSize: "Medium",
     variants: [
       { name: "Small", price: 42, originalPrice: 49, stockQty: 27, sortOrder: 0 },
       { name: "Large", price: 49, originalPrice: 56, stockQty: 18, sortOrder: 1 }
@@ -72,6 +84,8 @@ export const seedProducts: SeedProduct[] = [
     price: 24.95,
     category: "dogs",
     storefrontPages: ["dogs"],
+    dogLifeStage: "Adult",
+    dogBreedSize: "Small",
     variants: [
       { name: "8 oz", price: 24.95, originalPrice: 29.95, stockQty: 46, sortOrder: 0 },
       { name: "16 oz", price: 39.95, originalPrice: 45.95, stockQty: 28, sortOrder: 1 }
@@ -84,6 +98,8 @@ export const seedProducts: SeedProduct[] = [
     price: 32,
     category: "dogs",
     storefrontPages: ["dogs"],
+    dogLifeStage: "Adult",
+    dogBreedSize: "Large",
     variants: [
       { name: "Medium", price: 32, originalPrice: 38, stockQty: 23, sortOrder: 0 },
       { name: "Large", price: 38, originalPrice: 44, stockQty: 14, sortOrder: 1 }
@@ -96,6 +112,8 @@ export const seedProducts: SeedProduct[] = [
     price: 45,
     category: "cats",
     storefrontPages: ["cats"],
+    catAge: "Adult",
+    catType: "Dry Food",
     variants: [
       { name: "3 lb", price: 45, originalPrice: 52, stockQty: 31, sortOrder: 0 },
       { name: "7 lb", price: 74, originalPrice: 84, stockQty: 17, sortOrder: 1 }
@@ -121,6 +139,8 @@ export const seedProducts: SeedProduct[] = [
     price: 89,
     category: "deals",
     storefrontPages: ["deals", "dogs"],
+    dogLifeStage: "Adult",
+    dogBreedSize: "Large",
     variants: [
       { name: "Medium", price: 89, originalPrice: 109, stockQty: 16, sortOrder: 0 },
       { name: "Large", price: 119, originalPrice: 139, stockQty: 10, sortOrder: 1 }
