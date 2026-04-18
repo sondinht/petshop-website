@@ -15,6 +15,9 @@ jobs:
       DATABASE_URL: file:./dev.db
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
       - name: Site setup
         uses: ./.github/actions/site-setup
 
@@ -40,6 +43,9 @@ jobs:
       AUTH_SECRET: testing-secret
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
       - name: Site setup
         uses: ./.github/actions/site-setup
 

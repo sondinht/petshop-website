@@ -3,9 +3,6 @@ description: Checkout repo, install Node dependencies, deploy Prisma migrations,
 runs:
   using: composite
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v5
-
     - name: Setup Node.js
       uses: actions/setup-node@v5
       with:
