@@ -2691,6 +2691,10 @@ function collectCategoryFilterState(container) {
   const state = {
     maxPrice: null,
     brands: [],
+    lifeStages: [],
+    breedSizes: [],
+    catAges: [],
+    catTypes: [],
     fallbackTerms: []
   };
 
@@ -2735,6 +2739,26 @@ function collectCategoryFilterState(container) {
       return;
     }
 
+    if (headingText === "life stage") {
+      state.lifeStages.push(term);
+      return;
+    }
+
+    if (headingText === "breed size") {
+      state.breedSizes.push(term);
+      return;
+    }
+
+    if (headingText === "filter by age") {
+      state.catAges.push(term);
+      return;
+    }
+
+    if (headingText === "type") {
+      state.catTypes.push(term);
+      return;
+    }
+
     selectedFallbackTerms.push(term);
   });
 
@@ -2765,13 +2789,45 @@ function productMatchesCategoryFilters(product, state) {
     }
   }
 
+  if (Array.isArray(state.lifeStages) && state.lifeStages.length > 0) {
+    const value = normalizeText(typeof product.dogLifeStage === "string" ? product.dogLifeStage : "");
+    if (!state.lifeStages.includes(value)) {
+      return false;
+    }
+  }
+
+  if (Array.isArray(state.breedSizes) && state.breedSizes.length > 0) {
+    const value = normalizeText(typeof product.dogBreedSize === "string" ? product.dogBreedSize : "");
+    if (!state.breedSizes.includes(value)) {
+      return false;
+    }
+  }
+
+  if (Array.isArray(state.catAges) && state.catAges.length > 0) {
+    const value = normalizeText(typeof product.catAge === "string" ? product.catAge : "");
+    if (!state.catAges.includes(value)) {
+      return false;
+    }
+  }
+
+  if (Array.isArray(state.catTypes) && state.catTypes.length > 0) {
+    const value = normalizeText(typeof product.catType === "string" ? product.catType : "");
+    if (!state.catTypes.includes(value)) {
+      return false;
+    }
+  }
+
   if (Array.isArray(state.fallbackTerms) && state.fallbackTerms.length > 0) {
     const haystack = normalizeText(
       [
         typeof product.name === "string" ? product.name : "",
         typeof product.category === "string" ? product.category : "",
         typeof product.brand === "string" ? product.brand : "",
-        typeof product.description === "string" ? product.description : ""
+        typeof product.description === "string" ? product.description : "",
+        typeof product.dogLifeStage === "string" ? product.dogLifeStage : "",
+        typeof product.dogBreedSize === "string" ? product.dogBreedSize : "",
+        typeof product.catAge === "string" ? product.catAge : "",
+        typeof product.catType === "string" ? product.catType : ""
       ]
         .filter(Boolean)
         .join(" ")
@@ -5608,6 +5664,10 @@ function collectAdminProductFormPayload(formFields, variants) {
     ...(price === null ? {} : { price }),
     description: formFields.description?.value.trim() || null,
     stockQty,
+    dogLifeStage: formFields.dogLifeStage?.value.trim() || null,
+    dogBreedSize: formFields.dogBreedSize?.value.trim() || null,
+    catAge: formFields.catAge?.value.trim() || null,
+    catType: formFields.catType?.value.trim() || null,
     variants: normalizeAdminVariants(variants)
   };
 }
@@ -5677,6 +5737,10 @@ async function hydrateAdminProductForm() {
     sku: findAdminProductField("sku", "SKU Number"),
     brand: findAdminProductField("brand", "Brand"),
     category: findAdminProductField("category", "Category"),
+    dogLifeStage: findAdminProductField("dogLifeStage", "Life Stage"),
+    dogBreedSize: findAdminProductField("dogBreedSize", "Breed Size"),
+    catAge: findAdminProductField("catAge", "Filter by Age"),
+    catType: findAdminProductField("catType", "Type"),
     enabled: findAdminProductField("enabled", "Public"),
     flashSaleEligible: findAdminProductField("flashSaleEligible", "Flash Sale Eligible"),
     bestSeller: findAdminProductField("bestSeller", "Best Sellers"),
@@ -5915,6 +5979,10 @@ async function hydrateAdminProductForm() {
         setControlValue(formFields.price, product.price);
         setControlValue(formFields.description, product.description);
         setControlValue(formFields.stockQty, product.stockQty);
+        setControlValue(formFields.dogLifeStage, product.dogLifeStage);
+        setControlValue(formFields.dogBreedSize, product.dogBreedSize);
+        setControlValue(formFields.catAge, product.catAge);
+        setControlValue(formFields.catType, product.catType);
         setAdminStorefrontPages(product.storefrontPages);
         imageState.urls = readProductImageUrls(product);
         variantState.rows = Array.isArray(product.variants)

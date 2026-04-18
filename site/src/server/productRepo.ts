@@ -35,6 +35,10 @@ export type AdminProductInput = {
   description?: string | null;
   brand?: string | null;
   stockQty?: number | null;
+  dogLifeStage?: string | null;
+  dogBreedSize?: string | null;
+  catAge?: string | null;
+  catType?: string | null;
   flashSaleEligible?: boolean;
   bestSeller?: boolean;
   variants?: AdminProductVariantInput[];
@@ -437,6 +441,10 @@ export async function createProduct(input: AdminProductInput) {
       description: input.description ?? null,
       brand: input.brand ?? null,
       stockQty: input.stockQty ?? null,
+      dogLifeStage: input.dogLifeStage ?? null,
+      dogBreedSize: input.dogBreedSize ?? null,
+      catAge: input.catAge ?? null,
+      catType: input.catType ?? null,
       placements: {
         createMany: {
           data: storefrontPages.map((storefrontPage) => ({ storefrontPage }))
@@ -519,7 +527,11 @@ export async function patchProduct(productId: string, input: AdminProductPatchIn
         sku: input.sku,
         description: input.description,
         brand: input.brand,
-        stockQty: input.stockQty
+        stockQty: input.stockQty,
+        dogLifeStage: input.dogLifeStage,
+        dogBreedSize: input.dogBreedSize,
+        catAge: input.catAge,
+        catType: input.catType
       }
     });
 
