@@ -12,12 +12,15 @@ runs:
 
     - name: Install dependencies
       working-directory: site
+      shell: bash
       run: npm ci
 
     - name: Deploy Prisma migrations
       working-directory: site
+      shell: bash
       run: npx prisma migrate deploy
 
     - name: Generate Prisma client
       working-directory: site
+      shell: bash
       run: npm run prisma:generate
