@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { CartView } from '../../src/server/cartRepo';
+import { CartView } from '../../../src/server/cartRepo';
 
 // Cart helper functions for E2E tests
 
@@ -7,7 +7,7 @@ export async function clearCart(page: Page): Promise<void> {
   // Clear cart by making API call to delete all items
   // This assumes there's an API endpoint to clear cart
   try {
-    const response = await page.request.delete('/api/cart/clear');
+    const response = await page.request.delete('/api/cart');
     if (!response.ok()) {
       console.warn('Failed to clear cart via API, trying alternative method');
       // Fallback: visit cart page and remove items manually

@@ -3,7 +3,9 @@ import { Page, Locator } from '@playwright/test';
 export class CartPage {
   readonly page: Page;
   readonly cartItems: Locator;
-  readonly itemQuantityInputs: Locator;
+  readonly itemQuantityDisplays: Locator;
+  readonly quantityMinusButtons: Locator;
+  readonly quantityPlusButtons: Locator;
   readonly removeItemButtons: Locator;
   readonly itemPrices: Locator;
   readonly subtotal: Locator;
@@ -16,17 +18,19 @@ export class CartPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.cartItems = page.locator('[data-ps-cart-item], .cart-item');
-    this.itemQuantityInputs = page.locator('input[name="quantity"], input[data-ps-quantity]');
-    this.removeItemButtons = page.locator('button[data-ps-remove], button:has-text("Remove")');
-    this.itemPrices = page.locator('[data-ps-item-price], .item-price');
-    this.subtotal = page.locator('[data-ps-subtotal], .subtotal');
-    this.tax = page.locator('[data-ps-tax], .tax');
-    this.total = page.locator('[data-ps-total], .total');
-    this.checkoutButton = page.locator('button[data-ps-checkout], button:has-text("Checkout")');
+    this.cartItems = page.locator('[data-ps-cart-items] > div');
+    this.itemQuantityDisplays = page.locator('[data-ps-cart-items] span.px-4.font-semibold');
+    this.quantityMinusButtons = page.locator('[data-ps-cart-items] button span.material-symbols-outlined:has-text("remove")');
+    this.quantityPlusButtons = page.locator('[data-ps-cart-items] button span.material-symbols-outlined:has-text("add")');
+    this.removeItemButtons = page.locator('button:has-text("Remove")');
+    this.itemPrices = page.locator('[data-ps-cart-items] span.text-xl.font-bold.text-primary');
+    this.subtotal = page.locator('div.flex.justify-between:has(span:has-text("Subtotal")) span.font-semibold.text-on-surface');
+    this.tax = page.locator('div.flex.justify-between:has(span:has-text("Estimated Tax")) span.font-semibold.text-on-surface');
+    this.total = page.locator('span.text-3xl.font-black.text-primary');
+    this.checkoutButton = page.locator('button:has-text("Proceed to Checkout")');
     this.continueShoppingButton = page.locator('a[data-ps-continue-shopping], a:has-text("Continue Shopping")');
     this.emptyCartMessage = page.locator('[data-ps-empty-cart], .empty-cart');
-    this.savedForLaterItems = page.locator('[data-ps-saved-item], .saved-item');
+    this.savedForLaterItems = page.locator('[data-ps-saved-items] > div');
   }
 
   async goto() {
@@ -38,7 +42,22 @@ export class CartPage {
   }
 
   async updateItemQuantity(index: number, quantity: number) {
-    await this.itemQuantityInputs.nth(index).fill(quantity.toString());
+    // Get current quantity from the display
+    const quantityDisplay = this.cartItems.nth(index).locator('span.px-4.font-semibold');
+    const currentQtyText = await quantityDisplay.textContent();
+    const currentNum = parseInt(currentQtyText || '1');
+
+    if (quantity > currentNum) {
+      // Click plus button multiple times
+      for (let i = currentNum; i < quantity; i++) {
+        await this.cartItems.nth(index).locator('button span.material-symbols-outlined:has-text("add")').click();
+      }
+    } else if (quantity < currentNum) {
+      // Click minus button multiple times
+      for (let i = currentNum; i > quantity; i--) {
+        await this.cartItems.nth(index).locator('button span.material-symbols-outlined:has-text("remove")').click();
+      }
+    }
     // Wait for cart update
     await this.page.waitForTimeout(500);
   }
@@ -50,7 +69,7 @@ export class CartPage {
   }
 
   async getItemPrice(index: number) {
-    return this.itemPrices.nth(index).textContent();
+    return this.cartItems.nth(index).locator('span.text-xl.font-bold.text-primary').textContent();
   }
 
   async getSubtotal() {

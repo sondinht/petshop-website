@@ -35,6 +35,11 @@ export class StorefrontPage {
 
     await categoryMap[category].click();
     await this.page.waitForLoadState('domcontentloaded');
+    // Wait for products to be loaded by checking if the grid has content
+    await this.page.waitForFunction(() => {
+      const grid = document.querySelector('[data-ps-product-grid]');
+      return grid && grid.children.length > 0;
+    }, { timeout: 10000 });
   }
 
   async searchForProduct(query: string) {

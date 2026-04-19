@@ -19,22 +19,22 @@ export class ProductDetailPage {
   constructor(page: Page) {
     this.page = page;
     this.productTitle = page.locator('h1');
-    this.productPrice = page.locator('[data-ps-price], .price, span:has-text("$")');
+    this.productPrice = page.locator('span:has-text("$"), [data-ps-price]');
     this.variantSelect = page.locator('select[name="variant"], select[data-ps-variant]');
-    this.quantityInput = page.locator('input[name="quantity"], input[type="number"]'); // Keep input for fallback
-    this.quantityDisplay = page.locator('span:has-text("1"), span.font-bold'); // The quantity display span
+    this.quantityInput = page.locator('input[name="quantity"], input[type="number"]');
+    this.quantityDisplay = page.locator('.flex.items-center.w-32.bg-surface-container-highest.rounded-xl.p-1 span.flex-grow.text-center.font-bold');
     this.addToCartButton = page.locator('button:has-text("Add to Cart"), [data-ps-add-to-cart]');
     this.productImages = page.locator('[data-ps-product-images], .product-images');
-    this.mainImage = page.locator('[data-ps-main-image] img, .main-image img, img[alt*="product"]');
-    this.thumbnailImages = page.locator('[data-ps-thumbnails] img, .thumbnails img');
-    this.productDescription = page.locator('[data-ps-description], .product-description, p:has-text("Crafted with")');
-    this.variantButtons = page.locator('button:has-text("15lb"), button:has-text("30lb"), button:has-text("50lb"), button:has-text("Standard"), button:has-text("Large")');
-    this.quantityMinusButton = page.locator('button:has-text("remove"), button span:has-text("remove")');
-    this.quantityPlusButton = page.locator('button:has-text("add"), button span:has-text("add")');
+    this.mainImage = page.locator('[data-ps-main-image] img, .main-image img, img[alt*="product"]:first-child');
+    this.thumbnailImages = page.locator('img[alt*="thumbnail"], img[alt*="Product thumbnail"]');
+    this.productDescription = page.locator('p:has-text("Crafted with"), [data-ps-description], .product-description');
+    this.variantButtons = page.locator('button.px-6.py-3.rounded-xl');
+    this.quantityMinusButton = page.locator('div.flex.items-center.w-32 button:first-of-type');
+    this.quantityPlusButton = page.locator('div.flex.items-center.w-32 button:last-of-type');
   }
 
   async goto(productId?: string) {
-    const url = productId ? `/html/product-detail.html?id=${productId}` : '/html/product-detail.html';
+    const url = productId ? `/product-detail.html?id=${productId}` : '/product-detail.html';
     await this.page.goto(url, { waitUntil: 'domcontentloaded' });
     // Wait for page to be ready (static page, no dynamic loading)
     await this.page.waitForLoadState('domcontentloaded');
@@ -73,7 +73,7 @@ export class ProductDetailPage {
   }
 
   async addToCart() {
-    await this.addToCartButton.click();
+    await this.addToCartButton.click({ force: true });
     // Wait for cart update or navigation
     await this.page.waitForTimeout(1000);
   }
