@@ -50,7 +50,11 @@ export async function GET(
 
   try {
     const html = await readFile(absolutePath, "utf8");
-    return new NextResponse(html, {
+    const injectedHtml = html.replace(
+      /<\/head>/i,
+      '<script src="/legacy.js" defer></script></head>'
+    );
+    return new NextResponse(injectedHtml, {
       status: 200,
       headers: {
         "content-type": "text/html; charset=utf-8"
