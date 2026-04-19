@@ -7,9 +7,9 @@ export const TEST_PRODUCTS = {
     name: 'Premium Grain-Free Kibble',
     category: 'dogs',
     variants: [
-      { name: '15 lb', price: 64.99 },
-      { name: '30 lb', price: 109.99 },
-      { name: '50 lb', price: 149.99 },
+      { name: '15lb', price: 64.99 },
+      { name: '30lb', price: 109.99 },
+      { name: '50lb', price: 149.99 },
     ],
   },
   RUBBER_BONE: {
@@ -17,8 +17,8 @@ export const TEST_PRODUCTS = {
     name: 'Indestructible Rubber Bone',
     category: 'dogs',
     variants: [
-      { name: 'Standard', price: 18.5 },
-      { name: 'Large', price: 24.5 },
+      { name: '15lb', price: 18.5 },
+      { name: '30lb', price: 24.5 },
     ],
   },
   ORTHOPEDIC_BED: {
@@ -26,8 +26,8 @@ export const TEST_PRODUCTS = {
     name: 'Orthopedic Memory Foam Bed',
     category: 'dogs',
     variants: [
-      { name: 'Medium', price: 129 },
-      { name: 'Large', price: 159 },
+      { name: '15lb', price: 129 },
+      { name: '30lb', price: 159 },
     ],
   },
   LEATHER_HARNESS: {
@@ -35,8 +35,8 @@ export const TEST_PRODUCTS = {
     name: 'Adjustable Leather Harness',
     category: 'dogs',
     variants: [
-      { name: 'Small', price: 42 },
-      { name: 'Large', price: 49 },
+      { name: '15lb', price: 42 },
+      { name: '30lb', price: 49 },
     ],
   },
 } as const;

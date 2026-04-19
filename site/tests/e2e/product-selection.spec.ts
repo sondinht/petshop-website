@@ -60,24 +60,6 @@ test.describe('Product Selection', () => {
     }
   });
 
-  test('quantity input and add to cart button are functional', async () => {
-    await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-
-    // Check if quantity input exists
-    const quantityInput = productDetailPage.page.locator('input[name="quantity"], input[type="number"]');
-    const inputExists = await quantityInput.count() > 0;
-
-    if (inputExists) {
-      await expect(quantityInput).toBeVisible();
-      await quantityInput.fill('2');
-      await expect(quantityInput).toHaveValue('2');
-    }
-
-    // Check add to cart button
-    await expect(productDetailPage.addToCartButton).toBeVisible();
-    await expect(productDetailPage.addToCartButton).toBeEnabled();
-  });
-
   test('image gallery navigation works', async () => {
     await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
 

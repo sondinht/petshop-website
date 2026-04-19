@@ -95,7 +95,7 @@ export class CartPage {
   }
 
   async isCartEmpty() {
-    return this.emptyCartMessage.isVisible();
+    return (await this.cartItems.count()) === 0;
   }
 
   async getSavedForLaterCount() {

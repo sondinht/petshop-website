@@ -21,8 +21,8 @@ export class ProductDetailPage {
     this.productTitle = page.locator('h1');
     this.productPrice = page.locator('span:has-text("$"), [data-ps-price]');
     this.variantSelect = page.locator('select[name="variant"], select[data-ps-variant]');
-    this.quantityInput = page.locator('input[name="quantity"], input[type="number"]');
     this.quantityDisplay = page.locator('.flex.items-center.w-32.bg-surface-container-highest.rounded-xl.p-1 span.flex-grow.text-center.font-bold');
+    this.quantityInput = this.quantityDisplay;
     this.addToCartButton = page.locator('button:has-text("Add to Cart"), [data-ps-add-to-cart]');
     this.productImages = page.locator('[data-ps-product-images], .product-images');
     this.mainImage = page.locator('[data-ps-main-image] img, .main-image img, img[alt*="product"]:first-child');

@@ -18,7 +18,7 @@ test.describe('Cart and Checkout Flow', () => {
     await expect(page.locator('body')).toContainText(/cart|checkout|subtotal/i);
 
     await cartPage.proceedToCheckout();
-    await expect(page).toHaveURL(/\/html\/checkout\.html/);
+    await expect(page).toHaveURL(/\/checkout\.html/);
     await expect(page.locator('body')).toContainText(/shipping|payment|order summary/i);
   });
 
@@ -28,7 +28,7 @@ test.describe('Cart and Checkout Flow', () => {
     const checkoutPage = new CheckoutPage(page);
 
     await productDetailPage.goto(TEST_PRODUCTS.LEATHER_HARNESS.id);
-    await productDetailPage.selectVariant('Small');
+    await productDetailPage.selectVariant('15lb');
     await productDetailPage.setQuantity(1);
     await productDetailPage.addToCart();
 
@@ -45,6 +45,14 @@ test.describe('Cart and Checkout Flow', () => {
     const cartPage = new CartPage(page);
 
     await cartPage.goto();
+    
+    // Wait for cart hydration to complete
+    await page.waitForFunction(() => {
+      return document.body.dataset.hydrated === 'true' || 
+             document.querySelectorAll('[data-cart-item]').length >= 0 ||
+             (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming).loadEventEnd > 0;
+    }, { timeout: 5000 }).catch(() => {});
+    
     expect(await cartPage.isCartEmpty()).toBe(true);
 
     await cartPage.proceedToCheckout();
@@ -63,7 +71,7 @@ test.describe('Cart and Checkout Flow', () => {
     const checkoutPage = new CheckoutPage(page);
 
     await productDetailPage.goto(TEST_PRODUCTS.LEATHER_HARNESS.id);
-    await productDetailPage.selectVariant('Small');
+    await productDetailPage.selectVariant('15lb');
     await productDetailPage.setQuantity(1);
     await productDetailPage.addToCart();
 

@@ -16,7 +16,7 @@ test.describe('Cart Persistence', () => {
 
     // Add product to cart
     await productDetailPage.goto(TEST_PRODUCTS.LEATHER_HARNESS.id);
-    await productDetailPage.selectVariant('Small');
+    await productDetailPage.selectVariant('15lb');
     await productDetailPage.setQuantity(2);
     await productDetailPage.addToCart();
 
@@ -41,7 +41,7 @@ test.describe('Cart Persistence', () => {
 
     // Add product to cart
     await productDetailPage.goto(TEST_PRODUCTS.RUBBER_BONE.id);
-    await productDetailPage.selectVariant('Standard');
+    await productDetailPage.selectVariant('15lb');
     await productDetailPage.setQuantity(1);
     await productDetailPage.addToCart();
 
@@ -64,7 +64,7 @@ test.describe('Cart Persistence', () => {
 
     // Add product to cart in first tab
     await productDetailPage.goto(TEST_PRODUCTS.ORTHOPEDIC_BED.id);
-    await productDetailPage.selectVariant('Large');
+    await productDetailPage.selectVariant('30lb');
     await productDetailPage.setQuantity(1);
     await productDetailPage.addToCart();
 

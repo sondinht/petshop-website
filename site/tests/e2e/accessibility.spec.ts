@@ -19,7 +19,7 @@ test.describe('Accessibility', () => {
 
       // Add a product to cart and go to checkout
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -67,7 +67,7 @@ test.describe('Accessibility', () => {
 
       // Add a product to cart and go to checkout
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -114,7 +114,7 @@ test.describe('Accessibility', () => {
 
       // Add a product to cart and go to checkout
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -276,7 +276,7 @@ test.describe('Accessibility', () => {
       const productDetailPage = new ProductDetailPage(page);
 
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
 
       const addToCartButton = page.locator('button:has-text("Add to Cart"), [data-ps-add-to-cart]');
 
@@ -298,7 +298,7 @@ test.describe('Accessibility', () => {
 
       // Add item to cart first
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -335,7 +335,7 @@ test.describe('Accessibility', () => {
 
       // Add item to cart first
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 

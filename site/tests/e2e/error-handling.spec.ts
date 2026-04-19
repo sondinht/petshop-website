@@ -18,7 +18,7 @@ test.describe('Error Handling', () => {
 
       // Add a product to cart
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -67,7 +67,7 @@ test.describe('Error Handling', () => {
 
       // Add a product to cart
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -125,7 +125,7 @@ test.describe('Error Handling', () => {
 
       // Add a product to cart
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -181,7 +181,7 @@ test.describe('Error Handling', () => {
 
       // Add a product to cart
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 
@@ -255,7 +255,7 @@ test.describe('Error Handling', () => {
 
       // Add a product to cart
       await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-      await productDetailPage.selectVariant('15 lb');
+      await productDetailPage.selectVariant('15lb');
       await productDetailPage.setQuantity(1);
       await productDetailPage.addToCart();
 

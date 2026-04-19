@@ -18,7 +18,7 @@ test.describe('Order Confirmation', () => {
     const profilePage = new ProfilePage(page);
 
     await productDetailPage.goto(TEST_PRODUCTS.LEATHER_HARNESS.id);
-    await productDetailPage.selectVariant('Small');
+    await productDetailPage.selectVariant('15lb');
     await productDetailPage.setQuantity(1);
     await productDetailPage.addToCart();
 
@@ -60,7 +60,7 @@ test.describe('Order Confirmation', () => {
     const checkoutPage = new CheckoutPage(page);
 
     await productDetailPage.goto(TEST_PRODUCTS.PREMIUM_KIBBLE.id);
-    await productDetailPage.selectVariant('15 lb');
+    await productDetailPage.selectVariant('15lb');
     await productDetailPage.setQuantity(1);
     await productDetailPage.addToCart();
 
