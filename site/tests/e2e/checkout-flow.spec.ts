@@ -9,6 +9,8 @@ import { TEST_PRODUCTS, TEST_PAYMENT, TEST_USERS } from './helpers/test-data';
 test.describe('Checkout Flow', () => {
   test.beforeEach(async ({ page }) => {
     await clearCart(page);
+    // Ensure cookies are cleared
+    await page.context().clearCookies();
   });
 
   test('fills shipping fields, enters payment details, and submits an order', async ({ page }) => {
@@ -28,6 +30,12 @@ test.describe('Checkout Flow', () => {
     await productDetailPage.addToCart();
 
     await cartPage.goto();
+    // Wait for cart items to load before checking count
+    await page.waitForFunction(
+      (count) => document.querySelectorAll('[data-ps-cart-items] > div').length === count,
+      2,
+      { timeout: 5000 }
+    ).catch(() => {});
     expect(await cartPage.getCartItemCount()).toBe(2);
 
     await cartPage.proceedToCheckout();

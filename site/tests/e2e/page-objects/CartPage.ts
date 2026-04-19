@@ -35,9 +35,19 @@ export class CartPage {
 
   async goto() {
     await this.page.goto('/html/cart.html', { waitUntil: 'domcontentloaded' });
+    // Wait for cart items to hydrate
+    await this.page.waitForFunction(
+      () => {
+        const cartItemsHost = document.querySelector('[data-ps-cart-items]');
+        return cartItemsHost && cartItemsHost.children.length >= 0;
+      },
+      { timeout: 5000 }
+    ).catch(() => {});
   }
 
   async getCartItemCount() {
+    // Wait for cart items to be available
+    await this.page.waitForSelector('[data-ps-cart-items] > div', { timeout: 5000 }).catch(() => {});
     return this.cartItems.count();
   }
 
@@ -69,18 +79,23 @@ export class CartPage {
   }
 
   async getItemPrice(index: number) {
-    return this.cartItems.nth(index).locator('span.text-xl.font-bold.text-primary').textContent();
+    const priceLocator = this.cartItems.nth(index).locator('span.text-xl.font-bold.text-primary, [data-ps-item-price]');
+    await priceLocator.waitFor({ timeout: 5000 }).catch(() => {});
+    return priceLocator.textContent();
   }
 
   async getSubtotal() {
+    await this.subtotal.waitFor({ timeout: 5000 }).catch(() => {});
     return this.subtotal.textContent();
   }
 
   async getTax() {
+    await this.tax.waitFor({ timeout: 5000 }).catch(() => {});
     return this.tax.textContent();
   }
 
   async getTotal() {
+    await this.total.waitFor({ timeout: 5000 }).catch(() => {});
     return this.total.textContent();
   }
 
@@ -95,6 +110,14 @@ export class CartPage {
   }
 
   async isCartEmpty() {
+    // Wait for cart hydration first
+    await this.page.waitForFunction(
+      () => {
+        const cartItemsHost = document.querySelector('[data-ps-cart-items]');
+        return cartItemsHost && (cartItemsHost.children.length > 0 || document.querySelector('[data-ps-empty-cart]') !== null);
+      },
+      { timeout: 5000 }
+    ).catch(() => {});
     return (await this.cartItems.count()) === 0;
   }
 

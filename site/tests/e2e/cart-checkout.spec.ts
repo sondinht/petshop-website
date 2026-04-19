@@ -8,6 +8,8 @@ import { TEST_PRODUCTS } from './helpers/test-data';
 test.describe('Cart and Checkout Flow', () => {
   test.beforeEach(async ({ page }) => {
     await clearCart(page);
+    // Ensure cookies are cleared
+    await page.context().clearCookies();
   });
 
   test('cart page loads and checkout page is accessible', async ({ page }) => {
@@ -46,11 +48,11 @@ test.describe('Cart and Checkout Flow', () => {
 
     await cartPage.goto();
     
-    // Wait for cart hydration to complete
+    // Wait for cart hydration to complete and verify empty state
     await page.waitForFunction(() => {
-      return document.body.dataset.hydrated === 'true' || 
-             document.querySelectorAll('[data-cart-item]').length >= 0 ||
-             (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming).loadEventEnd > 0;
+      const cartItems = document.querySelectorAll('[data-ps-cart-items] > div');
+      const emptyCart = document.querySelector('[data-ps-empty-cart], .empty-cart');
+      return cartItems.length === 0 || emptyCart !== null;
     }, { timeout: 5000 }).catch(() => {});
     
     expect(await cartPage.isCartEmpty()).toBe(true);

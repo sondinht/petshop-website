@@ -8,6 +8,8 @@ test.describe('Cart Operations', () => {
   test.beforeEach(async ({ page }) => {
     // Clear cart before each test
     await clearCart(page);
+    // Ensure cookies are cleared
+    await page.context().clearCookies();
   });
 
   test('add products to cart from detail pages', async ({ page }) => {
@@ -28,6 +30,12 @@ test.describe('Cart Operations', () => {
 
     // Verify cart contents
     await cartPage.goto();
+    // Wait for cart to have exact expected item count
+    await page.waitForFunction(
+      (count) => document.querySelectorAll('[data-ps-cart-items] > div').length === count,
+      2,
+      { timeout: 5000 }
+    ).catch(() => {});
     expect(await cartPage.getCartItemCount()).toBe(2);
 
     // Verify prices and quantities

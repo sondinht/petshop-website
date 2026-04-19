@@ -8,6 +8,8 @@ test.describe('Cart Persistence', () => {
   test.beforeEach(async ({ page }) => {
     // Clear cart before each test
     await clearCart(page);
+    // Ensure cookies are cleared
+    await page.context().clearCookies();
   });
 
   test('cart state persists across page reloads', async ({ page }) => {

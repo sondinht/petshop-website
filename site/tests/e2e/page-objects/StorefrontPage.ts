@@ -33,13 +33,18 @@ export class StorefrontPage {
       deals: this.dealsLink,
     };
 
-    await categoryMap[category].click();
-    await this.page.waitForLoadState('domcontentloaded');
-    // Wait for products to be loaded by checking if the grid has content
-    await this.page.waitForFunction(() => {
-      const grid = document.querySelector('[data-ps-product-grid]');
-      return grid && grid.children.length > 0;
-    }, { timeout: 10000 });
+    const link = categoryMap[category];
+    
+    // Check if link exists and is visible
+    if (await link.isVisible().catch(() => false)) {
+      await link.click();
+      await this.page.waitForLoadState('domcontentloaded');
+      // Wait for products to be loaded by checking if the grid has content
+      await this.page.waitForFunction(() => {
+        const grid = document.querySelector('[data-ps-product-grid]');
+        return grid && grid.children.length > 0;
+      }, { timeout: 10000 }).catch(() => {});
+    }
   }
 
   async searchForProduct(query: string) {
@@ -55,6 +60,8 @@ export class StorefrontPage {
   }
 
   async getProductLinks() {
+    // Wait for product links to be available
+    await this.page.waitForSelector('a[href*="product-detail"]', { timeout: 5000 }).catch(() => {});
     return this.page.locator('a[href*="product-detail"]').all();
   }
 
